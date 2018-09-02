@@ -31,6 +31,9 @@ vet:
 fmt:
 	gofmt -w $(GOFMT_FILES)
 
+goimports:
+	goimports -w $(GOFMT_FILES)
+
 fmtcheck:
 	@sh -c "'$(CURDIR)/scripts/gofmtcheck.sh'"
 
@@ -62,5 +65,5 @@ ifeq (,$(wildcard $(GOPATH)/src/$(WEBSITE_REPO)))
 endif
 	@$(MAKE) -C $(GOPATH)/src/$(WEBSITE_REPO) website-provider-test PROVIDER_PATH=$(shell pwd) PROVIDER_NAME=$(PKG_NAME)
 
-.PHONY: build sweep test testacc vet fmt fmtcheck errcheck vendor-status test-compile website website-test
+.PHONY: build sweep test testacc vet fmt fmtcheck errcheck vendor-status test-compile website website-test goimports
 

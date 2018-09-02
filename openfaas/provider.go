@@ -1,15 +1,8 @@
 package openfaas
 
 import (
-	"bytes"
-	"fmt"
-	"log"
-
-	"github.com/hashicorp/terraform/helper/hashcode"
-	"github.com/hashicorp/terraform/helper/mutexkv"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/terraform"
-	homedir "github.com/mitchellh/go-homedir"
 )
 
 // Provider returns a terraform.ResourceProvider.
@@ -31,7 +24,6 @@ func Provider() terraform.ResourceProvider {
 				Default:     "",
 				Description: "OpenFaaS secret key",
 			},
-
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
@@ -39,18 +31,14 @@ func Provider() terraform.ResourceProvider {
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
-			// "openfaas_function":                    resourceOpenFaaSFunction(),
-
+			"openfaas_function": resourceOpenFaaSFunction(),
 		},
 		ConfigureFunc: providerConfigure,
 	}
 }
 
-
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
-	config := Config{
+	config := Config{}
 
-	}
-
-	return config.Client()
+	return config, nil
 }

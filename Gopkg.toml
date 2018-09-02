@@ -30,12 +30,8 @@
   version = "0.11.8"
 
 [[constraint]]
-  name = "github.com/mitchellh/go-homedir"
-  version = "1.0.0"
-
-[[constraint]]
-  name = "github.com/openfaas/faas-cli"
-  version = "0.5.2"
+  name = "github.com/viveksyngh/faas-cli"
+  branch = "describe_verb"
 
 [prune]
   go-tests = true
