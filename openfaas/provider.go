@@ -11,18 +11,30 @@ func Provider() terraform.ResourceProvider {
 	// The actual provider
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
-			"access_key": {
+			"uri": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				Default:     "http://localhost:8080",
+				Description: "OpenFaaS gateway uri",
+			},
+			"tls_insecure": {
+				Type:        schema.TypeBool,
+				Optional:    true,
+				Description: "if true, skip tls verification (not recommended)",
+			},
+			"user_name": {
 				Type:        schema.TypeString,
 				Optional:    true,
 				Default:     "",
-				Description: "OpenFaaS access key",
+				Description: "OpenFaaS gateway username",
 			},
 
-			"secret_key": {
+			"password": {
 				Type:        schema.TypeString,
 				Optional:    true,
+				Sensitive:   true,
 				Default:     "",
-				Description: "OpenFaaS secret key",
+				Description: "OpenFaaS gateway password",
 			},
 		},
 
@@ -38,7 +50,12 @@ func Provider() terraform.ResourceProvider {
 }
 
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
-	config := Config{}
+	config := Config{
+		GatewayURI: d.Get("uri").(string),
+		TLSInsecure: d.Get("tls_insecure").(bool),
+		GatewayUserName: d.Get("user_name").(string),
+		GatewayPassword: d.Get("password").(string),
+	}
 
 	return config, nil
 }

@@ -5,11 +5,17 @@ import (
 	"strings"
 
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/viveksyngh/faas-cli/proxy"
 	"github.com/openfaas/faas-cli/stack"
+	"github.com/viveksyngh/faas-cli/proxy"
+	"strconv"
 )
 
 func resourceOpenFaaSFunction() *schema.Resource {
+	whiteListLabels := map[string]string{
+		"labels.com.openfaas.function" : "",
+		"labels.function" : "",
+	}
+
 	return &schema.Resource{
 		Create: resourceOpenFaaSFunctionCreate,
 		Read:   resourceOpenFaaSFunctionRead,
@@ -24,7 +30,6 @@ func resourceOpenFaaSFunction() *schema.Resource {
 			"image": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
-				Computed: true,
 			},
 			"network": &schema.Schema{
 				Type:     schema.TypeString,
@@ -57,6 +62,27 @@ func resourceOpenFaaSFunction() *schema.Resource {
 			"labels": &schema.Schema{
 				Type:     schema.TypeMap,
 				Optional: true,
+				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+					if _, ok := whiteListLabels[k]; ok {
+						return true
+					}
+
+					// TODO: call proxy.Versions, when it's merged and only do this is the provider is faas-swarm
+					o, err := strconv.Atoi(old)
+					if err != nil {
+						return old == new
+					}
+
+					n, err := strconv.Atoi(new)
+					if err != nil {
+						return old == new
+					}
+					if o > 0 {
+						o = o - 2
+					}
+
+					return o == n
+				},
 			},
 			"annotations": &schema.Schema{
 				Type:     schema.TypeMap,
@@ -105,9 +131,63 @@ func resourceOpenFaaSFunction() *schema.Resource {
 }
 
 func resourceOpenFaaSFunctionCreate(d *schema.ResourceData, meta interface{}) error {
-
 	name := d.Get("name").(string)
+	deploySpec := buildDeploymentSpec(d, meta, name)
+	statusCode, output := proxy.Deploy(deploySpec, false, true)
+	if statusCode >= 300 {
+		return fmt.Errorf("error deploying function %s status code %d reason %s", name, statusCode, output)
+	}
+
+	d.SetId(name)
+	return nil
+}
+
+func resourceOpenFaaSFunctionRead(d *schema.ResourceData, meta interface{}) error {
+	name := d.Get("name").(string)
+	config := meta.(Config)
+	function, err := proxy.GetFunctionInfo(config.GatewayURI, name, config.TLSInsecure)
+
+	if err != nil {
+		if isFunctionNotFound(err) {
+			d.SetId("")
+			return nil
+		}
+
+		return err
+	}
+
+	d.Set("image", function.Image)
+	d.Set("f_process", function.EnvProcess)
+	d.Set("labels", pointersMapToStringList(function.Labels))
+	d.Set("annotations", pointersMapToStringList(function.Annotations))
+	return nil
+}
+
+func resourceOpenFaaSFunctionUpdate(d *schema.ResourceData, meta interface{}) error {
+	name := d.Get("name").(string)
+	deploySpec := buildDeploymentSpec(d, meta, name)
+
+	statusCode, output := proxy.Deploy(deploySpec, true, true)
+	if statusCode >= 300 {
+		return fmt.Errorf("error deploying function %s status code %d reason %s", name, statusCode, output)
+	}
+
+	return nil
+}
+
+func resourceOpenFaaSFunctionDelete(d *schema.ResourceData, meta interface{}) error {
+	name := d.Get("name").(string)
+	config := meta.(Config)
+
+	err := proxy.DeleteFunction(config.GatewayURI, name)
+	return err
+}
+
+func buildDeploymentSpec(d *schema.ResourceData, meta interface{}, name string) *proxy.DeployFunctionSpec {
+	config := meta.(Config)
+
 	deploySpec := &proxy.DeployFunctionSpec{
+		Gateway:      config.GatewayURI,
 		FunctionName: name,
 		Image:        d.Get("image").(string),
 	}
@@ -141,7 +221,7 @@ func resourceOpenFaaSFunctionCreate(d *schema.ResourceData, meta interface{}) er
 	}
 
 	if v, ok := d.GetOk("annotations"); ok {
-		deploySpec.Labels = expandStringMap(v.(map[string]interface{}))
+		deploySpec.Annotations = expandStringMap(v.(map[string]interface{}))
 	}
 
 	request, ok := buildFunctionResourceRequest(d)
@@ -149,41 +229,7 @@ func resourceOpenFaaSFunctionCreate(d *schema.ResourceData, meta interface{}) er
 		deploySpec.FunctionResourceRequest = request
 	}
 
-	statusCode := proxy.DeployFunction(deploySpec)
-	if statusCode >= 300 {
-		return fmt.Errorf("error deploying function %s status code %d", name, statusCode)
-	}
-
-	d.SetId(name)
-	return nil
-}
-
-func resourceOpenFaaSFunctionRead(d *schema.ResourceData, meta interface{}) error {
-	name := d.Get("name").(string)
-	config := meta.(Config)
-	function, err := proxy.GetFunctionInfo(config.GatewayURI, name, config.TLSInsecure)
-
-	if err != nil {
-		if strings.Contains(err.Error(), "404") {
-			d.SetId("")
-			return nil
-		}
-
-		return err
-	}
-
-	d.Set("image", function.Image)
-	d.Set("f_process", function.EnvProcess)
-	d.Set("labels", pointersMapToStringList(function.Labels))
-	return nil
-}
-
-func resourceOpenFaaSFunctionUpdate(d *schema.ResourceData, meta interface{}) error {
-	return nil
-}
-
-func resourceOpenFaaSFunctionDelete(d *schema.ResourceData, meta interface{}) error {
-	return nil
+	return deploySpec
 }
 
 func buildFunctionResourceRequest(d *schema.ResourceData) (proxy.FunctionResourceRequest, bool) {
@@ -216,4 +262,8 @@ func buildFunctionResourceRequest(d *schema.ResourceData) (proxy.FunctionResourc
 		Limits:   limits,
 		Requests: requests,
 	}, true
+}
+
+func isFunctionNotFound(err error) bool {
+	return strings.Contains(err.Error(), "404")
 }
