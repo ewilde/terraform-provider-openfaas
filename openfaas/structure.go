@@ -20,7 +20,7 @@ func expandStringMap(m map[string]interface{}) map[string]string {
 }
 
 func pointersMapToStringList(pointers *map[string]string) map[string]string {
-	if pointers != nil{
+	if pointers != nil {
 		return *pointers
 	}
 

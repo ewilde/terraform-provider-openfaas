@@ -39,7 +39,7 @@ func Provider() terraform.ResourceProvider {
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
-			// "openfaas_function":                    dataSourceOpenFaaSFunction(),
+			"openfaas_function": dataSourceOpenFaaSFunction(),
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
@@ -51,8 +51,8 @@ func Provider() terraform.ResourceProvider {
 
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 	config := Config{
-		GatewayURI: d.Get("uri").(string),
-		TLSInsecure: d.Get("tls_insecure").(bool),
+		GatewayURI:      d.Get("uri").(string),
+		TLSInsecure:     d.Get("tls_insecure").(bool),
 		GatewayUserName: d.Get("user_name").(string),
 		GatewayPassword: d.Get("password").(string),
 	}

@@ -1,17 +1,18 @@
 package openfaas
 
 import (
+	"errors"
 	"fmt"
+	"testing"
+
 	"github.com/hashicorp/terraform/helper/acctest"
 	"github.com/hashicorp/terraform/helper/resource"
-	"github.com/openfaas/faas/gateway/requests"
-	"testing"
 	"github.com/hashicorp/terraform/terraform"
+	"github.com/openfaas/faas/gateway/requests"
 	"github.com/viveksyngh/faas-cli/proxy"
-	"errors"
 )
 
-func TestAccOpenFaaSFunction_basic(t *testing.T) {
+func TestAccResourceOpenFaaSFunction_basic(t *testing.T) {
 	var conf requests.Function
 	functionName := fmt.Sprintf("testaccopenfaasfunction-basic-%s", acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum))
 
@@ -78,7 +79,6 @@ func testAccCheckOpenFaaSFunctionExists(n string, res *requests.Function) resour
 		config := testAccProvider.Meta().(Config)
 
 		function, err := proxy.GetFunctionInfo(config.GatewayURI, rs.Primary.ID, config.TLSInsecure)
-
 
 		if err != nil {
 			return err

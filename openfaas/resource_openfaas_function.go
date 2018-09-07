@@ -4,23 +4,23 @@ import (
 	"fmt"
 	"strings"
 
+	"strconv"
+
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/openfaas/faas-cli/stack"
+	"github.com/openfaas/faas/gateway/requests"
 	"github.com/viveksyngh/faas-cli/proxy"
-	"strconv"
 )
 
 func resourceOpenFaaSFunction() *schema.Resource {
-	whiteListLabels := map[string]string{
-		"labels.com.openfaas.function" : "",
-		"labels.function" : "",
-	}
-
 	return &schema.Resource{
 		Create: resourceOpenFaaSFunctionCreate,
 		Read:   resourceOpenFaaSFunctionRead,
 		Update: resourceOpenFaaSFunctionUpdate,
 		Delete: resourceOpenFaaSFunctionDelete,
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"name": &schema.Schema{
@@ -62,27 +62,7 @@ func resourceOpenFaaSFunction() *schema.Resource {
 			"labels": &schema.Schema{
 				Type:     schema.TypeMap,
 				Optional: true,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
-					if _, ok := whiteListLabels[k]; ok {
-						return true
-					}
-
-					// TODO: call proxy.Versions, when it's merged and only do this is the provider is faas-swarm
-					o, err := strconv.Atoi(old)
-					if err != nil {
-						return old == new
-					}
-
-					n, err := strconv.Atoi(new)
-					if err != nil {
-						return old == new
-					}
-					if o > 0 {
-						o = o - 2
-					}
-
-					return o == n
-				},
+				DiffSuppressFunc: labelsDiffFunc,
 			},
 			"annotations": &schema.Schema{
 				Type:     schema.TypeMap,
@@ -96,11 +76,11 @@ func resourceOpenFaaSFunction() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"memory": &schema.Schema{
 							Type:     schema.TypeString,
-							Required: true,
+							Optional: true,
 						},
 						"cpu": &schema.Schema{
 							Type:     schema.TypeString,
-							Required: true,
+							Optional: true,
 						},
 					},
 				},
@@ -113,11 +93,11 @@ func resourceOpenFaaSFunction() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"memory": &schema.Schema{
 							Type:     schema.TypeString,
-							Required: true,
+							Optional: true,
 						},
 						"cpu": &schema.Schema{
 							Type:     schema.TypeString,
-							Required: true,
+							Optional: true,
 						},
 					},
 				},
@@ -143,7 +123,7 @@ func resourceOpenFaaSFunctionCreate(d *schema.ResourceData, meta interface{}) er
 }
 
 func resourceOpenFaaSFunctionRead(d *schema.ResourceData, meta interface{}) error {
-	name := d.Get("name").(string)
+	name := d.Id()
 	config := meta.(Config)
 	function, err := proxy.GetFunctionInfo(config.GatewayURI, name, config.TLSInsecure)
 
@@ -156,10 +136,16 @@ func resourceOpenFaaSFunctionRead(d *schema.ResourceData, meta interface{}) erro
 		return err
 	}
 
+	return flattenOpenFaaSFunctionResource(d, function)
+}
+
+func flattenOpenFaaSFunctionResource(d *schema.ResourceData, function requests.Function) error {
+	d.Set("name", function.Name)
 	d.Set("image", function.Image)
 	d.Set("f_process", function.EnvProcess)
 	d.Set("labels", pointersMapToStringList(function.Labels))
 	d.Set("annotations", pointersMapToStringList(function.Annotations))
+
 	return nil
 }
 
@@ -266,4 +252,32 @@ func buildFunctionResourceRequest(d *schema.ResourceData) (proxy.FunctionResourc
 
 func isFunctionNotFound(err error) bool {
 	return strings.Contains(err.Error(), "404")
+}
+
+var whiteListLabels = map[string]string{
+	"labels.com.openfaas.function": "",
+	"labels.function":              "",
+}
+
+const extraProviderLabelsCount = 2
+func labelsDiffFunc(k, old, new string, d *schema.ResourceData) bool {
+	if _, ok := whiteListLabels[k]; ok {
+		return true
+	}
+
+	// TODO: call proxy.Versions, when it's merged and only do this is the provider is faas-swarm
+	o, err := strconv.Atoi(old)
+	if err != nil {
+		return old == new
+	}
+
+	n, err := strconv.Atoi(new)
+	if err != nil {
+		return old == new
+	}
+	if o > 0 {
+		o = o - extraProviderLabelsCount
+	}
+
+	return o == n
 }
