@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Resources are a key component to provider development. This guide covers using advanced resource APIs.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/extend/resources.html" />
+    <meta property="og:title" content="Resources - Guides - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="Resources are a key component to provider development. This guide covers using advanced resource APIs." />
+
+    <title>Resources - Guides - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b19bad99.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-extend-resources" class="layout-extend page-resources-guides">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <ul class="nav docs-sidenav">
+      <li>
+        <a href="/docs/extend/index.html">Extending Terraform</a>
+      </li>
+      <li>
+        <a href="/docs/extend/how-terraform-works.html">How Terraform Works</a>
+      </li>
+      <li>
+        <a href="/docs/extend/plugin-types.html">Plugin Types</a>
+      </li>
+      <li>
+        <!-- possibly make this "Guides" and collect some? -->
+        <a href="/docs/extend/writing-custom-providers.html">Writing Custom Providers</a>
+      </li>
+
+      <li>
+        <a href="/docs/extend/schemas/index.html">Schemas</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/schemas/schema-types.html">Schema Types</a>
+          </li>
+          <li>
+            <a href="/docs/extend/schemas/schema-behaviors.html">Schema Behaviors</a>
+          </li>
+        </ul>
+      </li>
+      <li class="active">
+        <a href="/docs/extend/resources.html">Resources</a>
+      </li>
+      <li>
+        <a href="/docs/extend/best-practices/index.html">Best Practices</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/best-practices/deprecations.html">Deprecations, Removals, and Renames</a>
+          </li>
+
+          <li>
+            <a href="/docs/extend/best-practices/detecting-drift.html">Detecting Drift</a>
+          </li>
+
+          <li>
+            <a href="/docs/extend/best-practices/testing.html">Testing Patterns</a>
+          </li>
+
+          <li>
+            <a href="/docs/extend/best-practices/versioning.html">Versioning and Changelog</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/extend/testing/index.html">Testing</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/testing/acceptance-tests/index.html">Acceptance Tests</a>
+          </li>
+          <li>
+            <a href="/docs/extend/testing/unit-testing.html">Unit Testing</a>
+          </li>
+          <!--
+          <li>
+            <a href="/docs/extend/testing/testing-patterns.html">Resource Test Patterns</a>
+          </li>
+          -->
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/extend/community/index.html">Community</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/community/contributing.html">Contributing</a>
+          </li>
+          <li>
+            <a href="/docs/extend/community/code-of-conduct.html">Code of Conduct</a>
+          </li>
+          <li>
+            <a href="/docs/extend/community/events/index.html">Events</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/extend/community/events/2018/fall-gardening.html">Gardening - Fall 2018</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/extend/community/maintainers.html">Maintainers</a>
+          </li>
+        </ul>
+      </li>
+
+      <hr>
+
+      <li>
+        <a class="back" href="/docs/internals/index.html">Terraform Internals</a>
+      </li>
+      <li>
+        <a class="back" href="/guides/terraform-provider-development-program.html">Terraform Provider Development Program</a>
+      </li>
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="resources">
+  <a name="resources" class="anchor" href="#resources">&raquo;</a>
+  Resources
+</h1>
+<p>A key component to Provider development is defining a resource. Aspects of this component have already been covered in <a href="/docs/extend/writing-custom-providers.html">Writing Custom Providers</a> and <a href="/docs/extend/schemas/">Schemas</a>, this document will cover the other features of <code>schema.Resource</code>.</p>
+<h2 id="table-of-contents">
+  <a name="table-of-contents" class="anchor" href="#table-of-contents">&raquo;</a>
+  Table of Contents
+</h2>
+
+<ul>
+<li><a href="#state-migrations">State Migrations</a>
+</li>
+<li><a href="#retry-helpers">Retry Helpers</a>
+
+<ul>
+<li><a href="#retry">Retry</a>
+</li>
+<li><a href="#statechangeconf">StateChangeConf</a>
+</li>
+</ul>
+</li>
+<li><a href="#importers">Importers</a>
+</li>
+<li><a href="#customizing-differences">Customizing Differences</a>
+</li>
+</ul>
+<h2 id="state-migrations">
+  <a name="state-migrations" class="anchor" href="#state-migrations">&raquo;</a>
+  State Migrations
+</h2>
+<p>Resources define the data types and API interactions required to create, update, and destroy infrastructure with a cloud vendor while the <a href="/docs/state/index.html">Terraform state</a> stores mapping and metadata information for those remote objects. There are several reasons why a resource implementation needs to change: backend APIs Terraform interacts with will change overtime, or the current implementation might be incorrect or unmaintainable. Some of these changes may not be backward compatible and a migration is needed for resources provisioned in the wild with old schema configurations.</p>
+<p>For this task provider developers should use a resource&#39;s <code>SchemaVersion</code> and <code>MigrateState</code> function. Resources do not have these options set on first implementation, the <code>SchemaVersion</code> defaults to <code>0</code>.</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">example</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="s">"github.com/hashicorp/terraform/helper/schema"</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">resourceExampleInstance</span><span class="p">()</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="o">&amp;</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="p">{</span><span class="x">
+        </span><span class="n">Create</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceCreate</span><span class="p">,</span><span class="x">
+        </span><span class="n">Read</span><span class="o">:</span><span class="x">   </span><span class="n">resourceExampleInstanceRead</span><span class="p">,</span><span class="x">
+        </span><span class="n">Update</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceUpdate</span><span class="p">,</span><span class="x">
+        </span><span class="n">Delete</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceDelete</span><span class="p">,</span><span class="x">
+
+        </span><span class="n">Schema</span><span class="o">:</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Schema</span><span class="p">{</span><span class="x">
+            </span><span class="s">"name"</span><span class="o">:</span><span class="x"> </span><span class="p">{</span><span class="x">
+                </span><span class="n">Type</span><span class="o">:</span><span class="x">     </span><span class="n">schema</span><span class="o">.</span><span class="n">TypeString</span><span class="p">,</span><span class="x">
+                </span><span class="n">Required</span><span class="o">:</span><span class="x"> </span><span class="no">true</span><span class="p">,</span><span class="x">
+            </span><span class="p">},</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>Say the <code>instance</code> resource API now requires the <code>name</code> attribute to end with a period <code>&quot;.&quot;</code></p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">example</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+    </span><span class="s">"strings"</span><span class="x">
+
+    </span><span class="s">"github.com/hashicorp/terraform/helper/schema"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">resourceExampleInstance</span><span class="p">()</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="o">&amp;</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="p">{</span><span class="x">
+        </span><span class="n">Create</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceCreate</span><span class="p">,</span><span class="x">
+        </span><span class="n">Read</span><span class="o">:</span><span class="x">   </span><span class="n">resourceExampleInstanceRead</span><span class="p">,</span><span class="x">
+        </span><span class="n">Update</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceUpdate</span><span class="p">,</span><span class="x">
+        </span><span class="n">Delete</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceDelete</span><span class="p">,</span><span class="x">
+
+        </span><span class="n">Schema</span><span class="o">:</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Schema</span><span class="p">{</span><span class="x">
+            </span><span class="s">"name"</span><span class="o">:</span><span class="x"> </span><span class="p">{</span><span class="x">
+                </span><span class="n">Type</span><span class="o">:</span><span class="x">     </span><span class="n">schema</span><span class="o">.</span><span class="n">TypeString</span><span class="p">,</span><span class="x">
+                </span><span class="n">Required</span><span class="o">:</span><span class="x"> </span><span class="no">true</span><span class="p">,</span><span class="x">
+                </span><span class="n">ValidateFunc</span><span class="o">:</span><span class="x"> </span><span class="k">func</span><span class="p">(</span><span class="n">v</span><span class="x"> </span><span class="k">interface</span><span class="p">{},</span><span class="x"> </span><span class="n">k</span><span class="x"> </span><span class="kt">string</span><span class="p">)</span><span class="x"> </span><span class="p">(</span><span class="n">warns</span><span class="x"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="x"> </span><span class="n">errs</span><span class="x"> </span><span class="p">[]</span><span class="kt">error</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+                    </span><span class="k">if</span><span class="x"> </span><span class="o">!</span><span class="n">strings</span><span class="o">.</span><span class="n">HasSuffix</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="p">(</span><span class="kt">string</span><span class="p">),</span><span class="x"> </span><span class="s">"."</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+                        </span><span class="n">errs</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="nb">append</span><span class="p">(</span><span class="n">errs</span><span class="p">,</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"%q must end with a period '.'"</span><span class="p">,</span><span class="x"> </span><span class="n">k</span><span class="p">))</span><span class="x">
+                    </span><span class="p">}</span><span class="x">
+                    </span><span class="k">return</span><span class="x">
+                </span><span class="p">},</span><span class="x">
+            </span><span class="p">},</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+        </span><span class="n">SchemaVersion</span><span class="o">:</span><span class="x"> </span><span class="m">1</span><span class="p">,</span><span class="x">
+        </span><span class="n">MigrateState</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceMigrateState</span><span class="p">,</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>To trigger the migration we set the <code>SchemaVersion</code> to <code>1</code>. When Terraform saves state it also sets the <code>SchemaVersion</code> at the time, that way when differences are calculated, if the saved <code>SchemaVersion</code> is less than what the Resource is currently set to, the state is run through the <code>MigrateState</code> function.</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">resourceExampleInstanceMigrateState</span><span class="p">(</span><span class="n">v</span><span class="x"> </span><span class="kt">int</span><span class="p">,</span><span class="x"> </span><span class="n">inst</span><span class="x"> </span><span class="o">*</span><span class="n">terraform</span><span class="o">.</span><span class="n">InstanceState</span><span class="p">,</span><span class="x"> </span><span class="n">meta</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="p">(</span><span class="o">*</span><span class="n">terraform</span><span class="o">.</span><span class="n">InstanceState</span><span class="p">,</span><span class="x"> </span><span class="kt">error</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">switch</span><span class="x"> </span><span class="n">v</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">case</span><span class="x"> </span><span class="m">0</span><span class="o">:</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"[INFO] Found Example Instance State v0; migrating to v1"</span><span class="p">)</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">migrateExampleInstanceStateV0toV1</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="x">
+    </span><span class="k">default</span><span class="o">:</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">inst</span><span class="p">,</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Unexpected schema version: %d"</span><span class="p">,</span><span class="x"> </span><span class="n">v</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">migrateExampleInstanceStateV0toV1</span><span class="p">(</span><span class="n">inst</span><span class="x"> </span><span class="o">*</span><span class="n">terraform</span><span class="o">.</span><span class="n">InstanceState</span><span class="p">)</span><span class="x"> </span><span class="p">(</span><span class="o">*</span><span class="n">terraform</span><span class="o">.</span><span class="n">InstanceState</span><span class="p">,</span><span class="x"> </span><span class="kt">error</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">inst</span><span class="o">.</span><span class="n">Empty</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"[DEBUG] Empty InstanceState; nothing to migrate."</span><span class="p">)</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">inst</span><span class="p">,</span><span class="x"> </span><span class="no">nil</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="k">if</span><span class="x"> </span><span class="o">!</span><span class="n">strings</span><span class="o">.</span><span class="n">HasSuffix</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">Attributes</span><span class="p">[</span><span class="s">"name"</span><span class="p">],</span><span class="x"> </span><span class="s">"."</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"[DEBUG] Attributes before migration: %#v"</span><span class="p">,</span><span class="x"> </span><span class="n">inst</span><span class="o">.</span><span class="n">Attributes</span><span class="p">)</span><span class="x">
+        </span><span class="n">inst</span><span class="o">.</span><span class="n">Attributes</span><span class="p">[</span><span class="s">"name"</span><span class="p">]</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">inst</span><span class="o">.</span><span class="n">Attributes</span><span class="p">[</span><span class="s">"name"</span><span class="p">]</span><span class="x"> </span><span class="o">+</span><span class="x"> </span><span class="s">"."</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"[DEBUG] Attributes after migration: %#v"</span><span class="p">,</span><span class="x"> </span><span class="n">inst</span><span class="o">.</span><span class="n">Attributes</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="k">return</span><span class="x"> </span><span class="n">inst</span><span class="p">,</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>Although not required, it&#39;s a good idea to break the migration function up into version jumps. As the provider developer you will have to account for migrations that are larger than one version upgrade, using the switch/case pattern above will allow you to create codepaths for states coming from all the versions of state in the wild. Please be careful to allow all legacy versions to migrate to the latest schema. Consider the code now where the <code>name</code> attribute has moved to an attribute called <code>fqdn</code>.</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">resourceExampleInstanceMigrateState</span><span class="p">(</span><span class="n">v</span><span class="x"> </span><span class="kt">int</span><span class="p">,</span><span class="x"> </span><span class="n">inst</span><span class="x"> </span><span class="o">*</span><span class="n">terraform</span><span class="o">.</span><span class="n">InstanceState</span><span class="p">,</span><span class="x"> </span><span class="n">meta</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="p">(</span><span class="o">*</span><span class="n">terraform</span><span class="o">.</span><span class="n">InstanceState</span><span class="p">,</span><span class="x"> </span><span class="kt">error</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">var</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="kt">error</span><span class="x">
+    </span><span class="k">switch</span><span class="x"> </span><span class="n">v</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">case</span><span class="x"> </span><span class="m">0</span><span class="o">:</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"[INFO] Found Example Instance State v0; migrating to v1"</span><span class="p">)</span><span class="x">
+        </span><span class="n">inst</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">migrateExampleInstanceV0toV1</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">inst</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+        </span><span class="k">fallthrough</span><span class="x">
+    </span><span class="k">case</span><span class="x"> </span><span class="m">1</span><span class="o">:</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"[INFO] Found Example Instance State v1; migrating to v2"</span><span class="p">)</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">migrateExampleInstanceStateV1toV2</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="x">
+    </span><span class="k">default</span><span class="o">:</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">inst</span><span class="p">,</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Unexpected schema version: %d"</span><span class="p">,</span><span class="x"> </span><span class="n">v</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">migrateExampleInstanceStateV1toV2</span><span class="p">(</span><span class="n">inst</span><span class="x"> </span><span class="o">*</span><span class="n">terraform</span><span class="o">.</span><span class="n">InstanceState</span><span class="p">)</span><span class="x"> </span><span class="p">(</span><span class="o">*</span><span class="n">terraform</span><span class="o">.</span><span class="n">InstanceState</span><span class="p">,</span><span class="x"> </span><span class="kt">error</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">inst</span><span class="o">.</span><span class="n">Empty</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"[DEBUG] Empty InstanceState; nothing to migrate."</span><span class="p">)</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">inst</span><span class="p">,</span><span class="x"> </span><span class="no">nil</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="k">if</span><span class="x"> </span><span class="n">inst</span><span class="o">.</span><span class="n">Attributes</span><span class="p">[</span><span class="s">"name"</span><span class="p">]</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="s">""</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">inst</span><span class="o">.</span><span class="n">Attributes</span><span class="p">[</span><span class="s">"fqdn"</span><span class="p">]</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">inst</span><span class="o">.</span><span class="n">Attributes</span><span class="p">[</span><span class="s">"name"</span><span class="p">]</span><span class="x">
+        </span><span class="nb">delete</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">Attributes</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="n">inst</span><span class="p">,</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>The fallthrough allows a very old state to move from 0 to 1 and now to 2. Sometimes state migrations are more complicated, and requires making API calls, to allow this the configured <code>meta interface{}</code> is also passed to the <code>MigrateState</code> function.</p>
+<h2 id="retry-helpers">
+  <a name="retry-helpers" class="anchor" href="#retry-helpers">&raquo;</a>
+  Retry Helpers
+</h2>
+<p>The reality of cloud infrastructure is that it typically takes time to do things like boot operating systems, discover services, and replicate state across network edges. As the provider developer you should take known delays in resource APIs into account in the CRUD functions of the resource. Terraform supports configurable timeouts to assist in these situations.</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">example</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/hashicorp/terraform/helper/resource"</span><span class="x">
+    </span><span class="s">"github.com/hashicorp/terraform/helper/schema"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">resourceExampleInstance</span><span class="p">()</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="o">&amp;</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="p">{</span><span class="x">
+        </span><span class="n">Create</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceCreate</span><span class="p">,</span><span class="x">
+        </span><span class="n">Read</span><span class="o">:</span><span class="x">   </span><span class="n">resourceExampleInstanceRead</span><span class="p">,</span><span class="x">
+        </span><span class="n">Update</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceUpdate</span><span class="p">,</span><span class="x">
+        </span><span class="n">Delete</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceDelete</span><span class="p">,</span><span class="x">
+
+        </span><span class="n">Schema</span><span class="o">:</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Schema</span><span class="p">{</span><span class="x">
+            </span><span class="s">"name"</span><span class="o">:</span><span class="x"> </span><span class="p">{</span><span class="x">
+                </span><span class="n">Type</span><span class="o">:</span><span class="x">     </span><span class="n">schema</span><span class="o">.</span><span class="n">TypeString</span><span class="p">,</span><span class="x">
+                </span><span class="n">Required</span><span class="o">:</span><span class="x"> </span><span class="no">true</span><span class="p">,</span><span class="x">
+            </span><span class="p">},</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+        </span><span class="n">Timeouts</span><span class="o">:</span><span class="x"> </span><span class="o">&amp;</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceTimeout</span><span class="p">{</span><span class="x">
+            </span><span class="n">Create</span><span class="o">:</span><span class="x"> </span><span class="n">schema</span><span class="o">.</span><span class="n">DefaultTimeout</span><span class="p">(</span><span class="m">45</span><span class="x"> </span><span class="o">*</span><span class="x"> </span><span class="n">time</span><span class="o">.</span><span class="n">Minute</span><span class="p">),</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>In the above example we see the usage of the timeouts in the schema being configured for what is deemed the appropriate amount of time for the <code>Create</code> function. <code>Read</code>, <code>Update</code>, and <code>Delete</code> are also configurable as well as a <code>Default</code>. These configured timeouts can be fetched later in the CRUD functions from the passed in <code>*schema.ResourceData</code>.</p>
+<h3 id="retry">
+  <a name="retry" class="anchor" href="#retry">&raquo;</a>
+  Retry
+</h3>
+<p>A common case for requiring retries or polling is when the backend infrastructure being provisioned is designed to be asynchronous, requiring the developer to repeatedly check the status of the resource. The retry helper takes a timeout and a function that is retried repeatedly. The timeout can be retrieved from the <code>*schema.ResourceData</code> struct, using the <code>Timeout</code> method, passing in the appropriate timeout key (<code>scheme.TimeoutCreate</code>). The retry function provided should return either a <code>resource.NonRetryableError</code> for unexpected errors or states, otherwise continue to retry with a <code>resource.RetryableError</code>. In the context of a <code>CREATE</code> function, once the backend responds with the desired state, finish the function with a <code>resource.NonRetryableError</code> wrapping the <code>READ</code> function (anything that goes wrong in there is considered unexpected).</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">resourceExampleInstanceCreate</span><span class="p">(</span><span class="n">d</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceData</span><span class="p">,</span><span class="x"> </span><span class="n">meta</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">name</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">d</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="x">
+    </span><span class="n">client</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">meta</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">ExampleClient</span><span class="p">)</span><span class="x">
+    </span><span class="n">resp</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="x">
+
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Error creating instance: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="k">return</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">Retry</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">Timeout</span><span class="p">(</span><span class="n">schema</span><span class="o">.</span><span class="n">TimeoutCreate</span><span class="p">),</span><span class="x"> </span><span class="k">func</span><span class="p">()</span><span class="x"> </span><span class="o">*</span><span class="n">resource</span><span class="o">.</span><span class="n">RetryError</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">resp</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">DescribeInstance</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="x">
+
+        </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">NonRetryableError</span><span class="p">(</span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Error describing instance: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">))</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+
+        </span><span class="k">if</span><span class="x"> </span><span class="n">resp</span><span class="o">.</span><span class="n">Status</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="s">"CREATED"</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">RetryableError</span><span class="p">(</span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Expected instance to be created but was in state %s"</span><span class="p">,</span><span class="x"> </span><span class="n">resp</span><span class="o">.</span><span class="n">Status</span><span class="p">))</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+
+        </span><span class="k">return</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">NonRetryableError</span><span class="p">(</span><span class="n">resourceExampleInstanceRead</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="x"> </span><span class="n">meta</span><span class="p">))</span><span class="x">
+    </span><span class="p">})</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><h3 id="statechangeconf">
+  <a name="statechangeconf" class="anchor" href="#statechangeconf">&raquo;</a>
+  StateChangeConf
+</h3>
+<p><code>resource.Retry</code> is useful for simple scenarios, particularly when the API response is either success or failure, but sometimes handling an APIs latency or eventual consistency requires more fine tuning. <code>resource.Retry</code> is in fact a wrapper for a another helper: <code>resource.StateChangeConf</code>.</p>
+<p>Use <code>resource.StateChangeConf</code> when your resource has multiple states to progress though, you require fine grained control of retry and delay timing, or you want to ensure a minimum number of occurrences of a target state is reached (this is very common when dealing with eventually consistent APIs, where a response can reply back with an old state between calls before becoming consistent).</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">resourceExampleInstanceCreate</span><span class="p">(</span><span class="n">d</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceData</span><span class="p">,</span><span class="x"> </span><span class="n">meta</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">name</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">d</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="x">
+    </span><span class="n">client</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">meta</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">ExampleClient</span><span class="p">)</span><span class="x">
+    </span><span class="n">resp</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="x">
+
+    </span><span class="n">createStateConf</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="o">&amp;</span><span class="n">resource</span><span class="o">.</span><span class="n">StateChangeConf</span><span class="p">{</span><span class="x">
+        </span><span class="n">Pending</span><span class="o">:</span><span class="x"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="x">
+            </span><span class="n">client</span><span class="o">.</span><span class="n">ExampleInstaceStateRequesting</span><span class="p">,</span><span class="x">
+            </span><span class="n">client</span><span class="o">.</span><span class="n">ExampleInstaceStatePending</span><span class="p">,</span><span class="x">
+            </span><span class="n">client</span><span class="o">.</span><span class="n">ExampleInstaceStateCreating</span><span class="p">,</span><span class="x">
+            </span><span class="n">client</span><span class="o">.</span><span class="n">ExampleInstaceStateVerifying</span><span class="p">,</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+        </span><span class="n">Target</span><span class="o">:</span><span class="x"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="x">
+            </span><span class="n">client</span><span class="o">.</span><span class="n">ExampleInstaceStateCreateComplete</span><span class="p">,</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+        </span><span class="n">Refresh</span><span class="o">:</span><span class="x"> </span><span class="k">func</span><span class="p">()</span><span class="x"> </span><span class="p">(</span><span class="k">interface</span><span class="p">{},</span><span class="x"> </span><span class="kt">string</span><span class="p">,</span><span class="x"> </span><span class="kt">error</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="n">resp</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">DescribeInstance</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="x">
+            </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+                </span><span class="m">0</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x">
+            </span><span class="p">}</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">resp</span><span class="p">,</span><span class="x"> </span><span class="n">resp</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span><span class="x"> </span><span class="no">nil</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+        </span><span class="n">Timeout</span><span class="o">:</span><span class="x">    </span><span class="n">d</span><span class="o">.</span><span class="n">Timeout</span><span class="p">(</span><span class="n">schema</span><span class="o">.</span><span class="n">TimeoutCreate</span><span class="p">),</span><span class="x">
+        </span><span class="n">Delay</span><span class="o">:</span><span class="x">      </span><span class="m">10</span><span class="x"> </span><span class="o">*</span><span class="x"> </span><span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">,</span><span class="x">
+        </span><span class="n">MinTimeout</span><span class="o">:</span><span class="x"> </span><span class="m">5</span><span class="x"> </span><span class="o">*</span><span class="x"> </span><span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">,</span><span class="x">
+        </span><span class="n">ContinuousTargetOccurence</span><span class="o">:</span><span class="x"> </span><span class="m">5</span><span class="p">,</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">_</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">createStateConf</span><span class="o">.</span><span class="n">WaitForState</span><span class="p">()</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Error waiting for example instance (%s) to be created: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">d</span><span class="o">.</span><span class="n">Id</span><span class="p">(),</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="k">return</span><span class="x"> </span><span class="n">resourceExampleInstanceRead</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="x"> </span><span class="n">meta</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><h2 id="importers">
+  <a name="importers" class="anchor" href="#importers">&raquo;</a>
+  Importers
+</h2>
+<p>Many users migrating to Terraform often have manually managed infrastructure they want to bring under the management of Terraform. Terraform provides a mechanism known as an importer to consolidate those resources into state. As of writing the user will still have to write configuration that will be associated to the import.</p>
+<p>When importing the user will specify the configuration address and id of the resource</p>
+<div class="highlight"><pre class="highlight plaintext"><code>terraform import example_instance.foo 000-0000
+</code></pre></div><p>A resources <code>READ</code> function will perform a lookup based on the configured <code>id</code>. To support this Terraform provides a convenience that allows this passthrough.</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">example</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/hashicorp/terraform/helper/schema"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">resourceExampleInstance</span><span class="p">()</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="o">&amp;</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="p">{</span><span class="x">
+        </span><span class="n">Create</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceCreate</span><span class="p">,</span><span class="x">
+        </span><span class="n">Read</span><span class="o">:</span><span class="x">   </span><span class="n">resourceExampleInstanceRead</span><span class="p">,</span><span class="x">
+        </span><span class="n">Update</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceUpdate</span><span class="p">,</span><span class="x">
+        </span><span class="n">Delete</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceDelete</span><span class="p">,</span><span class="x">
+
+        </span><span class="n">Schema</span><span class="o">:</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Schema</span><span class="p">{</span><span class="x">
+            </span><span class="s">"name"</span><span class="o">:</span><span class="x"> </span><span class="p">{</span><span class="x">
+                </span><span class="n">Type</span><span class="o">:</span><span class="x">     </span><span class="n">schema</span><span class="o">.</span><span class="n">TypeString</span><span class="p">,</span><span class="x">
+                </span><span class="n">Required</span><span class="o">:</span><span class="x"> </span><span class="no">true</span><span class="p">,</span><span class="x">
+            </span><span class="p">},</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+        </span><span class="n">Importer</span><span class="o">:</span><span class="x"> </span><span class="o">&amp;</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceImporter</span><span class="p">{</span><span class="x">
+            </span><span class="n">State</span><span class="o">:</span><span class="x"> </span><span class="n">schema</span><span class="o">.</span><span class="n">ImportStatePassthrough</span><span class="p">,</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">resourceExampleInstanceRead</span><span class="p">(</span><span class="n">d</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceData</span><span class="p">,</span><span class="x"> </span><span class="n">meta</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">client</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">m</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">MyClient</span><span class="p">)</span><span class="x">
+
+    </span><span class="n">obj</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">Id</span><span class="p">())</span><span class="x">
+
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">d</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="s">""</span><span class="p">)</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Error retrieving example instance: %s: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">d</span><span class="o">.</span><span class="n">Id</span><span class="p">(),</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="n">d</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="s">"name"</span><span class="p">,</span><span class="x"> </span><span class="n">obj</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>There are other cases where the <code>READ</code> function uses configuration parameters as the identifier or support for importing multiple resources, as seen in the <a href="https://github.com/terraform-providers/terraform-provider-aws/blob/d3fe7e9907263b1aa41ddc0736a34b42899d1536/aws/import_aws_dx_gateway.go#L12">AWS Provider</a> is needed. In general it is advised to stick to the passthrough importer when possible.</p>
+<h2 id="customizing-differences">
+  <a name="customizing-differences" class="anchor" href="#customizing-differences">&raquo;</a>
+  Customizing Differences
+</h2>
+<p>Terraform tracks the state of provisioned resources in its state file. The user passed configuration is compared against what is in the state file. When there is a detected discrepancy the user is presented with the difference of what is configured versus what is in state. Sometimes these scenarios require special handling, this is where the <code>CustomizeDiff</code> function is used. It is passed a <code>*schema.ResourceDiff</code>, a structure similar to <code>schema.ResourceData</code> but lacking most write functions like <code>Set</code>, while introducing new functions that work with the difference such as <code>SetNew</code>, <code>SetNewComputed</code>, and <code>ForceNew</code>.</p>
+<p>While any function can be provided for difference customization, it is recommended to try and compose the behavior using the <a href="https://godoc.org/github.com/hashicorp/terraform/helper/customdiff">customdiff</a> helper package. This will allow for a more declarative configuration; however, it should not be overused, so for highly custom requirements, opt for a tailor-made function.</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">example</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/hashicorp/terraform/helper/customdiff"</span><span class="x">
+    </span><span class="s">"github.com/hashicorp/terraform/helper/schema"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">resourceExampleInstance</span><span class="p">()</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="o">&amp;</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="p">{</span><span class="x">
+        </span><span class="n">Create</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceCreate</span><span class="p">,</span><span class="x">
+        </span><span class="n">Read</span><span class="o">:</span><span class="x">   </span><span class="n">resourceExampleInstanceRead</span><span class="p">,</span><span class="x">
+        </span><span class="n">Update</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceUpdate</span><span class="p">,</span><span class="x">
+        </span><span class="n">Delete</span><span class="o">:</span><span class="x"> </span><span class="n">resourceExampleInstanceDelete</span><span class="p">,</span><span class="x">
+
+        </span><span class="n">Schema</span><span class="o">:</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Schema</span><span class="p">{</span><span class="x">
+            </span><span class="s">"size"</span><span class="o">:</span><span class="x"> </span><span class="p">{</span><span class="x">
+                </span><span class="n">Type</span><span class="o">:</span><span class="x">     </span><span class="n">schema</span><span class="o">.</span><span class="n">TypeInt</span><span class="p">,</span><span class="x">
+                </span><span class="n">Required</span><span class="o">:</span><span class="x"> </span><span class="no">true</span><span class="p">,</span><span class="x">
+            </span><span class="p">},</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+        </span><span class="n">CustomizeDiff</span><span class="o">:</span><span class="x"> </span><span class="n">customdiff</span><span class="o">.</span><span class="n">All</span><span class="p">(</span><span class="x">
+            </span><span class="n">customdiff</span><span class="o">.</span><span class="n">ValidateChange</span><span class="p">(</span><span class="s">"size"</span><span class="p">,</span><span class="x"> </span><span class="k">func</span><span class="x"> </span><span class="p">(</span><span class="n">old</span><span class="p">,</span><span class="x"> </span><span class="nb">new</span><span class="p">,</span><span class="x"> </span><span class="n">meta</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+                </span><span class="c">// If we are increasing "size" then the new value must be</span><span class="x">
+                </span><span class="c">// a multiple of the old value.</span><span class="x">
+                </span><span class="k">if</span><span class="x"> </span><span class="nb">new</span><span class="o">.</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="x"> </span><span class="o">&lt;=</span><span class="x"> </span><span class="n">old</span><span class="o">.</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+                    </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+                </span><span class="p">}</span><span class="x">
+                </span><span class="k">if</span><span class="x"> </span><span class="p">(</span><span class="nb">new</span><span class="o">.</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="x"> </span><span class="o">%</span><span class="x"> </span><span class="n">old</span><span class="o">.</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="m">0</span><span class="x"> </span><span class="p">{</span><span class="x">
+                    </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"new size value must be an integer multiple of old value %d"</span><span class="p">,</span><span class="x"> </span><span class="n">old</span><span class="o">.</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span><span class="x">
+                </span><span class="p">}</span><span class="x">
+                </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+            </span><span class="p">}),</span><span class="x">
+            </span><span class="n">customdiff</span><span class="o">.</span><span class="n">ForceNewIfChange</span><span class="p">(</span><span class="s">"size"</span><span class="p">,</span><span class="x"> </span><span class="k">func</span><span class="x"> </span><span class="p">(</span><span class="n">old</span><span class="p">,</span><span class="x"> </span><span class="nb">new</span><span class="p">,</span><span class="x"> </span><span class="n">meta</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">bool</span><span class="x"> </span><span class="p">{</span><span class="x">
+                </span><span class="c">// "size" can only increase in-place, so we must create a new resource</span><span class="x">
+                </span><span class="c">// if it is decreased.</span><span class="x">
+                </span><span class="k">return</span><span class="x"> </span><span class="nb">new</span><span class="o">.</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="x"> </span><span class="o">&lt;</span><span class="x"> </span><span class="n">old</span><span class="o">.</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="x">
+            </span><span class="p">}),</span><span class="x">
+       </span><span class="p">),</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>In this example we use the helpers to ensure the size can only be increased to multiples of the original size, and that if it is ever decreased it forces a new resource. The <code>customdiff.All</code> helper will run all the customization functions, collecting any errors as a <code>multierror</code>. To have the functions short-circuit on error, please use <code>customdiff.Sequence</code>.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+document.addEventListener("turbolinks:load",function(){analytics.page(),track(".downloads .download .details li a",function(r){var t=r.href.match(/terraform_(.*?)_(.*?)_(.*?)\.zip/);return{event:"Download",category:"Button",label:"Terraform | v"+t[1]+" | "+t[2]+" | "+t[3],version:t[1],os:t[2],architecture:t[3],product:"terraform"}})});

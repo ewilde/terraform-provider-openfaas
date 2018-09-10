@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Terraform is a mature project with a growing community. There are active, dedicated people willing to help you through various mediums.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/extend/community/contributing.html" />
+    <meta property="og:title" content="Community - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="Terraform is a mature project with a growing community. There are active, dedicated people willing to help you through various mediums." />
+
+    <title>Community - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b19bad99.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-extend-community-contributing" class="layout-extend page-community">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <ul class="nav docs-sidenav">
+      <li>
+        <a href="/docs/extend/index.html">Extending Terraform</a>
+      </li>
+      <li>
+        <a href="/docs/extend/how-terraform-works.html">How Terraform Works</a>
+      </li>
+      <li>
+        <a href="/docs/extend/plugin-types.html">Plugin Types</a>
+      </li>
+      <li>
+        <!-- possibly make this "Guides" and collect some? -->
+        <a href="/docs/extend/writing-custom-providers.html">Writing Custom Providers</a>
+      </li>
+
+      <li>
+        <a href="/docs/extend/schemas/index.html">Schemas</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/schemas/schema-types.html">Schema Types</a>
+          </li>
+          <li>
+            <a href="/docs/extend/schemas/schema-behaviors.html">Schema Behaviors</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/docs/extend/resources.html">Resources</a>
+      </li>
+      <li>
+        <a href="/docs/extend/best-practices/index.html">Best Practices</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/best-practices/deprecations.html">Deprecations, Removals, and Renames</a>
+          </li>
+
+          <li>
+            <a href="/docs/extend/best-practices/detecting-drift.html">Detecting Drift</a>
+          </li>
+
+          <li>
+            <a href="/docs/extend/best-practices/testing.html">Testing Patterns</a>
+          </li>
+
+          <li>
+            <a href="/docs/extend/best-practices/versioning.html">Versioning and Changelog</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/extend/testing/index.html">Testing</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/testing/acceptance-tests/index.html">Acceptance Tests</a>
+          </li>
+          <li>
+            <a href="/docs/extend/testing/unit-testing.html">Unit Testing</a>
+          </li>
+          <!--
+          <li>
+            <a href="/docs/extend/testing/testing-patterns.html">Resource Test Patterns</a>
+          </li>
+          -->
+        </ul>
+      </li>
+
+      <li class="active">
+        <a href="/docs/extend/community/index.html">Community</a>
+        <ul class="nav">
+          <li class="active">
+            <a href="/docs/extend/community/contributing.html">Contributing</a>
+          </li>
+          <li>
+            <a href="/docs/extend/community/code-of-conduct.html">Code of Conduct</a>
+          </li>
+          <li>
+            <a href="/docs/extend/community/events/index.html">Events</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/extend/community/events/2018/fall-gardening.html">Gardening - Fall 2018</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/extend/community/maintainers.html">Maintainers</a>
+          </li>
+        </ul>
+      </li>
+
+      <hr>
+
+      <li>
+        <a class="back" href="/docs/internals/index.html">Terraform Internals</a>
+      </li>
+      <li>
+        <a class="back" href="/guides/terraform-provider-development-program.html">Terraform Provider Development Program</a>
+      </li>
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="contributing-to-terraform">
+  <a name="contributing-to-terraform" class="anchor" href="#contributing-to-terraform">&raquo;</a>
+  Contributing to Terraform
+</h1>
+<p>Terraform and its diverse collection of plugins are a collaborative work
+between HashiCorp employees, independent cloud vendors, and a large open source
+community. HashiCorp and the Terraform team truly value every issue, pull
+request, and feature request received on any of its many GitHub repositories.
+The only prerequisite to contributing to Terraform is an interest to improve the
+project!</p>
+<p>While you do not need to be an expert in any of the following, these are things
+that are helpful to have or know if you&#39;re wanting to contribute more:</p>
+
+<ul>
+<li>Basic knowledge of Terraform. If you&#39;re new to Terraform, please see our
+<a href="/intro/index.html">introduction documentation</a>.
+</li>
+<li>Basic programming knowledge. Terraform and Terraform Plugins are written in
+<a href="https://golang.org">the Go programming language</a>, but even if you&#39;ve never
+written a line of Go before, you&#39;re still welcome to take a dive into the code
+and submit patches. The community is happy to assist with code reviews and offer
+guidance specific to Go. 
+</li>
+<li>Infrastructure as Code. If this is a new term for you, check out
+<a href="https://en.wikipedia.org/wiki/Infrastructure_as_Code">Infrastructure as Code</a>
+on Wikipedia for a brief introduction. Our <a href="/intro/getting-started/install.html">Getting Started
+guide</a> is a great way to get started as
+well.
+</li>
+</ul>
+<h2 id="hashicorp-vs-community-providers">
+  <a name="hashicorp-vs-community-providers" class="anchor" href="#hashicorp-vs-community-providers">&raquo;</a>
+  HashiCorp vs. Community Providers
+</h2>
+<p>We separate providers out into what we call &quot;HashiCorp Providers&quot; and
+&quot;Community Providers&quot;.</p>
+<p>HashiCorp providers are providers that we&#39;ll dedicate full time resources to
+improving, supporting the latest features, and fixing bugs. These are providers
+we understand deeply and are confident we have the resources to manage
+ourselves.</p>
+<p>Community providers are providers where we depend on the community to
+contribute fixes and enhancements to improve. HashiCorp will run automated
+tests and ensure these providers continue to work, but will not dedicate full
+time resources to add new features to these providers. These providers are
+available in official Terraform releases, but the functionality is primarily
+contributed.</p>
+<p>The current list of HashiCorp Providers is as follows:</p>
+
+<ul>
+<li><a href="https://github.com/terraform-providers/terraform-provider-aws">Amazon Web Services</a>
+</li>
+<li><a href="https://github.com/terraform-providers/terraform-provider-azurerm">Azure RM</a>
+</li>
+<li><a href="https://github.com/terraform-providers/terraform-provider-google">Google Cloud Platform</a>
+</li>
+<li><a href="https://github.com/terraform-providers/terraform-provider-opc">Oracle Public Cloud</a>
+</li>
+</ul>
+<p>Our testing standards are the same for both HashiCorp and Community providers,
+and HashiCorp runs full acceptance test suites for every provider nightly to
+ensure Terraform remains stable.</p>
+<p>We make the distinction between these two types of providers to help
+highlight the vast amounts of community effort that goes in to making Terraform
+great, and to help contributors better understand the role HashiCorp employees
+play in the various areas of the code base.</p>
+<h2 id="issues">
+  <a name="issues" class="anchor" href="#issues">&raquo;</a>
+  Issues
+</h2>
+<h3 id="issue-reporting-checklists">
+  <a name="issue-reporting-checklists" class="anchor" href="#issue-reporting-checklists">&raquo;</a>
+  Issue Reporting Checklists
+</h3>
+<p>We welcome issues of all kinds including feature requests, bug reports, and
+general questions. The code and issue tracker for Terraform is at
+<a href="https://github.com/hashicorp/terraform">https://github.com/hashicorp/terraform</a>.
+Each officially supported Terraform Provider has its own GitHub repository in
+the <a href="https://github.com/terraform-providers">Terraform Providers</a> GitHub Organization.</p>
+<p>Below you&#39;ll find checklists with guidelines for well-formed issues of each
+type.</p>
+<h4 id="bug-reports">
+  <a name="bug-reports" class="anchor" href="#bug-reports">&raquo;</a>
+  Bug Reports
+</h4>
+
+<ul>
+<li><p>[ ] <strong>Test against latest release</strong>: Make sure you test against the latest
+released version. It is possible we already fixed the bug you&#39;re experiencing.</p>
+</li>
+<li><p>[ ] <strong>Search for possible duplicate reports</strong>: It&#39;s helpful to keep bug
+reports consolidated to one thread, so do a quick search on existing bug
+reports to check if anybody else has reported the same thing. You can scope
+searches by the label &quot;bug&quot; to help narrow things down.</p>
+</li>
+<li><p>[ ] <strong>Include steps to reproduce</strong>: Provide steps to reproduce the issue,
+along with your <code>.tf</code> files, with secrets removed, so we can try to
+reproduce it. Without this, it makes it much harder to fix the issue.</p>
+</li>
+<li><p>[ ] <strong>For panics, include <code>crash.log</code></strong>: If you experienced a panic, please
+create a <a href="https://gist.github.com">gist</a> of the <em>entire</em> generated crash log
+for us to look at. Double check no sensitive items were in the log.</p>
+</li>
+</ul>
+<h4 id="feature-requests">
+  <a name="feature-requests" class="anchor" href="#feature-requests">&raquo;</a>
+  Feature Requests
+</h4>
+
+<ul>
+<li><p>[ ] <strong>Search for possible duplicate requests</strong>: It&#39;s helpful to keep requests
+consolidated to one thread, so do a quick search on existing requests to
+check if anybody else has reported the same thing. You can scope searches by
+the label &quot;enhancement&quot; to help narrow things down.</p>
+</li>
+<li><p>[ ] <strong>Include a use case description</strong>: In addition to describing the
+behavior of the feature you&#39;d like to see added, it&#39;s helpful to also lay
+out the reason why the feature would be important and how it would benefit
+Terraform users.</p>
+</li>
+</ul>
+<h4 id="questions">
+  <a name="questions" class="anchor" href="#questions">&raquo;</a>
+  Questions
+</h4>
+
+<ul>
+<li>[ ] <strong>Search for answers in Terraform documentation</strong>: We&#39;re happy to answer
+questions in GitHub Issues, but it helps reduce issue churn and maintainer
+workload if you work to find answers to common questions in the
+documentation. Often times Question issues result in documentation updates
+to help future users, so if you don&#39;t find an answer, you can give us
+pointers for where you&#39;d expect to see it in the docs.
+</li>
+</ul>
+<h3 id="issue-lifecycle">
+  <a name="issue-lifecycle" class="anchor" href="#issue-lifecycle">&raquo;</a>
+  Issue Lifecycle
+</h3>
+
+<ol>
+<li><p>The issue is reported.</p>
+</li>
+<li><p>The issue is verified and categorized by a Terraform collaborator.
+Categorization is done via GitHub labels. We generally use a two-label
+system of (1) issue/PR type, and (2) section of the codebase. Type is
+usually &quot;bug&quot;, &quot;enhancement&quot;, &quot;documentation&quot;, or &quot;question&quot;, and section
+can be any of the providers or provisioners or &quot;core&quot;.</p>
+</li>
+<li><p>Unless it is critical, the issue is left for a period of time (sometimes
+many weeks), giving outside contributors a chance to address the issue.</p>
+</li>
+<li><p>The issue is addressed in a pull request or commit. The issue will be
+referenced in the commit message so that the code that fixes it is clearly
+linked.</p>
+</li>
+<li><p>The issue is closed. Sometimes, valid issues will be closed to keep
+the issue tracker clean. The issue is still indexed and available for
+future viewers, or can be re-opened if necessary.</p>
+</li>
+</ol>
+<h2 id="pull-requests">
+  <a name="pull-requests" class="anchor" href="#pull-requests">&raquo;</a>
+  Pull Requests
+</h2>
+<p>Thank you for contributing! Here you&#39;ll find information on what to include in
+your Pull Request to ensure it is accepted quickly.</p>
+
+<ul>
+<li>For pull requests that follow the guidelines, we expect to be able to review
+and merge very quickly.
+</li>
+<li>Pull requests that don&#39;t follow the guidelines will be annotated with what
+they&#39;re missing. A community or core team member may be able to swing around
+and help finish up the work, but these PRs will generally hang out much
+longer until they can be completed and merged.
+</li>
+</ul>
+<h3 id="pull-request-lifecycle">
+  <a name="pull-request-lifecycle" class="anchor" href="#pull-request-lifecycle">&raquo;</a>
+  Pull Request Lifecycle
+</h3>
+
+<ol>
+<li><p>You are welcome to submit your pull request for commentary or review before
+it is fully completed. Please prefix the title of your pull request with
+&quot;[WIP]&quot; to indicate this. It&#39;s also a good idea to include specific
+questions or items you&#39;d like feedback on.</p>
+</li>
+<li><p>Once you believe your pull request is ready to be merged, you can remove any
+&quot;[WIP]&quot; prefix from the title and a core team member will review. Follow
+<a href="#checklists-for-contribution">the checklists below</a> to help ensure that
+your contribution will be merged quickly.</p>
+</li>
+<li><p>One of Terraform&#39;s core team members will look over your contribution and
+either provide comments letting you know if there is anything left to do. We
+do our best to provide feedback in a timely manner, but it may take some
+time for us to respond.</p>
+</li>
+<li><p>Once all outstanding comments and checklist items have been addressed, your
+contribution will be merged! Merged PRs will be included in the next
+Terraform release. The core team takes care of updating the CHANGELOG as
+they merge.</p>
+</li>
+<li><p>In rare cases, we might decide that a PR should be closed. We&#39;ll make sure
+to provide clear reasoning when this happens.</p>
+</li>
+</ol>
+<h3 id="checklists-for-contribution">
+  <a name="checklists-for-contribution" class="anchor" href="#checklists-for-contribution">&raquo;</a>
+  Checklists for Contribution
+</h3>
+<p>There are several different kinds of contribution, each of which has its own
+standards for a speedy review. The following sections describe guidelines for
+each type of contribution.</p>
+<h4 id="documentation-update">
+  <a name="documentation-update" class="anchor" href="#documentation-update">&raquo;</a>
+  Documentation Update
+</h4>
+<p>Because <a href="https://github.com/hashicorp/terraform/tree/master/website">Terraform&#39;s website</a> is in the same repo as the code, it&#39;s
+easy for anybody to help us improve our docs.</p>
+
+<ul>
+<li>[ ] <strong>Reasoning for docs update</strong>: Including a quick explanation for why the
+update needed is helpful for reviewers.
+</li>
+<li>[ ] <strong>Relevant Terraform version</strong>: Is this update worth deploying to the
+site immediately, or is it referencing an upcoming version of Terraform and
+should get pushed out with the next release?
+</li>
+</ul>
+<p>As mentioned above, each Terraform Provider has its own code repository in the
+<a href="https://github.com/terraform-providers">Terraform Providers</a>. Each repository has its own folder named
+<code>website</code> that contains that Providers documentation. Updates for documentation
+for a specific provider should be reported or posted there.</p>
+<h4 id="enhancement-bugfix-to-a-resource">
+  <a name="enhancement-bugfix-to-a-resource" class="anchor" href="#enhancement-bugfix-to-a-resource">&raquo;</a>
+  Enhancement/Bugfix to a Resource
+</h4>
+<p>Working on existing resources is a great way to get started as a Terraform
+contributor because you can work within existing code and tests to get a feel
+for what to do.</p>
+
+<ul>
+<li>[ ] <strong>Acceptance test coverage of new behavior</strong>: Existing resources each
+have a set of <a href="https://github.com/hashicorp/terraform#acceptance-tests">acceptance tests</a> covering their functionality.
+These tests should exercise all the behavior of the resource. Whether you are
+adding something or fixing a bug, the idea is to have an acceptance test that
+fails if your code were to be removed. Sometimes it is sufficient to
+&quot;enhance&quot; an existing test by adding an assertion or tweaking the config
+that is used, but often a new test is better to add. You can copy/paste an
+existing test and follow the conventions you see there, modifying the test
+to exercise the behavior of your code.
+</li>
+<li>[ ] <strong>Documentation updates</strong>: If your code makes any changes that need to
+be documented, you should include those doc updates in the same PR. The
+<a href="https://github.com/hashicorp/terraform/tree/master/website">Terraform website</a> source is in this repo and includes
+instructions for getting a local copy of the site up and running if you&#39;d
+like to preview your changes.
+</li>
+<li>[ ] <strong>Well-formed Code</strong>: Do your best to follow existing conventions you
+see in the codebase, and ensure your code is formatted with <code>go fmt</code>. (The
+Travis CI build will fail if <code>go fmt</code> has not been run on incoming code.)
+The PR reviewers can help out on this front, and may provide comments with
+suggestions on how to improve the code.
+</li>
+</ul>
+<h4 id="new-resource">
+  <a name="new-resource" class="anchor" href="#new-resource">&raquo;</a>
+  New Resource
+</h4>
+<p>Implementing a new resource is a good way to learn more about how Terraform
+interacts with upstream APIs. There are plenty of examples to draw from in the
+existing resources, but you still get to implement something completely new.</p>
+
+<ul>
+<li>[ ] <strong>Minimal LOC</strong>: It can be inefficient for both the reviewer
+and author to go through long feedback cycles on a big PR with many
+resources. We therefore encourage you to only submit <strong>1 resource at a time</strong>.
+</li>
+<li>[ ] <strong>Acceptance tests</strong>: New resources should include acceptance tests
+covering their behavior. See <a href="#writing-acceptance-tests">Writing Acceptance
+Tests</a> below for a detailed guide on how to
+approach these.
+</li>
+<li>[ ] <strong>Documentation</strong>: Each resource gets a page in the Terraform
+documentation. The <a href="https://github.com/hashicorp/terraform/tree/master/website">Terraform website</a> source is in this
+repo and includes instructions for getting a local copy of the site up and
+running if you&#39;d like to preview your changes. For a resource, you&#39;ll want
+to add a new file in the appropriate place and add a link to the sidebar for
+that page.
+</li>
+<li>[ ] <strong>Well-formed Code</strong>: Do your best to follow existing conventions you
+see in the codebase, and ensure your code is formatted with <code>go fmt</code>. (The
+Travis CI build will fail if <code>go fmt</code> has not been run on incoming code.)
+The PR reviewers can help out on this front, and may provide comments with
+suggestions on how to improve the code.
+</li>
+</ul>
+<h4 id="new-provider">
+  <a name="new-provider" class="anchor" href="#new-provider">&raquo;</a>
+  New Provider
+</h4>
+<p>Implementing a new provider gives Terraform the ability to manage resources in
+a whole new API. It&#39;s a larger undertaking, but brings major new functionality
+into Terraform.</p>
+
+<ul>
+<li>[ ] <strong>Minimal initial LOC</strong>: Some providers may be big, and it can be
+inefficient for both reviewer &amp; author to go through long feedback cycles
+on a big PR with many resources. We encourage you to only submit
+the necessary minimum in a single PR, ideally <strong>just the first resource</strong>
+of the provider.
+</li>
+<li>[ ] <strong>Acceptance tests</strong>: Each provider should include an acceptance test
+suite with tests for each resource should include acceptance tests covering
+its behavior. See <a href="#writing-acceptance-tests">Writing Acceptance Tests</a> below
+for a detailed guide on how to approach these.
+</li>
+<li>[ ] <strong>Documentation</strong>: Each provider has a section in the Terraform
+documentation. The <a href="https://github.com/hashicorp/terraform/tree/master/website">Terraform website</a> source is in this repo and
+includes instructions for getting a local copy of the site up and running if
+you&#39;d like to preview your changes. For a provider, you&#39;ll want to add new
+index file and individual pages for each resource.
+</li>
+<li>[ ] <strong>Well-formed Code</strong>: Do your best to follow existing conventions you
+see in the codebase, and ensure your code is formatted with <code>go fmt</code>. (The
+Travis CI build will fail if <code>go fmt</code> has not been run on incoming code.)
+The PR reviewers can help out on this front, and may provide comments with
+suggestions on how to improve the code.
+</li>
+</ul>
+<h4 id="core-bugfix-enhancement">
+  <a name="core-bugfix-enhancement" class="anchor" href="#core-bugfix-enhancement">&raquo;</a>
+  Core Bugfix/Enhancement
+</h4>
+<p>We are always happy when any developer is interested in diving into Terraform&#39;s
+core to help out! Here&#39;s what we look for in smaller Core PRs.</p>
+
+<ul>
+<li>[ ] <strong>Unit tests</strong>: Terraform&#39;s core is covered by hundreds of unit tests at
+several different layers of abstraction. Generally the best place to start
+is with a &quot;Context Test&quot;. These are higher level test that interact
+end-to-end with most of Terraform&#39;s core. They are divided into test files
+for each major action (plan, apply, etc.). Getting a failing test is a great
+way to prove out a bug report or a new enhancement. With a context test in
+place, you can work on implementation and lower level unit tests. Lower
+level tests are largely context dependent, but the Context Tests are almost
+always part of core work.
+</li>
+<li>[ ] <strong>Documentation updates</strong>: If the core change involves anything that
+needs to be reflected in our documentation, you can make those changes in
+the same PR. The <a href="https://github.com/hashicorp/terraform/tree/master/website">Terraform website</a> source is in this repo and
+includes instructions for getting a local copy of the site up and running if
+you&#39;d like to preview your changes.
+</li>
+<li>[ ] <strong>Well-formed Code</strong>: Do your best to follow existing conventions you
+see in the codebase, and ensure your code is formatted with <code>go fmt</code>. (The
+Travis CI build will fail if <code>go fmt</code> has not been run on incoming code.)
+The PR reviewers can help out on this front, and may provide comments with
+suggestions on how to improve the code.
+</li>
+</ul>
+<h4 id="core-feature">
+  <a name="core-feature" class="anchor" href="#core-feature">&raquo;</a>
+  Core Feature
+</h4>
+<p>If you&#39;re interested in taking on a larger core feature, it&#39;s a good idea to
+get feedback early and often on the effort.</p>
+
+<ul>
+<li>[ ] <strong>Early validation of idea and implementation plan</strong>: Terraform&#39;s core
+is complicated enough that there are often several ways to implement
+something, each of which has different implications and tradeoffs. Working
+through a plan of attack with the team before you dive into implementation
+will help ensure that you&#39;re working in the right direction.
+</li>
+<li>[ ] <strong>Unit tests</strong>: Terraform&#39;s core is covered by hundreds of unit tests at
+several different layers of abstraction. Generally the best place to start
+is with a &quot;Context Test&quot;. These are higher level test that interact
+end-to-end with most of Terraform&#39;s core. They are divided into test files
+for each major action (plan, apply, etc.). Getting a failing test is a great
+way to prove out a bug report or a new enhancement. With a context test in
+place, you can work on implementation and lower level unit tests. Lower
+level tests are largely context dependent, but the Context Tests are almost
+always part of core work.
+</li>
+<li>[ ] <strong>Documentation updates</strong>: If the core change involves anything that
+needs to be reflected in our documentation, you can make those changes in
+the same PR. The <a href="https://github.com/hashicorp/terraform/tree/master/website">Terraform website</a> source is in this repo and
+includes instructions for getting a local copy of the site up and running if
+you&#39;d like to preview your changes.
+</li>
+<li>[ ] <strong>Well-formed Code</strong>: Do your best to follow existing conventions you
+see in the codebase, and ensure your code is formatted with <code>go fmt</code>. (The
+Travis CI build will fail if <code>go fmt</code> has not been run on incoming code.)
+The PR reviewers can help out on this front, and may provide comments with
+suggestions on how to improve the code.
+</li>
+</ul>
+<h3 id="writing-acceptance-tests">
+  <a name="writing-acceptance-tests" class="anchor" href="#writing-acceptance-tests">&raquo;</a>
+  Writing Acceptance Tests
+</h3>
+<p>Terraform includes an acceptance test harness that does most of the repetitive
+work involved in testing a resource.</p>
+<h4 id="acceptance-tests-often-cost-money-to-run">
+  <a name="acceptance-tests-often-cost-money-to-run" class="anchor" href="#acceptance-tests-often-cost-money-to-run">&raquo;</a>
+  Acceptance Tests Often Cost Money to Run
+</h4>
+<p>Because acceptance tests create real resources, they often cost money to run.
+Because the resources only exist for a short period of time, the total amount
+of money required is usually relatively small. Nevertheless, we don&#39;t want
+financial limitations to be a barrier to contribution, so if you are unable to
+pay to run acceptance tests for your contribution, simply mention this in your
+pull request. We will happily accept &quot;best effort&quot; implementations of
+acceptance tests and run them for you on our side. This might mean that your PR
+takes a bit longer to merge, but it most definitely is not a blocker for
+contributions.</p>
+<h4 id="running-an-acceptance-test">
+  <a name="running-an-acceptance-test" class="anchor" href="#running-an-acceptance-test">&raquo;</a>
+  Running an Acceptance Test
+</h4>
+<p>Acceptance tests can be run using the <code>testacc</code> target in the Terraform
+<code>Makefile</code>. The individual tests to run can be controlled using a regular
+expression. Prior to running the tests provider configuration details such as
+access keys must be made available as environment variables.</p>
+<p>For example, to run an acceptance test against the Azure Resource Manager
+provider, the following environment variables must be set:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nb">export </span><span class="nv">ARM_SUBSCRIPTION_ID</span><span class="o">=</span>...
+<span class="nb">export </span><span class="nv">ARM_CLIENT_ID</span><span class="o">=</span>...
+<span class="nb">export </span><span class="nv">ARM_CLIENT_SECRET</span><span class="o">=</span>...
+<span class="nb">export </span><span class="nv">ARM_TENANT_ID</span><span class="o">=</span>...
+</code></pre></div><p>Tests can then be run by specifying the target provider and a regular
+expression defining the tests to run:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>make testacc <span class="nv">TEST</span><span class="o">=</span>./builtin/providers/azurerm <span class="nv">TESTARGS</span><span class="o">=</span><span class="s1">'-run=TestAccAzureRMPublicIpStatic_update'</span>
+<span class="o">==&gt;</span> Checking that code complies with gofmt requirements...
+go generate ./...
+<span class="nv">TF_ACC</span><span class="o">=</span>1 go <span class="nb">test</span> ./builtin/providers/azurerm <span class="nt">-v</span> <span class="nt">-run</span><span class="o">=</span>TestAccAzureRMPublicIpStatic_update <span class="nt">-timeout</span> 120m
+<span class="o">===</span> RUN   TestAccAzureRMPublicIpStatic_update
+<span class="nt">---</span> PASS: TestAccAzureRMPublicIpStatic_update <span class="o">(</span>177.48s<span class="o">)</span>
+PASS
+ok      github.com/hashicorp/terraform/builtin/providers/azurerm    177.504s
+</code></pre></div><p>Entire resource test suites can be targeted by using the naming convention to
+write the regular expression. For example, to run all tests of the
+<code>azurerm_public_ip</code> resource rather than just the update test, you can start
+testing like this:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>make testacc <span class="nv">TEST</span><span class="o">=</span>./builtin/providers/azurerm <span class="nv">TESTARGS</span><span class="o">=</span><span class="s1">'-run=TestAccAzureRMPublicIpStatic'</span>
+<span class="o">==&gt;</span> Checking that code complies with gofmt requirements...
+go generate ./...
+<span class="nv">TF_ACC</span><span class="o">=</span>1 go <span class="nb">test</span> ./builtin/providers/azurerm <span class="nt">-v</span> <span class="nt">-run</span><span class="o">=</span>TestAccAzureRMPublicIpStatic <span class="nt">-timeout</span> 120m
+<span class="o">===</span> RUN   TestAccAzureRMPublicIpStatic_basic
+<span class="nt">---</span> PASS: TestAccAzureRMPublicIpStatic_basic <span class="o">(</span>137.74s<span class="o">)</span>
+<span class="o">===</span> RUN   TestAccAzureRMPublicIpStatic_update
+<span class="nt">---</span> PASS: TestAccAzureRMPublicIpStatic_update <span class="o">(</span>180.63s<span class="o">)</span>
+PASS
+ok      github.com/hashicorp/terraform/builtin/providers/azurerm    318.392s
+</code></pre></div><h4 id="writing-an-acceptance-test">
+  <a name="writing-an-acceptance-test" class="anchor" href="#writing-an-acceptance-test">&raquo;</a>
+  Writing an Acceptance Test
+</h4>
+<p>Terraform has a framework for writing acceptance tests which minimizes the
+amount of boilerplate code necessary to use common testing patterns. The entry
+point to the framework is the <code>resource.Test()</code> function.</p>
+<p>Tests are divided into <code>TestStep</code>s. Each <code>TestStep</code> proceeds by applying some
+Terraform configuration using the provider under test, and then verifying that
+results are as expected by making assertions using the provider API. It is
+common for a single test function to exercise both the creation of and updates
+to a single resource. Most tests follow a similar structure.</p>
+
+<ol>
+<li>Pre-flight checks are made to ensure that sufficient provider configuration
+is available to be able to proceed - for example in an acceptance test
+targeting AWS, <code>AWS_ACCESS_KEY_ID</code> and <code>AWS_SECRET_ACCESS_KEY</code> must be set prior
+to running acceptance tests. This is common to all tests exercising a single
+provider.
+</li>
+</ol>
+<p>Each <code>TestStep</code> is defined in the call to <code>resource.Test()</code>. Most assertion
+functions are defined out of band with the tests. This keeps the tests
+readable, and allows reuse of assertion functions across different tests of the
+same type of resource. The definition of a complete test looks like this:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">TestAccAzureRMPublicIpStatic_update</span><span class="p">(</span><span class="n">t</span><span class="x"> </span><span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">resource</span><span class="o">.</span><span class="n">Test</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCase</span><span class="p">{</span><span class="x">
+                </span><span class="n">PreCheck</span><span class="o">:</span><span class="x">     </span><span class="k">func</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x"> </span><span class="n">testAccPreCheck</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="x"> </span><span class="p">},</span><span class="x">
+                </span><span class="n">Providers</span><span class="o">:</span><span class="x">    </span><span class="n">testAccProviders</span><span class="p">,</span><span class="x">
+                </span><span class="n">CheckDestroy</span><span class="o">:</span><span class="x"> </span><span class="n">testCheckAzureRMPublicIpDestroy</span><span class="p">,</span><span class="x">
+                </span><span class="n">Steps</span><span class="o">:</span><span class="x"> </span><span class="p">[]</span><span class="n">resource</span><span class="o">.</span><span class="n">TestStep</span><span class="p">{</span><span class="x">
+                        </span><span class="n">resource</span><span class="o">.</span><span class="n">TestStep</span><span class="p">{</span><span class="x">
+                                </span><span class="n">Config</span><span class="o">:</span><span class="x"> </span><span class="n">testAccAzureRMVPublicIpStatic_basic</span><span class="p">,</span><span class="x">
+                                </span><span class="n">Check</span><span class="o">:</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">ComposeTestCheckFunc</span><span class="p">(</span><span class="x">
+                                        </span><span class="n">testCheckAzureRMPublicIpExists</span><span class="p">(</span><span class="s">"azurerm_public_ip.test"</span><span class="p">),</span><span class="x">
+                                </span><span class="p">),</span><span class="x">
+                        </span><span class="p">},</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+    </span><span class="p">})</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>When executing the test, the following steps are taken for each <code>TestStep</code>:</p>
+
+<ol>
+<li><p>The Terraform configuration required for the test is applied. This is
+responsible for configuring the resource under test, and any dependencies it
+may have. For example, to test the <code>azurerm_public_ip</code> resource, an
+<code>azurerm_resource_group</code> is required. This results in configuration which
+looks like this:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"azurerm_resource_group"</span> <span class="s2">"test"</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"acceptanceTestResourceGroup1"</span>
+    <span class="n">location</span> <span class="o">=</span> <span class="s2">"West US"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurerm_public_ip"</span> <span class="s2">"test"</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"acceptanceTestPublicIp1"</span>
+    <span class="n">location</span> <span class="o">=</span> <span class="s2">"West US"</span>
+    <span class="n">resource_group_name</span> <span class="o">=</span> <span class="s2">"${azurerm_resource_group.test.name}"</span>
+    <span class="n">public_ip_address_allocation</span> <span class="o">=</span> <span class="s2">"static"</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p>Assertions are run using the provider API. These use the provider API
+directly rather than asserting against the resource state. For example, to
+verify that the <code>azurerm_public_ip</code> described above was created
+successfully, a test function like this is used:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">testCheckAzureRMPublicIpExists</span><span class="p">(</span><span class="n">name</span><span class="x"> </span><span class="kt">string</span><span class="p">)</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCheckFunc</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="k">func</span><span class="p">(</span><span class="n">s</span><span class="x"> </span><span class="o">*</span><span class="n">terraform</span><span class="o">.</span><span class="n">State</span><span class="p">)</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="c">// Ensure we have enough information in state to look up in API</span><span class="x">
+        </span><span class="n">rs</span><span class="p">,</span><span class="x"> </span><span class="n">ok</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">s</span><span class="o">.</span><span class="n">RootModule</span><span class="p">()</span><span class="o">.</span><span class="n">Resources</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="o">!</span><span class="n">ok</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Not found: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">name</span><span class="p">)</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+
+        </span><span class="n">publicIPName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">rs</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">Attributes</span><span class="p">[</span><span class="s">"name"</span><span class="p">]</span><span class="x">
+        </span><span class="n">resourceGroup</span><span class="p">,</span><span class="x"> </span><span class="n">hasResourceGroup</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">rs</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">Attributes</span><span class="p">[</span><span class="s">"resource_group_name"</span><span class="p">]</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="o">!</span><span class="n">hasResourceGroup</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Bad: no resource group found in state for public ip: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">availSetName</span><span class="p">)</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+
+        </span><span class="n">conn</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">testAccProvider</span><span class="o">.</span><span class="n">Meta</span><span class="p">()</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">ArmClient</span><span class="p">)</span><span class="o">.</span><span class="n">publicIPClient</span><span class="x">
+
+        </span><span class="n">resp</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">conn</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">resourceGroup</span><span class="p">,</span><span class="x"> </span><span class="n">publicIPName</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">)</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Bad: Get on publicIPClient: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+
+        </span><span class="k">if</span><span class="x"> </span><span class="n">resp</span><span class="o">.</span><span class="n">StatusCode</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="n">http</span><span class="o">.</span><span class="n">StatusNotFound</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Bad: Public IP %q (resource group: %q) does not exist"</span><span class="p">,</span><span class="x"> </span><span class="n">name</span><span class="p">,</span><span class="x"> </span><span class="n">resourceGroup</span><span class="p">)</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+
+        </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div></li>
+</ol>
+<p>Notice that the only information used from the Terraform state is the ID of
+   the resource - though in this case it is necessary to split the ID into
+   constituent parts in order to use the provider API. For computed properties,
+   we instead assert that the value saved in the Terraform state was the
+   expected value if possible. The testing framework provides helper functions
+   for several common types of check - for example:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>```go
+resource.TestCheckResourceAttr("azurerm_public_ip.test", "domain_name_label", "mylabel01"),
+```
+</code></pre></div>
+<ol>
+<li><p>The resources created by the test are destroyed. This step happens
+automatically, and is the equivalent of calling <code>terraform destroy</code>.</p>
+</li>
+<li><p>Assertions are made against the provider API to verify that the resources
+have indeed been removed. If these checks fail, the test fails and reports
+&quot;dangling resources&quot;. The code to ensure that the <code>azurerm_public_ip</code> shown
+above looks like this:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">testCheckAzureRMPublicIpDestroy</span><span class="p">(</span><span class="n">s</span><span class="x"> </span><span class="o">*</span><span class="n">terraform</span><span class="o">.</span><span class="n">State</span><span class="p">)</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">conn</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">testAccProvider</span><span class="o">.</span><span class="n">Meta</span><span class="p">()</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">ArmClient</span><span class="p">)</span><span class="o">.</span><span class="n">publicIPClient</span><span class="x">
+
+    </span><span class="k">for</span><span class="x"> </span><span class="n">_</span><span class="p">,</span><span class="x"> </span><span class="n">rs</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="k">range</span><span class="x"> </span><span class="n">s</span><span class="o">.</span><span class="n">RootModule</span><span class="p">()</span><span class="o">.</span><span class="n">Resources</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="n">rs</span><span class="o">.</span><span class="n">Type</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="s">"azurerm_public_ip"</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">continue</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+
+        </span><span class="n">name</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">rs</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">Attributes</span><span class="p">[</span><span class="s">"name"</span><span class="p">]</span><span class="x">
+        </span><span class="n">resourceGroup</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">rs</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">Attributes</span><span class="p">[</span><span class="s">"resource_group_name"</span><span class="p">]</span><span class="x">
+
+        </span><span class="n">resp</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">conn</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">resourceGroup</span><span class="p">,</span><span class="x"> </span><span class="n">name</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">)</span><span class="x">
+
+        </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+
+        </span><span class="k">if</span><span class="x"> </span><span class="n">resp</span><span class="o">.</span><span class="n">StatusCode</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="n">http</span><span class="o">.</span><span class="n">StatusNotFound</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Public IP still exists:</span><span class="se">\n</span><span class="s">%#v"</span><span class="p">,</span><span class="x"> </span><span class="n">resp</span><span class="o">.</span><span class="n">Properties</span><span class="p">)</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div></li>
+</ol>
+<p>These functions usually test only for the resource directly under test: we
+   skip the check that the <code>azurerm_resource_group</code> has been destroyed when
+   testing <code>azurerm_resource_group</code>, under the assumption that
+   <code>azurerm_resource_group</code> is tested independently in its own acceptance
+   tests.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This document provides recommended practices and a reference architecture for HashiCorp Private Terraform Enterprise (PTFE) implementations on AWS.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/enterprise/private/aws-setup-guide.html" />
+    <meta property="og:title" content="Private Terraform Enterprise - Reference Architecture - AWS - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="This document provides recommended practices and a reference architecture for HashiCorp Private Terraform Enterprise (PTFE) implementations on AWS." />
+
+    <title>Private Terraform Enterprise - Reference Architecture - AWS - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b19bad99.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-enterprise2-private-reference-architecture-aws" class="layout-enterprise2 page-private-terraform-enterprise-reference-architecture-aws">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <ul class="nav docs-sidenav">
+      <li>
+        <a class="back" href="/docs/index.html">Documentation Home</a>
+      </li>
+
+      <li>
+        <a class="back" href="/docs/enterprise/index.html">Terraform Enterprise</a>
+      </li>
+
+      <li>
+        <a class="back" href="/docs/enterprise-legacy/index.html">Terraform Enterprise (legacy)</a>
+      </li>
+
+      <hr>
+
+      <li>
+        <a href="/docs/enterprise/getting-started/index.html">Getting Started</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/getting-started/access.html">Accessing TFE</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/getting-started/vcs.html">Configuring VCS Access</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/getting-started/workspaces.html">Creating Workspaces</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/getting-started/runs.html">Running Terraform</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/migrate/index.html">Migrating from Open Source</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/migrate/workspaces.html">Migrating Multiple Workspaces</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/upgrade/index.html">Upgrading</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/upgrade/batch.html">Batch migration</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/upgrade/differences.html">Current vs. Legacy</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/vcs/index.html">VCS Integration</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/vcs/github.html">Github</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/vcs/github-enterprise.html">Github Enterprise</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/vcs/gitlab-com.html">GitLab.com</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/vcs/gitlab-eece.html">GitLab EE and CE</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/vcs/bitbucket-cloud.html">Bitbucket Cloud</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/vcs/bitbucket-server.html">Bitbucket Server</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/vcs/troubleshooting.html">Troubleshooting</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/workspaces/index.html">Workspaces</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/workspaces/naming.html">Naming</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/workspaces/creating.html">Creating Workspaces</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/workspaces/access.html">Managing Access</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/workspaces/repo-structure.html">Repo Structure</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/workspaces/settings.html">Settings</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/workspaces/variables.html">Variables</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/workspaces/ssh-keys.html">SSH Keys for Modules</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/run/index.html">Terraform Runs</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/run/states.html">Run States and Stages</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/run/ui.html">UI/VCS-driven Runs</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/run/api.html">API-driven Runs</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/run/cli.html">CLI-driven Runs</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/run/install-software.html">Installing Software</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/registry/index.html">Private Module Registry</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/registry/using.html">Using Private Modules</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/registry/publish.html">Publishing Private Modules</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/registry/design.html">Configuration Designer</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/users-teams-organizations/index.html">Users, Teams, Organizations</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/users-teams-organizations/users.html">Users</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/users-teams-organizations/teams.html">Teams</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/users-teams-organizations/organizations.html">Organizations</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/users-teams-organizations/permissions.html">Permissions</a>
+          </li>
+          <li>
+          <a href="/docs/enterprise/users-teams-organizations/2fa.html">Two-factor Authentication</a>
+        </li>
+          <li>
+            <a href="/docs/enterprise/users-teams-organizations/service-accounts.html">Service Accounts</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/sentinel/index.html">Sentinel</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/sentinel/manage-policies.html">Manage Policies</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/sentinel/integrate-vcs.html">Integrate with VCS</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/sentinel/enforce.html">Enforce and Override Policies</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/sentinel/import/index.html">Defining Policies</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/enterprise/sentinel/import/tfplan.html">import: tfplan</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/sentinel/import/tfconfig.html">import: tfconfig</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/sentinel/import/tfstate.html">import: tfstate</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/enterprise/sentinel/examples.html">Example Policies</a>
+          </li>
+        </ul>
+      </li>
+
+      <hr>
+
+      <li class="active">
+        <a href="/docs/enterprise/private/index.html">Private Terraform Enterprise</a>
+        <ul class="nav">
+          <li class="active">
+            <a href="/docs/enterprise/private/reference-architecture-installer.html">Reference Architecture (Installer)</a>
+            <ul class="nav">
+              <li class="active">
+                <a href="/docs/enterprise/private/aws-setup-guide.html">AWS Reference Architecture</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/azure-setup-guide.html">Azure Reference Architecture</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/gcp-setup-guide.html">GCP Reference Architecture</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/vmware-setup-guide.html">VMware Reference Architecture</a>
+              </li>
+            </ul>
+          <li>
+            <a href="/docs/enterprise/private/install-installer.html">Installation (Installer)</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/enterprise/private/install-installer.html">Installation</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/migrate.html">Migrate from AMI</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/rhel-install-guide.html">RedHat Enterprise Linux Install Guide</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/centos-install-guide.html">CentOS Linux Install Guide</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/minio-setup-guide.html">Minio Setup Guide</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/automating-the-installer.html">Automated Installation</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/upgrades.html">Upgrades</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/vault.html">External Vault</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/automated-recovery.html">Automated Recovery</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/install-ami.html">Installation (AMI)</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/config.html">Configuration</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/admin/index.html">Administration</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/enterprise/private/admin/general.html">General Settings</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/admin/integration.html">Integration Settings</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/admin/resources.html">Managing Accounts &amp; Resources</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/enterprise/saml/index.html">SAML SSO</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/enterprise/saml/configuration.html">Configuration</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/saml/team-membership.html">Team Membership</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/saml/attributes.html">Attributes</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/saml/login.html">Login</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/saml/identity-provider-configuration.html">Identity Provider Configuration</a>
+                <ul class="nav">
+                  <li>
+                    <a href="/docs/enterprise/saml/identity-provider-configuration-onelogin.html">OneLogin</a>
+                  </li>
+                  <li>
+                    <a href="/docs/enterprise/saml/identity-provider-configuration-adfs.html">ADFS</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/docs/enterprise/saml/troubleshooting.html">Troubleshooting</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/reliability-availability.html">Reliability &amp; Availability</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/data-security.html">Data Security</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/logging.html">Logging</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/diagnostics.html">Diagnostics</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/faq.html">FAQs</a>
+          </li>
+        </ul>
+      </li>
+
+      <hr>
+
+      <li>
+        <a href="/docs/enterprise/api/index.html">API</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/api/account.html">Account</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/applies.html">Applies</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/configuration-versions.html">Configuration Versions</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/oauth-clients.html">OAuth Clients</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/oauth-tokens.html">OAuth Tokens</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/organizations.html">Organizations</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/organization-tokens.html">Organization Tokens</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/plans.html">Plans</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/policies.html">Policies</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/policy-checks.html">Policy Checks</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/modules.html">Registry Modules</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/run.html">Runs</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/ssh-keys.html">SSH Keys</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/state-versions.html">State Versions</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/team-access.html">Team Access</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/team-members.html">Team Membership</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/team-tokens.html">Team Tokens</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/teams.html">Teams</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/variables.html">Variables</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/workspaces.html">Workspaces</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/admin/index.html">Admin</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/enterprise/api/admin/organizations.html">Organizations</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/api/admin/runs.html">Runs</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/api/admin/settings.html">Settings</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/api/admin/terraform-versions.html">Terraform Versions</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/api/admin/users.html">Users</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/api/admin/workspaces.html">Workspaces</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="private-terraform-enterprise-aws-reference-architecture">
+  <a name="private-terraform-enterprise-aws-reference-architecture" class="anchor" href="#private-terraform-enterprise-aws-reference-architecture">&raquo;</a>
+  Private Terraform Enterprise AWS Reference Architecture
+</h1>
+<p>This document provides recommended practices and a reference architecture for
+HashiCorp Private Terraform Enterprise (PTFE) implementations on AWS.</p>
+<h2 id="required-reading">
+  <a name="required-reading" class="anchor" href="#required-reading">&raquo;</a>
+  Required Reading
+</h2>
+<p>Prior to making hardware sizing and architectural decisions, read through the
+<a href="https://www.terraform.io/docs/enterprise/private/install-installer.html">installation information available for
+PTFE</a>
+to familiarise yourself with the application components and architecture.
+Further, read the <a href="https://www.terraform.io/docs/enterprise/private/reliability-availability.html">reliability and availability
+guidance</a>
+as a primer to understanding the recommendations in this reference
+architecture.</p>
+<h2 id="infrastructure-requirements">
+  <a name="infrastructure-requirements" class="anchor" href="#infrastructure-requirements">&raquo;</a>
+  Infrastructure Requirements
+</h2>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> This reference architecture focuses on the <em>Production - External
+Services</em> operational mode.</p>
+</div>
+<p>Depending on the chosen <a href="https://www.terraform.io/docs/enterprise/private/install-installer.html#operational-mode-decision">operational
+mode</a>,
+the infrastructure requirements for PTFE range from a single AWS EC2 instance
+for demo installations to multiple instances connected to RDS, S3, and an
+external Vault cluster for a stateless production installation.</p>
+<p>The following table provides high-level server guidelines. Of particular
+note is the strong recommendation to avoid non-fixed performance CPUs,
+or “Burstable CPU” in AWS terms, such as T-series instances.</p>
+<h3 id="ptfe-server-ec2-">
+  <a name="ptfe-server-ec2-" class="anchor" href="#ptfe-server-ec2-">&raquo;</a>
+  PTFE Server (EC2)
+</h3>
+
+<table><thead>
+<tr>
+<th>Type</th>
+<th>CPU</th>
+<th>Memory</th>
+<th>Disk</th>
+<th>AWS Instance Types</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Minimum</td>
+<td>2 core</td>
+<td>8 GB RAM</td>
+<td>50GB</td>
+<td>m5.large</td>
+</tr>
+<tr>
+<td>Recommended</td>
+<td>4-8 core</td>
+<td>16-32 GB RAM</td>
+<td>50GB</td>
+<td>m5.xlarge, m5.2xlarge</td>
+</tr>
+</tbody></table>
+<h4 id="hardware-sizing-considerations">
+  <a name="hardware-sizing-considerations" class="anchor" href="#hardware-sizing-considerations">&raquo;</a>
+  Hardware Sizing Considerations
+</h4>
+
+<ul>
+<li>The minimum size would be appropriate for most initial production
+</li>
+<li><p>deployments, or for development/testing environments.</p>
+</li>
+<li><p>The recommended size is for production environments where there is a</p>
+</li>
+<li><p>consistent high workload in the form of concurrent terraform runs.</p>
+</li>
+</ul>
+<h3 id="postgresql-database-rds-multi-az-">
+  <a name="postgresql-database-rds-multi-az-" class="anchor" href="#postgresql-database-rds-multi-az-">&raquo;</a>
+  PostgreSQL Database (RDS Multi-AZ)
+</h3>
+
+<table><thead>
+<tr>
+<th>Type</th>
+<th>CPU</th>
+<th>Memory</th>
+<th>Storage</th>
+<th>AWS Instance Types</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Minimum</td>
+<td>2 core</td>
+<td>8 GB RAM</td>
+<td>50GB</td>
+<td>db.m4.large</td>
+</tr>
+<tr>
+<td>Recommended</td>
+<td>4-8 core</td>
+<td>16-32 GB RAM</td>
+<td>50GB</td>
+<td>db.m4.xlarge, db.m4.2xlarge</td>
+</tr>
+</tbody></table>
+<h4 id="hardware-sizing-considerations-1">
+  <a name="hardware-sizing-considerations-1" class="anchor" href="#hardware-sizing-considerations-1">&raquo;</a>
+  Hardware Sizing Considerations
+</h4>
+
+<ul>
+<li><p>The minimum size would be appropriate for most initial production
+deployments, or for development/testing environments.</p>
+</li>
+<li><p>The recommended size is for production environments where there is a
+consistent high workload in the form of concurrent terraform runs.</p>
+</li>
+</ul>
+<h3 id="object-storage-s3-">
+  <a name="object-storage-s3-" class="anchor" href="#object-storage-s3-">&raquo;</a>
+  Object Storage (S3)
+</h3>
+<p>An <a href="https://aws.amazon.com/s3/storage-classes/">S3 Standard</a> bucket must be
+specified during the PTFE installation for application data to be stored
+securely and redundantly away from the EC2 servers running the PTFE
+application. This S3 bucket must be in the same region as the EC2 and RDS
+instances. It is recommended the VPC containing the PTFE servers be configured
+with a <a href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-endpoints.html">VPC endpoint for
+S3</a>.
+Vault is used to encrypt all application data stored in the S3 bucket.  This
+allows for further <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html">server-side
+encryption</a>
+by S3 if required by your security policy.</p>
+<h3 id="vault-cluster">
+  <a name="vault-cluster" class="anchor" href="#vault-cluster">&raquo;</a>
+  Vault Cluster
+</h3>
+<p>In order to provide a fully stateless application instance, PTFE must be
+configured to speak with an <a href="https://www.terraform.io/docs/enterprise/private/vault.html">external Vault
+cluster</a>.  This
+reference architecture assumes that a highly available Vault cluster is
+accessible at an endpoint the PTFE servers can reach.</p>
+<p>For more information on setting up an external Vault cluster, please visit the <a href="https://www.vaultproject.io/guides/operations/reference-architecture.html">Vault 
+Reference Architecture</a>.</p>
+<h3 id="other-considerations">
+  <a name="other-considerations" class="anchor" href="#other-considerations">&raquo;</a>
+  Other Considerations
+</h3>
+<h4 id="additional-aws-resources">
+  <a name="additional-aws-resources" class="anchor" href="#additional-aws-resources">&raquo;</a>
+  Additional AWS Resources
+</h4>
+<p>In order to successfully provision this reference architecture you must
+also be permitted to create the following AWS resources:</p>
+
+<ul>
+<li>VPC
+</li>
+<li>Subnet
+</li>
+<li>Route Table
+</li>
+<li>Route Table Association
+</li>
+<li>Security Group
+</li>
+<li>Load Balancer (Network or Classic)
+</li>
+<li>Target Group (if using Network Load Balancer)
+</li>
+<li>CloudWatch Alarm
+</li>
+<li>IAM Instance Profile
+</li>
+<li>IAM Role
+</li>
+<li>IAM Role Policy
+</li>
+<li>Route 53 (optional for High Availability)
+</li>
+</ul>
+<h4 id="network">
+  <a name="network" class="anchor" href="#network">&raquo;</a>
+  Network
+</h4>
+<p>To deploy PTFE in AWS you will need to create new or use existing
+networking infrastructure. The below infrastructure diagram highlights
+some of the key components (VPC, subnets, DB subnet group) and you will
+also have security group, routing table and gateway requirements. These
+elements are likely to be very unique to your environment and not
+something this Reference Architecture can specify in detail. An <a href="https://github.com/hashicorp/private-terraform-enterprise/blob/master/examples/aws/network/main.tf">example Terraform
+configuration</a>
+is provided to demonstrate how these resources can be provisioned and
+how they interrelate.</p>
+<h4 id="dns">
+  <a name="dns" class="anchor" href="#dns">&raquo;</a>
+  DNS
+</h4>
+<p>DNS can be configured external to AWS or using <a href="https://aws.amazon.com/route53/">Route 53</a>. The
+fully qualified domain name should resolve to the Load Balancer using a
+CNAME if using external DNS or an <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html">alias
+record</a>
+if using Route 53. Creating the required DNS entry is outside the scope
+of this guide.</p>
+<p>Another approach would be to use an external registrar or DNS server to point to a Route 53 CNAME record using
+a canonical, but not necessarily public, domain name, which then forwards to the ALIAS record for the ELB. This
+pattern is required if using Route 53 Health Checks and failover pairs to automatically fail over to the standby
+instance.  This is documented further below.</p>
+<h4 id="ssl-tls">
+  <a name="ssl-tls" class="anchor" href="#ssl-tls">&raquo;</a>
+  SSL/TLS
+</h4>
+<p>An SSL/TLS certificate signed by a public or private CA is required for secure communication between
+clients and the PTFE application server. The certificate can be
+specified during the UI-based installation or the path to the
+certificate codified during an unattended installation.</p>
+<p>HashiCorp does not recommend the use of self-signed certificates.</p>
+<h2 id="infrastructure-diagrams">
+  <a name="infrastructure-diagrams" class="anchor" href="#infrastructure-diagrams">&raquo;</a>
+  Infrastructure Diagrams
+</h2>
+<p>Below are two recommended infrastructure modes for PTFE, including a brief description of each.</p>
+<h3 id="load-balancer-mode">
+  <a name="load-balancer-mode" class="anchor" href="#load-balancer-mode">&raquo;</a>
+  Load Balancer Mode
+</h3>
+<p><img alt="aws-infrastructure-diagram-elb" src="/docs/enterprise/private/assets/aws-setup-guide-ptfe-elb-f6721035.png" /></p>
+<p>In this design, we employ an AWS ELB or ALB to control primary/standby and traffic routing. ELB Configuration or
+target group membership is used to designate the active node, and failover is managed manually by the operator.
+Load balancers are configured in TCP passthrough so that SSL termination can occur on the Terraform instances directly.</p>
+<h3 id="dns-failover-pair-mode">
+  <a name="dns-failover-pair-mode" class="anchor" href="#dns-failover-pair-mode">&raquo;</a>
+  DNS Failover Pair Mode
+</h3>
+<p><img alt="aws-infrastructure-diagram-route53" src="/docs/enterprise/private/assets/aws-setup-guide-ptfe-route53-d5b0c4c3.png" /></p>
+<p>In this design, Route 53 Failover Pairs and Health Checks are used to automatically switch over to the standby instance
+in the case of a master node failure. No human intervention is required to complete the failover action.</p>
+<h3 id="application-layer">
+  <a name="application-layer" class="anchor" href="#application-layer">&raquo;</a>
+  Application Layer
+</h3>
+<p>The Application Layer is composed of two PTFE servers (EC2 instances)
+running in different Availability Zones and operating in a main/standby
+configuration. Traffic is routed only to <em>PTFE-main</em> via one of the above infrastructure options.</p>
+<h3 id="storage-layer">
+  <a name="storage-layer" class="anchor" href="#storage-layer">&raquo;</a>
+  Storage Layer
+</h3>
+<p>The Storage Layer is composed of multiple service endpoints (RDS, S3,
+Vault) all configured with or benefiting from inherent resiliency
+provided by AWS (in the case of RDS and S3) or resiliency provided by a
+well-architected deployment (in the case of Vault).</p>
+<h4 id="additional-information">
+  <a name="additional-information" class="anchor" href="#additional-information">&raquo;</a>
+  Additional Information
+</h4>
+
+<ul>
+<li><p><a href="https://aws.amazon.com/rds/details/multi-az/">RDS Multi-AZ deployments</a>.</p>
+</li>
+<li><p><a href="https://aws.amazon.com/s3/storage-classes/">S3 Standard storage class</a>.</p>
+</li>
+<li><p><a href="https://www.vaultproject.io/guides/operations/vault-ha-consul.html">Highly available Vault deployments</a></p>
+</li>
+</ul>
+<h2 id="infrastructure-provisioning">
+  <a name="infrastructure-provisioning" class="anchor" href="#infrastructure-provisioning">&raquo;</a>
+  Infrastructure Provisioning
+</h2>
+<p>The recommended way to deploy PTFE is through use of a Terraform configuration
+that defines the required resources, their references to other resources, and
+dependencies. An <a href="https://github.com/hashicorp/private-terraform-enterprise/blob/master/examples/aws/pes/main.tf">example Terraform
+configuration</a>
+is provided to demonstrate how these resources can be provisioned and how they
+interrelate. This Terraform configuration assumes the required networking
+components are already in place. If you are creating networking components for
+this PTFE installation, an <a href="https://github.com/hashicorp/private-terraform-enterprise/blob/master/examples/aws/network/main.tf">example Terraform configuration is available for
+the networking
+resources</a>
+as well.</p>
+<h2 id="normal-operation">
+  <a name="normal-operation" class="anchor" href="#normal-operation">&raquo;</a>
+  Normal Operation
+</h2>
+<h3 id="component-interaction">
+  <a name="component-interaction" class="anchor" href="#component-interaction">&raquo;</a>
+  Component Interaction
+</h3>
+<p>The Load Balancer routes all traffic to the <em>PTFE-main</em> instance, which
+in turn handles all requests to the PTFE application.</p>
+<p>The PTFE application is connected to the PostgreSQL database via the RDS
+Multi-AZ endpoint and all database requests are routed via the RDS
+Multi-AZ endpoint to the <em>RDS-main</em> database instance.</p>
+<p>The PTFE application is connected to object storage via the S3 endpoint
+for the defined bucket and all object storage requests are routed to the
+highly available infrastructure supporting S3.</p>
+<p>The PTFE application is connected to the Vault cluster via the Vault
+cluster endpoint URL.</p>
+<h3 id="upgrades">
+  <a name="upgrades" class="anchor" href="#upgrades">&raquo;</a>
+  Upgrades
+</h3>
+<p>See <a href="https://www.terraform.io/docs/enterprise/private/install-installer.html#upgrading">the upgrading
+section</a>
+of the installation guide.</p>
+<h2 id="high-availability">
+  <a name="high-availability" class="anchor" href="#high-availability">&raquo;</a>
+  High Availability
+</h2>
+<h3 id="failure-scenarios">
+  <a name="failure-scenarios" class="anchor" href="#failure-scenarios">&raquo;</a>
+  Failure Scenarios
+</h3>
+<p>AWS provides availability and reliability recommendations in the <a href="https://aws.amazon.com/architecture/well-architected/">Well-Architected
+framework</a>.
+Working in accordance with those recommendations the PTFE Reference
+Architecture is designed to handle different failure scenarios with
+different probabilities. As the architecture evolves it may provide a
+higher level of service continuity.</p>
+<h4 id="single-ec2-instance-failure">
+  <a name="single-ec2-instance-failure" class="anchor" href="#single-ec2-instance-failure">&raquo;</a>
+  Single EC2 Instance Failure
+</h4>
+<p>In the event of the <em>PTFE-main</em> instance failing in a way that AWS can
+observe, a CloudWatch alarm can trigger <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-recover.html">EC2
+instance
+recovery</a>
+automatically. This would result in the EC2 instance being started on
+different physical hardware. A recovered instance is identical to the
+original instance, including the instance ID, private IP addresses,
+Elastic IP addresses, and all instance metadata. Once the EC2 instance
+is running again service would resume as normal.</p>
+<h4 id="availability-zone-failure">
+  <a name="availability-zone-failure" class="anchor" href="#availability-zone-failure">&raquo;</a>
+  Availability Zone Failure
+</h4>
+<p>In the event of the Availability Zone hosting the main instances (EC2
+and RDS) failing, traffic must be routed to the standby instances to
+resume service.</p>
+
+<ul>
+<li><p>If using a load balancer, the listener must be reconfigured to direct traffic to
+the <em>PTFE-standby</em> instance. This can be managed manually or automated.</p>
+</li>
+<li><p>If using Route 53, no action is necessary, as the health checks will
+automatically change the CNAME pointer to the healthy standby instance.</p>
+</li>
+<li><p>Multi-AZ RDS automatically fails over to the RDS Standby Replica
+(<em>RDS-standby</em>). The <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html">AWS documentation provides more
+detail</a>
+on the exact behaviour and expected impact.</p>
+</li>
+<li><p>Both S3 and Vault are resilient to Availability Zone failure based
+on their architecture.</p>
+</li>
+</ul>
+<p>See below for more detail on how each component handles Availability
+Zone failure.</p>
+<h5 id="ptfe-servers">
+  <a name="ptfe-servers" class="anchor" href="#ptfe-servers">&raquo;</a>
+  PTFE Servers
+</h5>
+<p>Through deployment of two EC2 instances in different availability zones, the
+PTFE Reference Architecture is designed in accordance with the <a href="https://d1.awsstatic.com/whitepapers/architecture/AWS-Reliability-Pillar.pdf">Reliability
+Pillar of the AWS
+Well-Architected</a>
+framework to provide improved availability and reliability. Should the
+<em>PTFE-main</em> server fail, it can be automatically recovered, or traffic can be
+routed to the <em>PTFE-standby</em> server to resume service when the failure is
+limited to the PTFE server layer.</p>
+<p>With external services (PostgreSQL Database, Object Storage, Vault) in use,
+there is still some application configuration data present on the PTFE server
+such as installation type, database connection settings, hostname. This data
+rarely changes. If the application configuration has not changed since
+installation, both <em>PTFE-main</em> and <em>PTFE-standby</em> will be using the same
+configuration and no action is required. If the configuration on <em>PTFE-main</em>
+changes you should <a href="https://www.terraform.io/docs/enterprise/private/automated-recovery.html#1-configure-snapshots">create a
+snapshot</a>
+via the UI or CLI and recover this to <em>PTFE-standby</em> so both instances use the
+same configuration.</p>
+<h5 id="postgresql-database">
+  <a name="postgresql-database" class="anchor" href="#postgresql-database">&raquo;</a>
+  PostgreSQL Database
+</h5>
+<p>Using RDS Multi-AZ as an external database service leverages the highly
+available infrastructure provided by AWS. From the AWS website:</p>
+
+<blockquote>
+<p><em>In a Multi-AZ deployment, Amazon RDS automatically provisions and
+maintains a synchronous standby replica in a different Availability
+Zone. In the event of a planned or unplanned outage of your DB
+instance, Amazon RDS automatically switches to a standby replica in
+another Availability Zone. (<a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html">source</a>)</em></p>
+</blockquote>
+<h5 id="object-storage">
+  <a name="object-storage" class="anchor" href="#object-storage">&raquo;</a>
+  Object Storage
+</h5>
+<p>Using S3 as an external object store leverages the highly available
+infrastructure provided by AWS. S3 buckets are replicated to all
+Availability Zones within the region selected during bucket creation.
+From the AWS website:</p>
+
+<blockquote>
+<p><em>Amazon S3 runs on the world’s largest global cloud infrastructure,
+and was built from the ground up to deliver a customer promise of
+99.999999999% of durability. Data is automatically distributed across
+a minimum of three physical facilities that are geographically
+separated within an AWS Region. (<a href="https://aws.amazon.com/s3/">source</a>)</em></p>
+</blockquote>
+<h5 id="vault-cluster-1">
+  <a name="vault-cluster-1" class="anchor" href="#vault-cluster-1">&raquo;</a>
+  Vault Cluster
+</h5>
+<p>For the purposes of this guide, the external Vault cluster is expected
+to be deployed and configured in line with the <a href="https://www.vaultproject.io/guides/operations/reference-architecture.html">HashiCorp Vault Enterprise Reference
+Architecture</a>.
+This would provide high availability and disaster recovery support,
+minimising downtime in the event of an outage.</p>
+<h2 id="disaster-recovery">
+  <a name="disaster-recovery" class="anchor" href="#disaster-recovery">&raquo;</a>
+  Disaster Recovery
+</h2>
+<h3 id="failure-scenarios-1">
+  <a name="failure-scenarios-1" class="anchor" href="#failure-scenarios-1">&raquo;</a>
+  Failure Scenarios
+</h3>
+<p>AWS provides availability and reliability recommendations in the
+Well-Architected framework. Working in accordance with those
+recommendations the PTFE Reference Architecture is designed to handle
+different failure scenarios that have different probabilities. As the
+architecture evolves it may provide a higher level of service
+continuity.</p>
+<h4 id="region-failure">
+  <a name="region-failure" class="anchor" href="#region-failure">&raquo;</a>
+  Region Failure
+</h4>
+<p>PTFE is currently architected to provide high availability within a
+single AWS Region. Using multiple AWS Regions will give you greater
+control over your recovery time in the event of a hard dependency
+failure on a regional AWS service. In this section, we’ll discuss
+various implementation patterns and their typical availability.</p>
+<p>An identical infrastructure should be provisioned in a secondary AWS
+Region. Depending on recovery time objectives and tolerances for
+additional cost to support AWS Region failure, the infrastructure can be
+running (Warm Standby) or stopped (Cold Standby). In the event of the
+primary AWS Region hosting the PTFE application failing, the secondary
+AWS Region will require some configuration before traffic is directed to
+it along with some global services such as DNS.</p>
+
+<ul>
+<li><p><a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html#USER_ReadRepl.XRgn">RDS cross-region read replicas</a> can be used in a warm standby architecture or <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_CommonTasks.BackupRestore.html">RDS database backups</a> can be used in a cold standby architecture.</p>
+</li>
+<li><p><a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html">S3 cross-region replication</a> must be configured so the object storage component of the Storage Layer is available in the secondary AWS Region.</p>
+</li>
+<li><p><a href="https://www.vaultproject.io/docs/enterprise/replication/index.html#performance-replication-and-disaster-recovery-dr-replication">Vault Disaster Recovery (DR) Replication</a> must be configured for a Vault cluster in the secondary AWS Region.</p>
+</li>
+<li><p>DNS must be redirected to the Load Balancer acting as the entry point for the infrastructure deployed in the secondary AWS Region.</p>
+</li>
+</ul>
+<h4 id="data-corruption">
+  <a name="data-corruption" class="anchor" href="#data-corruption">&raquo;</a>
+  Data Corruption
+</h4>
+<p>The PTFE application architecture relies on multiple service endpoints
+(RDS, S3, Vault) all providing their own backup and recovery
+functionality to support a low MTTR in the event of data corruption.</p>
+<h5 id="ptfe-servers-1">
+  <a name="ptfe-servers-1" class="anchor" href="#ptfe-servers-1">&raquo;</a>
+  PTFE Servers
+</h5>
+<p>With external services (PostgreSQL Database, Object Storage, Vault) in
+use, there is still some application configuration data present on the
+PTFE server such as installation type, database connection settings,
+hostname. This data rarely changes. We recommend <a href="https://www.terraform.io/docs/enterprise/private/automated-recovery.html#1-configure-snapshots">configuring automated
+snapshots</a>
+for this installation data so it can be recovered in the event of data
+corruption.</p>
+<h5 id="postgresql-database-1">
+  <a name="postgresql-database-1" class="anchor" href="#postgresql-database-1">&raquo;</a>
+  PostgreSQL Database
+</h5>
+<p>Backup and recovery of PostgreSQL is managed by AWS and configured
+through the AWS management console on CLI. More details of RDS for
+PostgreSQL features are available <a href="https://aws.amazon.com/rds/postgresql/">here</a>
+and summarised below:</p>
+
+<blockquote>
+<p><em>Automated Backups – The automated backup feature of Amazon RDS is
+turned on by default and enables point-in-time recovery for your DB
+Instance. Amazon RDS will backup your database and transaction logs
+and store both for a user-specified retention period.</em></p>
+<p><em>DB Snapshots – DB Snapshots are user-initiated backups of your DB
+Instance. These full database backups will be stored by Amazon RDS
+until you explicitly delete them.</em></p>
+</blockquote>
+<h5 id="object-storage-1">
+  <a name="object-storage-1" class="anchor" href="#object-storage-1">&raquo;</a>
+  Object Storage
+</h5>
+<p>There is no automatic backup/snapshot of S3 by AWS, so it is recommended
+to script a bucket copy process from the bucket used by the PTFE
+application to a “backup bucket” in S3 that runs at regular intervals.
+The <a href="https://aws.amazon.com/s3/storage-classes/">Amazon S3 Standard-Infrequent
+Access</a> storage class
+is identified as a solution targeted more for DR backups than S3
+Standard. From the AWS website:</p>
+
+<blockquote>
+<p><em>Amazon S3 Standard-Infrequent Access (S3 Standard-IA) is an Amazon S3
+storage class for data that is accessed less frequently, but requires
+rapid access when needed. S3 Standard-IA offers the high durability,
+high throughput, and low latency of S3 Standard, with a low per GB
+storage price and per GB retrieval fee. This combination of low cost
+and high performance make S3 Standard-IA ideal for long-term storage,
+backups, and as a data store for disaster recovery. (<a href="https://aws.amazon.com/s3/storage-classes/">source</a>)</em></p>
+</blockquote>
+<h5 id="vault-cluster-2">
+  <a name="vault-cluster-2" class="anchor" href="#vault-cluster-2">&raquo;</a>
+  Vault Cluster
+</h5>
+<p>The recommended Vault Reference Architecture uses Consul for storage.
+Consul provides the underlying <a href="https://www.consul.io/docs/commands/snapshot.html">snapshot
+functionality</a>
+to support Vault backup and recovery.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

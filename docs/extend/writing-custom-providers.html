@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Terraform providers are easy to create and manage. This guide demonstrates authoring a Terraform provider from scratch.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/extend/writing-custom-providers.html" />
+    <meta property="og:title" content="Writing Custom Providers - Guides - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="Terraform providers are easy to create and manage. This guide demonstrates authoring a Terraform provider from scratch." />
+
+    <title>Writing Custom Providers - Guides - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b19bad99.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-extend-writing-custom-providers" class="layout-extend page-writing-custom-providers-guides">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <ul class="nav docs-sidenav">
+      <li>
+        <a href="/docs/extend/index.html">Extending Terraform</a>
+      </li>
+      <li>
+        <a href="/docs/extend/how-terraform-works.html">How Terraform Works</a>
+      </li>
+      <li>
+        <a href="/docs/extend/plugin-types.html">Plugin Types</a>
+      </li>
+      <li class="active">
+        <!-- possibly make this "Guides" and collect some? -->
+        <a href="/docs/extend/writing-custom-providers.html">Writing Custom Providers</a>
+      </li>
+
+      <li>
+        <a href="/docs/extend/schemas/index.html">Schemas</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/schemas/schema-types.html">Schema Types</a>
+          </li>
+          <li>
+            <a href="/docs/extend/schemas/schema-behaviors.html">Schema Behaviors</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/docs/extend/resources.html">Resources</a>
+      </li>
+      <li>
+        <a href="/docs/extend/best-practices/index.html">Best Practices</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/best-practices/deprecations.html">Deprecations, Removals, and Renames</a>
+          </li>
+
+          <li>
+            <a href="/docs/extend/best-practices/detecting-drift.html">Detecting Drift</a>
+          </li>
+
+          <li>
+            <a href="/docs/extend/best-practices/testing.html">Testing Patterns</a>
+          </li>
+
+          <li>
+            <a href="/docs/extend/best-practices/versioning.html">Versioning and Changelog</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/extend/testing/index.html">Testing</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/testing/acceptance-tests/index.html">Acceptance Tests</a>
+          </li>
+          <li>
+            <a href="/docs/extend/testing/unit-testing.html">Unit Testing</a>
+          </li>
+          <!--
+          <li>
+            <a href="/docs/extend/testing/testing-patterns.html">Resource Test Patterns</a>
+          </li>
+          -->
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/extend/community/index.html">Community</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/community/contributing.html">Contributing</a>
+          </li>
+          <li>
+            <a href="/docs/extend/community/code-of-conduct.html">Code of Conduct</a>
+          </li>
+          <li>
+            <a href="/docs/extend/community/events/index.html">Events</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/extend/community/events/2018/fall-gardening.html">Gardening - Fall 2018</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/extend/community/maintainers.html">Maintainers</a>
+          </li>
+        </ul>
+      </li>
+
+      <hr>
+
+      <li>
+        <a class="back" href="/docs/internals/index.html">Terraform Internals</a>
+      </li>
+      <li>
+        <a class="back" href="/guides/terraform-provider-development-program.html">Terraform Provider Development Program</a>
+      </li>
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="writing-custom-providers">
+  <a name="writing-custom-providers" class="anchor" href="#writing-custom-providers">&raquo;</a>
+  Writing Custom Providers
+</h1>
+<p>In Terraform, a Provider is the logical abstraction of an upstream API. This
+guide details how to build a custom provider for Terraform.</p>
+<div class="alert alert-warning" role="alert">
+<p>NOTE: This guide details steps to author code and compile a working Provider.
+It omits many implementation details in order to get developers going with
+coding an example Provider and executing it with Terraform. Please refer to the
+rest of the <a href="/docs/extend/index.html">Extending Terraform</a> for a more complete
+reference on authoring Providers and Resources.</p>
+</div>
+<h2 id="why-">
+  <a name="why-" class="anchor" href="#why-">&raquo;</a>
+  Why?
+</h2>
+<p>There are a few possible reasons for authoring a custom Terraform provider, such
+as:</p>
+
+<ul>
+<li><p>An internal private cloud whose functionality is either proprietary or would
+not benefit the open source community.</p>
+</li>
+<li><p>A &quot;work in progress&quot; provider being tested locally before contributing back.</p>
+</li>
+<li><p>Extensions of an existing provider</p>
+</li>
+</ul>
+<h2 id="local-setup">
+  <a name="local-setup" class="anchor" href="#local-setup">&raquo;</a>
+  Local Setup
+</h2>
+<p>Terraform supports a plugin model, and all providers are actually plugins.
+Plugins are distributed as Go binaries. Although technically possible to write a
+plugin in another language, almost all Terraform plugins are written in
+<a href="https://golang.org">Go</a>. For more information on installing and configuring Go,
+please visit the <a href="https://golang.org/doc/install">Golang installation guide</a>.</p>
+<p>This post assumes familiarity with Golang and basic programming concepts.</p>
+<p>As a reminder, all of Terraform&#39;s core providers are open source. When stuck or
+looking for examples, please feel free to reference
+<a href="https://github.com/terraform-providers">the open source providers</a> for help.</p>
+<h2 id="the-provider-schema">
+  <a name="the-provider-schema" class="anchor" href="#the-provider-schema">&raquo;</a>
+  The Provider Schema
+</h2>
+<p>To start, create a file named <code>provider.go</code>. This is the root of the provider
+and should include the following boilerplate code:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+        </span><span class="s">"github.com/hashicorp/terraform/helper/schema"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">Provider</span><span class="p">()</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Provider</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="o">&amp;</span><span class="n">schema</span><span class="o">.</span><span class="n">Provider</span><span class="p">{</span><span class="x">
+                </span><span class="n">ResourcesMap</span><span class="o">:</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="p">{},</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>The
+<a href="https://godoc.org/github.com/hashicorp/terraform/helper/schema"><code>helper/schema</code></a>
+library is part of <a href="/docs/extend/how-terraform-works.html#terraform-core">Terraform
+Core</a>. It abstracts many
+of the complexities and ensures consistency between providers. The example above
+defines an empty provider (there are no <em>resources</em>).</p>
+<p>The <code>*schema.Provider</code> type describes the provider&#39;s properties including:</p>
+
+<ul>
+<li>the configuration keys it accepts
+</li>
+<li>the resources it supports
+</li>
+<li>any callbacks to configure
+</li>
+</ul>
+<h2 id="building-the-plugin">
+  <a name="building-the-plugin" class="anchor" href="#building-the-plugin">&raquo;</a>
+  Building the Plugin
+</h2>
+<p>Go requires a <code>main.go</code> file, which is the default executable when the binary is
+built. Since Terraform plugins are distributed as Go binaries, it is important
+to define this entry-point with the following code:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+        </span><span class="s">"github.com/hashicorp/terraform/plugin"</span><span class="x">
+        </span><span class="s">"github.com/hashicorp/terraform/terraform"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">plugin</span><span class="o">.</span><span class="n">Serve</span><span class="p">(</span><span class="o">&amp;</span><span class="n">plugin</span><span class="o">.</span><span class="n">ServeOpts</span><span class="p">{</span><span class="x">
+                </span><span class="n">ProviderFunc</span><span class="o">:</span><span class="x"> </span><span class="k">func</span><span class="p">()</span><span class="x"> </span><span class="n">terraform</span><span class="o">.</span><span class="n">ResourceProvider</span><span class="x"> </span><span class="p">{</span><span class="x">
+                        </span><span class="k">return</span><span class="x"> </span><span class="n">Provider</span><span class="p">()</span><span class="x">
+                </span><span class="p">},</span><span class="x">
+        </span><span class="p">})</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>This establishes the main function to produce a valid, executable Go binary. The
+contents of the main function consume Terraform&#39;s <code>plugin</code> library. This library
+deals with all the communication between Terraform core and the plugin.</p>
+<p>Next, build the plugin using the Go toolchain:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>go build <span class="nt">-o</span> terraform-provider-example
+</code></pre></div><p>The output name (<code>-o</code>) is <strong>very important</strong>. Terraform searches for plugins in
+the format of:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>terraform-&lt;TYPE&gt;-&lt;NAME&gt;
+</code></pre></div><p>In the case above, the plugin is of type &quot;provider&quot; and of name &quot;example&quot;.</p>
+<p>To verify things are working correctly, execute the binary just created:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>./terraform-provider-example
+This binary is a plugin. These are not meant to be executed directly.
+Please execute the program that consumes these plugins, which will
+load any plugins automatically
+</code></pre></div><p>This is the basic project structure and scaffolding for a Terraform plugin. To
+recap, the file structure is:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>.
+├── main.go
+└── provider.go
+</code></pre></div><h2 id="defining-resources">
+  <a name="defining-resources" class="anchor" href="#defining-resources">&raquo;</a>
+  Defining Resources
+</h2>
+<p>Terraform providers manage resources. A provider is an abstraction of an
+upstream API, and a resource is a component of that provider. As an example, the
+AWS provider supports <code>aws_instance</code> and <code>aws_elastic_ip</code>. DNSimple supports
+<code>dnsimple_record</code>. Fastly supports <code>fastly_service</code>. Let&#39;s add a resource to our
+fictitious provider.</p>
+<p>As a general convention, Terraform providers put each resource in their own
+file, named after the resource, prefixed with <code>resource_</code>. To create an
+<code>example_server</code>, this would be <code>resource_server.go</code> by convention:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+        </span><span class="s">"github.com/hashicorp/terraform/helper/schema"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">resourceServer</span><span class="p">()</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="o">&amp;</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="p">{</span><span class="x">
+                </span><span class="n">Create</span><span class="o">:</span><span class="x"> </span><span class="n">resourceServerCreate</span><span class="p">,</span><span class="x">
+                </span><span class="n">Read</span><span class="o">:</span><span class="x">   </span><span class="n">resourceServerRead</span><span class="p">,</span><span class="x">
+                </span><span class="n">Update</span><span class="o">:</span><span class="x"> </span><span class="n">resourceServerUpdate</span><span class="p">,</span><span class="x">
+                </span><span class="n">Delete</span><span class="o">:</span><span class="x"> </span><span class="n">resourceServerDelete</span><span class="p">,</span><span class="x">
+
+                </span><span class="n">Schema</span><span class="o">:</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Schema</span><span class="p">{</span><span class="x">
+                        </span><span class="s">"address"</span><span class="o">:</span><span class="x"> </span><span class="o">&amp;</span><span class="n">schema</span><span class="o">.</span><span class="n">Schema</span><span class="p">{</span><span class="x">
+                                </span><span class="n">Type</span><span class="o">:</span><span class="x">     </span><span class="n">schema</span><span class="o">.</span><span class="n">TypeString</span><span class="p">,</span><span class="x">
+                                </span><span class="n">Required</span><span class="o">:</span><span class="x"> </span><span class="no">true</span><span class="p">,</span><span class="x">
+                        </span><span class="p">},</span><span class="x">
+                </span><span class="p">},</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span></code></pre></div><p>This uses the
+<a href="https://godoc.org/github.com/hashicorp/terraform/helper/schema#Resource"><code>schema.Resource</code> type</a>.
+This structure defines the data schema and CRUD operations for the resource.
+Defining these properties are the only required thing to create a resource.</p>
+<p>The schema above defines one element, <code>&quot;address&quot;</code>, which is a required string.
+Terraform&#39;s schema automatically enforces validation and type casting.</p>
+<p>Next there are four &quot;fields&quot; defined - <code>Create</code>, <code>Read</code>, <code>Update</code>, and <code>Delete</code>.
+The <code>Create</code>, <code>Read</code>, and <code>Delete</code> functions are required for a resource to be
+functional. There are other functions, but these are the only required ones.
+Terraform itself handles which function to call and with what data. Based on the
+schema and current state of the resource, Terraform can determine whether it
+needs to create a new resource, update an existing one, or destroy.</p>
+<p>Each of the four struct fields point to a function. While it is technically
+possible to inline all functions in the resource schema, best practice dictates
+pulling each function into its own method. This optimizes for both testing and
+readability. Fill in those stubs now, paying close attention to method
+signatures.</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">resourceServerCreate</span><span class="p">(</span><span class="n">d</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceData</span><span class="p">,</span><span class="x"> </span><span class="n">m</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">resourceServerRead</span><span class="p">(</span><span class="n">d</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceData</span><span class="p">,</span><span class="x"> </span><span class="n">m</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">resourceServerUpdate</span><span class="p">(</span><span class="n">d</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceData</span><span class="p">,</span><span class="x"> </span><span class="n">m</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">resourceServerDelete</span><span class="p">(</span><span class="n">d</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceData</span><span class="p">,</span><span class="x"> </span><span class="n">m</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>Lastly, update the provider schema in <code>provider.go</code> to register this new resource.</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">Provider</span><span class="p">()</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Provider</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="o">&amp;</span><span class="n">schema</span><span class="o">.</span><span class="n">Provider</span><span class="p">{</span><span class="x">
+                </span><span class="n">ResourcesMap</span><span class="o">:</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">Resource</span><span class="p">{</span><span class="x">
+                        </span><span class="s">"example_server"</span><span class="o">:</span><span class="x"> </span><span class="n">resourceServer</span><span class="p">(),</span><span class="x">
+                </span><span class="p">},</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>Build and test the plugin. Everything should compile as-is, although all
+operations are a no-op.</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>go build <span class="nt">-o</span> terraform-provider-example
+
+<span class="nv">$ </span>./terraform-provider-example
+This binary is a plugin. These are not meant to be executed directly.
+Please execute the program that consumes these plugins, which will
+load any plugins automatically
+</code></pre></div><p>The layout now looks like this:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>.
+├── main.go
+├── provider.go
+├── resource_server.go
+└── terraform-provider-example
+</code></pre></div><h2 id="invoking-the-provider">
+  <a name="invoking-the-provider" class="anchor" href="#invoking-the-provider">&raquo;</a>
+  Invoking the Provider
+</h2>
+<p>Previous sections showed running the provider directly via the shell, which
+outputs a warning message like:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>This binary is a plugin. These are not meant to be executed directly.
+Please execute the program that consumes these plugins, which will
+load any plugins automatically
+</code></pre></div><p>Terraform plugins should be executed by Terraform directly. To test this, create
+a <code>main.tf</code> in the working directory (the same place where the plugin exists).</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"example_server"</span> <span class="s2">"my-server"</span> <span class="p">{}</span>
+</code></pre></div><p>Terraform automatically discovers the Providers when it parses configuration
+files. This only occurs when the <code>init</code> command is executed. Terraform will
+search for matching Providers via a
+<a href="https://www.terraform.io/docs/extend/how-terraform-works.html#discovery"><strong>Discovery</strong></a>
+process, including the current local directory. Run <code>terraform init</code> to discover
+our newly compiled Provider:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform init
+
+Initializing provider plugins...
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+</code></pre></div><p>Now execute <code>terraform plan</code>:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform plan
+
+1 error(s) occurred:
+
+* example_server.my-server: "address": required field is not set
+</code></pre></div><p>This validates Terraform is correctly delegating work to our plugin and that our
+validation is working as intended. Fix the validation error by adding an
+<code>address</code> field to the resource:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"example_server"</span> <span class="s2">"my-server"</span> <span class="p">{</span>
+  <span class="n">address</span> <span class="o">=</span> <span class="s2">"1.2.3.4"</span>
+<span class="p">}</span>
+</code></pre></div><p>Execute <code>terraform plan</code> to verify the validation is passing:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  + example_server.my-server
+      id:      &lt;computed&gt;
+      address: "1.2.3.4"
+
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+</code></pre></div><p>It is possible to run <code>terraform apply</code>, but it will be a no-op because all of
+the resource options currently take no action.</p>
+<h2 id="implement-create">
+  <a name="implement-create" class="anchor" href="#implement-create">&raquo;</a>
+  Implement Create
+</h2>
+<p>Back in <code>resource_server.go</code>, implement the create functionality:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">resourceServerCreate</span><span class="p">(</span><span class="n">d</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceData</span><span class="p">,</span><span class="x"> </span><span class="n">m</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">address</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">d</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"address"</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="x">
+        </span><span class="n">d</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="n">address</span><span class="p">)</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>This uses the <a href="https://godoc.org/github.com/hashicorp/terraform/helper/schema#ResourceData"><code>schema.ResourceData
+API</code></a>
+to get the value of <code>&quot;address&quot;</code> provided by the user in the Terraform
+configuration. Due to the way Go works, we have to typecast it to string. This
+is a safe operation, however, since our schema guarantees it will be a string
+type.</p>
+<p>Next, it uses <code>SetId</code>, a built-in function, to set the ID of the resource to the
+address. The existence of a non-blank ID is what tells Terraform that a resource
+was created. This ID can be any string value, but should be a value that can be
+used to read the resource again.</p>
+<p>Finally, we must recompile the binary and instruct Terraform to reinitialize it
+by rerunning <code>terraform init</code>. This is only necessary because we have modified
+the code and recompiled the binary, and it no longer matches an internal hash
+Terraform uses to ensure the same binaries are used for each operation.</p>
+<p>Run <code>terraform init</code>, and then run <code>terraform plan</code>.</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>go build <span class="nt">-o</span> terraform-provider-example
+<span class="nv">$ </span>terraform init
+<span class="c"># ...</span>
+</code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>$ terraform plan
+
++ example_server.my-server
+    address: "1.2.3.4"
+
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+</code></pre></div><p>Terraform will ask for confirmation when you run <code>terraform apply</code>. Enter <code>yes</code>
+to create your example server and commit it to state:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform apply
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  + example_server.my-server
+      id:      &lt;computed&gt;
+      address: "1.2.3.4"
+
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+example_server.my-server: Creating...
+  address: "" =&gt; "1.2.3.4"
+example_server.my-server: Creation complete after 0s (ID: 1.2.3.4)
+</code></pre></div><p>Since the <code>Create</code> operation used <code>SetId</code>, Terraform believes the resource created successfully. Verify this by running <code>terraform plan</code>.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform plan
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+example_server.my-server: Refreshing state... (ID: 1.2.3.4)
+
+------------------------------------------------------------------------
+
+No changes. Infrastructure is up-to-date.
+
+This means that Terraform did not detect any differences between your
+configuration and real physical resources that exist. As a result, no
+actions need to be performed.
+</code></pre></div><p>Again, because of the call to <code>SetId</code>, Terraform believes the resource was
+created. When running <code>plan</code>, Terraform properly determines there are no changes
+to apply.</p>
+<p>To verify this behavior, change the value of the <code>address</code> field and run
+<code>terraform plan</code> again. You should see output like this:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform plan
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+example_server.my-server: Refreshing state... (ID: 1.2.3.4)
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  ~ example_server.my-server
+      address: "1.2.3.4" =&gt; "5.6.7.8"
+
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
+</code></pre></div><p>Terraform detects the change and displays a diff with a <code>~</code> prefix, noting the
+resource will be modified in place, rather than created new.</p>
+<p>Run <code>terraform apply</code> to apply the changes. Terraform will again prompt for
+confirmation:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform apply
+example_server.my-server: Refreshing state... (ID: 1.2.3.4)
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  ~ example_server.my-server
+      address: "1.2.3.4" =&gt; "5.6.7.8"
+
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+example_server.my-server: Modifying... (ID: 1.2.3.4)
+  address: "1.2.3.4" =&gt; "5.6.7.8"
+example_server.my-server: Modifications complete after 0s (ID: 1.2.3.4)
+
+Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
+</code></pre></div><p>Since we did not implement the <code>Update</code> function, you would expect the
+<code>terraform plan</code> operation to report changes, but it does not! How were our
+changes persisted without the <code>Update</code> implementation?</p>
+<h2 id="error-handling-amp-partial-state">
+  <a name="error-handling-amp-partial-state" class="anchor" href="#error-handling-amp-partial-state">&raquo;</a>
+  Error Handling &amp; Partial State
+</h2>
+<p>Previously our <code>Update</code> operation succeeded and persisted the new state with an
+empty function definition. Recall the current update function:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">resourceServerUpdate</span><span class="p">(</span><span class="n">d</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceData</span><span class="p">,</span><span class="x"> </span><span class="n">m</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>The <code>return nil</code> tells Terraform that the update operation succeeded without
+error. Terraform assumes this means any changes requested applied without error.
+Because of this, our state updated and Terraform believes there are no further
+changes.</p>
+<p>To say it another way: if a callback returns no error, Terraform automatically
+assumes the entire diff successfully applied, merges the diff into the final
+state, and persists it.</p>
+<p>Functions should <em>never</em> intentionally <code>panic</code> or call <code>os.Exit</code> - always return
+an error.</p>
+<p>In reality, it is a bit more complicated than this. Imagine the scenario where
+our update function has to update two separate fields which require two separate
+API calls. What do we do if the first API call succeeds but the second fails?
+How do we properly tell Terraform to only persist half the diff? This is known
+as a <em>partial state</em> scenario, and implementing these properly is critical to a
+well-behaving provider.</p>
+<p>Here are the rules for state updating in Terraform. Note that this mentions
+callbacks we have not discussed, for the sake of completeness.</p>
+
+<ul>
+<li><p>If the <code>Create</code> callback returns with or without an error without an ID set
+using <code>SetId</code>, the resource is assumed to not be created, and no state is
+saved.</p>
+</li>
+<li><p>If the <code>Create</code> callback returns with or without an error and an ID has been
+set, the resource is assumed created and all state is saved with it. Repeating
+because it is important: if there is an error, but the ID is set, the state is
+fully saved.</p>
+</li>
+<li><p>If the <code>Update</code> callback returns with or without an error, the full state is
+saved. If the ID becomes blank, the resource is destroyed (even within an
+update, though this shouldn&#39;t happen except in error scenarios).</p>
+</li>
+<li><p>If the <code>Destroy</code> callback returns without an error, the resource is assumed to
+be destroyed, and all state is removed.</p>
+</li>
+<li><p>If the <code>Destroy</code> callback returns with an error, the resource is assumed to
+still exist, and all prior state is preserved.</p>
+</li>
+<li><p>If partial mode (covered next) is enabled when a create or update returns,
+only the explicitly enabled configuration keys are persisted, resulting in a
+partial state.</p>
+</li>
+</ul>
+<p><em>Partial mode</em> is a mode that can be enabled by a callback that tells Terraform
+that it is possible for partial state to occur. When this mode is enabled, the
+provider must explicitly tell Terraform what is safe to persist and what is not.</p>
+<p>Here is an example of a partial mode with an update function:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">resourceServerUpdate</span><span class="p">(</span><span class="n">d</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceData</span><span class="p">,</span><span class="x"> </span><span class="n">m</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="c">// Enable partial state mode</span><span class="x">
+        </span><span class="n">d</span><span class="o">.</span><span class="n">Partial</span><span class="p">(</span><span class="no">true</span><span class="p">)</span><span class="x">
+
+        </span><span class="k">if</span><span class="x"> </span><span class="n">d</span><span class="o">.</span><span class="n">HasChange</span><span class="p">(</span><span class="s">"address"</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+                </span><span class="c">// Try updating the address</span><span class="x">
+                </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">updateAddress</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="x"> </span><span class="n">m</span><span class="p">);</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+                        </span><span class="k">return</span><span class="x"> </span><span class="n">err</span><span class="x">
+                </span><span class="p">}</span><span class="x">
+
+                </span><span class="n">d</span><span class="o">.</span><span class="n">SetPartial</span><span class="p">(</span><span class="s">"address"</span><span class="p">)</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+
+        </span><span class="c">// If we were to return here, before disabling partial mode below,</span><span class="x">
+        </span><span class="c">// then only the "address" field would be saved.</span><span class="x">
+
+        </span><span class="c">// We succeeded, disable partial mode. This causes Terraform to save</span><span class="x">
+        </span><span class="c">// all fields again.</span><span class="x">
+        </span><span class="n">d</span><span class="o">.</span><span class="n">Partial</span><span class="p">(</span><span class="no">false</span><span class="p">)</span><span class="x">
+
+        </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>Note - this code will not compile since there is no <code>updateAddress</code> function.
+You can implement a dummy version of this function to play around with partial
+state. For this example, partial state does not mean much in this documentation
+example. If <code>updateAddress</code> were to fail, then the address field would not be
+updated.</p>
+<h2 id="implementing-destroy">
+  <a name="implementing-destroy" class="anchor" href="#implementing-destroy">&raquo;</a>
+  Implementing Destroy
+</h2>
+<p>The <code>Destroy</code> callback is exactly what it sounds like - it is called to destroy
+the resource. This operation should never update any state on the resource. It
+is not necessary to call <code>d.SetId(&quot;&quot;)</code>, since any non-error return value assumes
+the resource was deleted successfully.</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">resourceServerDelete</span><span class="p">(</span><span class="n">d</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceData</span><span class="p">,</span><span class="x"> </span><span class="n">m</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+  </span><span class="c">// d.SetId("") is automatically called assuming delete returns no errors, but</span><span class="x">
+  </span><span class="c">// it is added here for explicitness.</span><span class="x">
+        </span><span class="n">d</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="s">""</span><span class="p">)</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>The destroy function should always handle the case where the resource might
+already be destroyed (manually, for example). If the resource is already
+destroyed, this should not return an error. This allows Terraform users to
+manually delete resources without breaking Terraform. Recompile and reinitialize
+the Provider:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>go build <span class="nt">-o</span> terraform-provider-example
+<span class="nv">$ </span>terraform init
+<span class="c">#...</span>
+</code></pre></div><p>Run <code>terraform destroy</code> to destroy the resource.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform destroy
+example_server.my-server: Refreshing state... (ID: 5.6.7.8)
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  - example_server.my-server
+
+
+Plan: 0 to add, 0 to change, 1 to destroy.
+
+Do you really want to destroy?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+example_server.my-server: Destroying... (ID: 5.6.7.8)
+example_server.my-server: Destruction complete after 0s
+
+Destroy complete! Resources: 1 destroyed.
+</code></pre></div><h2 id="implementing-read">
+  <a name="implementing-read" class="anchor" href="#implementing-read">&raquo;</a>
+  Implementing Read
+</h2>
+<p>The <code>Read</code> callback is used to sync the local state with the actual state
+(upstream). This is called at various points by Terraform and should be a
+read-only operation. This callback should never modify the real resource.</p>
+<p>If the ID is updated to blank, this tells Terraform the resource no longer
+exists (maybe it was destroyed out of band). Just like the destroy callback, the
+<code>Read</code> function should gracefully handle this case.</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">resourceServerRead</span><span class="p">(</span><span class="n">d</span><span class="x"> </span><span class="o">*</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceData</span><span class="p">,</span><span class="x"> </span><span class="n">m</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+  </span><span class="n">client</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">m</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">MyClient</span><span class="p">)</span><span class="x">
+
+  </span><span class="c">// Attempt to read from an upstream API</span><span class="x">
+  </span><span class="n">obj</span><span class="p">,</span><span class="x"> </span><span class="n">ok</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">Id</span><span class="p">())</span><span class="x">
+
+  </span><span class="c">// If the resource does not exist, inform Terraform. We want to immediately</span><span class="x">
+  </span><span class="c">// return here to prevent further processing.</span><span class="x">
+  </span><span class="k">if</span><span class="x"> </span><span class="o">!</span><span class="n">ok</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">d</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="s">""</span><span class="p">)</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+  </span><span class="p">}</span><span class="x">
+
+  </span><span class="n">d</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="s">"address"</span><span class="p">,</span><span class="x"> </span><span class="n">obj</span><span class="o">.</span><span class="n">Address</span><span class="p">)</span><span class="x">
+  </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><h2 id="next-steps">
+  <a name="next-steps" class="anchor" href="#next-steps">&raquo;</a>
+  Next Steps
+</h2>
+<p>This guide covers the schema and structure for implementing a Terraform provider
+using the provider framework. As next steps, reference the internal providers
+for examples. Terraform also includes a full framework for testing providers.</p>
+<h2 id="general-rules">
+  <a name="general-rules" class="anchor" href="#general-rules">&raquo;</a>
+  General Rules
+</h2>
+<h3 id="dedicated-upstream-libraries">
+  <a name="dedicated-upstream-libraries" class="anchor" href="#dedicated-upstream-libraries">&raquo;</a>
+  Dedicated Upstream Libraries
+</h3>
+<p>One of the biggest mistakes new users make is trying to conflate a client
+library with the Terraform implementation. Terraform should always consume an
+independent client library which implements the core logic for communicating
+with the upstream. Do not try to implement this type of logic in the provider
+itself.</p>
+<h3 id="data-sources">
+  <a name="data-sources" class="anchor" href="#data-sources">&raquo;</a>
+  Data Sources
+</h3>
+<p>While not explicitly discussed here, <em>data sources</em> are a special subset of
+resources which are read-only. They are resolved earlier than regular resources
+and can be used as part of Terraform&#39;s interpolation.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

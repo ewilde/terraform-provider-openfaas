@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Terraform by HashiCorp">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/enterprise/private/faq.html" />
+    <meta property="og:title" content="Private Terraform Enterprise FAQ - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="Terraform by HashiCorp" />
+
+    <title>Private Terraform Enterprise FAQ - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b19bad99.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-enterprise2-private-faq" class="layout-enterprise2 page-private-terraform-enterprise-faq">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <ul class="nav docs-sidenav">
+      <li>
+        <a class="back" href="/docs/index.html">Documentation Home</a>
+      </li>
+
+      <li>
+        <a class="back" href="/docs/enterprise/index.html">Terraform Enterprise</a>
+      </li>
+
+      <li>
+        <a class="back" href="/docs/enterprise-legacy/index.html">Terraform Enterprise (legacy)</a>
+      </li>
+
+      <hr>
+
+      <li>
+        <a href="/docs/enterprise/getting-started/index.html">Getting Started</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/getting-started/access.html">Accessing TFE</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/getting-started/vcs.html">Configuring VCS Access</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/getting-started/workspaces.html">Creating Workspaces</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/getting-started/runs.html">Running Terraform</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/migrate/index.html">Migrating from Open Source</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/migrate/workspaces.html">Migrating Multiple Workspaces</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/upgrade/index.html">Upgrading</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/upgrade/batch.html">Batch migration</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/upgrade/differences.html">Current vs. Legacy</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/vcs/index.html">VCS Integration</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/vcs/github.html">Github</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/vcs/github-enterprise.html">Github Enterprise</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/vcs/gitlab-com.html">GitLab.com</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/vcs/gitlab-eece.html">GitLab EE and CE</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/vcs/bitbucket-cloud.html">Bitbucket Cloud</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/vcs/bitbucket-server.html">Bitbucket Server</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/vcs/troubleshooting.html">Troubleshooting</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/workspaces/index.html">Workspaces</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/workspaces/naming.html">Naming</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/workspaces/creating.html">Creating Workspaces</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/workspaces/access.html">Managing Access</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/workspaces/repo-structure.html">Repo Structure</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/workspaces/settings.html">Settings</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/workspaces/variables.html">Variables</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/workspaces/ssh-keys.html">SSH Keys for Modules</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/run/index.html">Terraform Runs</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/run/states.html">Run States and Stages</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/run/ui.html">UI/VCS-driven Runs</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/run/api.html">API-driven Runs</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/run/cli.html">CLI-driven Runs</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/run/install-software.html">Installing Software</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/registry/index.html">Private Module Registry</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/registry/using.html">Using Private Modules</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/registry/publish.html">Publishing Private Modules</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/registry/design.html">Configuration Designer</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/users-teams-organizations/index.html">Users, Teams, Organizations</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/users-teams-organizations/users.html">Users</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/users-teams-organizations/teams.html">Teams</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/users-teams-organizations/organizations.html">Organizations</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/users-teams-organizations/permissions.html">Permissions</a>
+          </li>
+          <li>
+          <a href="/docs/enterprise/users-teams-organizations/2fa.html">Two-factor Authentication</a>
+        </li>
+          <li>
+            <a href="/docs/enterprise/users-teams-organizations/service-accounts.html">Service Accounts</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/enterprise/sentinel/index.html">Sentinel</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/sentinel/manage-policies.html">Manage Policies</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/sentinel/integrate-vcs.html">Integrate with VCS</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/sentinel/enforce.html">Enforce and Override Policies</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/sentinel/import/index.html">Defining Policies</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/enterprise/sentinel/import/tfplan.html">import: tfplan</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/sentinel/import/tfconfig.html">import: tfconfig</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/sentinel/import/tfstate.html">import: tfstate</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/enterprise/sentinel/examples.html">Example Policies</a>
+          </li>
+        </ul>
+      </li>
+
+      <hr>
+
+      <li class="active">
+        <a href="/docs/enterprise/private/index.html">Private Terraform Enterprise</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/private/reference-architecture-installer.html">Reference Architecture (Installer)</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/enterprise/private/aws-setup-guide.html">AWS Reference Architecture</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/azure-setup-guide.html">Azure Reference Architecture</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/gcp-setup-guide.html">GCP Reference Architecture</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/vmware-setup-guide.html">VMware Reference Architecture</a>
+              </li>
+            </ul>
+          <li>
+            <a href="/docs/enterprise/private/install-installer.html">Installation (Installer)</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/enterprise/private/install-installer.html">Installation</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/migrate.html">Migrate from AMI</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/rhel-install-guide.html">RedHat Enterprise Linux Install Guide</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/centos-install-guide.html">CentOS Linux Install Guide</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/minio-setup-guide.html">Minio Setup Guide</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/automating-the-installer.html">Automated Installation</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/upgrades.html">Upgrades</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/vault.html">External Vault</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/automated-recovery.html">Automated Recovery</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/install-ami.html">Installation (AMI)</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/config.html">Configuration</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/admin/index.html">Administration</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/enterprise/private/admin/general.html">General Settings</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/admin/integration.html">Integration Settings</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/private/admin/resources.html">Managing Accounts &amp; Resources</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/enterprise/saml/index.html">SAML SSO</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/enterprise/saml/configuration.html">Configuration</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/saml/team-membership.html">Team Membership</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/saml/attributes.html">Attributes</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/saml/login.html">Login</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/saml/identity-provider-configuration.html">Identity Provider Configuration</a>
+                <ul class="nav">
+                  <li>
+                    <a href="/docs/enterprise/saml/identity-provider-configuration-onelogin.html">OneLogin</a>
+                  </li>
+                  <li>
+                    <a href="/docs/enterprise/saml/identity-provider-configuration-adfs.html">ADFS</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/docs/enterprise/saml/troubleshooting.html">Troubleshooting</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/reliability-availability.html">Reliability &amp; Availability</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/data-security.html">Data Security</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/logging.html">Logging</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/private/diagnostics.html">Diagnostics</a>
+          </li>
+          <li class="active">
+            <a href="/docs/enterprise/private/faq.html">FAQs</a>
+          </li>
+        </ul>
+      </li>
+
+      <hr>
+
+      <li>
+        <a href="/docs/enterprise/api/index.html">API</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/api/account.html">Account</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/applies.html">Applies</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/configuration-versions.html">Configuration Versions</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/oauth-clients.html">OAuth Clients</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/oauth-tokens.html">OAuth Tokens</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/organizations.html">Organizations</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/organization-tokens.html">Organization Tokens</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/plans.html">Plans</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/policies.html">Policies</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/policy-checks.html">Policy Checks</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/modules.html">Registry Modules</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/run.html">Runs</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/ssh-keys.html">SSH Keys</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/state-versions.html">State Versions</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/team-access.html">Team Access</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/team-members.html">Team Membership</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/team-tokens.html">Team Tokens</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/teams.html">Teams</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/variables.html">Variables</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/workspaces.html">Workspaces</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/api/admin/index.html">Admin</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/enterprise/api/admin/organizations.html">Organizations</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/api/admin/runs.html">Runs</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/api/admin/settings.html">Settings</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/api/admin/terraform-versions.html">Terraform Versions</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/api/admin/users.html">Users</a>
+              </li>
+              <li>
+                <a href="/docs/enterprise/api/admin/workspaces.html">Workspaces</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="private-terraform-enterprise-frequently-asked-questions">
+  <a name="private-terraform-enterprise-frequently-asked-questions" class="anchor" href="#private-terraform-enterprise-frequently-asked-questions">&raquo;</a>
+  Private Terraform Enterprise Frequently Asked Questions
+</h1>
+<p>This page provides answers to many common questions about Private Terraform Enterprise.</p>
+<h2 id="general-faq">
+  <a name="general-faq" class="anchor" href="#general-faq">&raquo;</a>
+  General FAQ
+</h2>
+
+<ol>
+<li><a href="#support-for-private-terraform-enterprise">Support</a>
+</li>
+<li><a href="#managing-tool-versions">Managing Tool Versions</a>
+</li>
+<li><a href="#migrating-from-terraform-enterprise-saas">Migration from SaaS-based Terraform Enterprise</a>
+</li>
+<li><a href="#outbound-access">Outbound Access</a>
+</li>
+</ol>
+<h2 id="ami-faq">
+  <a name="ami-faq" class="anchor" href="#ami-faq">&raquo;</a>
+  AMI FAQ
+</h2>
+<div class="alert alert-danger" role="alert">
+<p><strong>Deprecation warning</strong>: The AMI will no longer be actively developed as of 201808-1 and will be fully decommissioned on November 30, 2018. Please see our <a href="/docs/enterprise/private/migrate.html">Migration Guide</a> for instructions to migrate to the new Private Terraform Enterprise Installer.</p>
+</div>
+
+<ol>
+<li><a href="#about-the-private-terraform-enterprise-ami">About the AMI</a>
+</li>
+<li><a href="#ami-ids">AMI IDs</a>
+</li>
+<li><a href="#additional-configuration-info">Additional Configuration Info</a>
+</li>
+<li><a href="#migrating-from-a-legacy-terraform-enterprise-installation">Upgrade Information</a>
+</li>
+<li><a href="#network-access">Required Network Access</a>
+</li>
+<li><a href="#storing-terraform-enterprise-state">Managing the Terraform State of the Install Process</a>
+</li>
+<li><a href="#private-terraform-enterprise-architecture">Private Terraform Enterprise Architecture</a>
+</li>
+<li><a href="#advanced-terraform">Advanced Terraform</a>
+</li>
+<li><a href="#rekeying-vault">Rekeying the Vault instance used by Private Terraform Enterprise</a>
+</li>
+<li><a href="#minimum-viable-iam-access-policy">Minimum Viable IAM Access Policy</a>
+</li>
+</ol>
+
+<hr/>
+<h2 id="support-for-private-terraform-enterprise">
+  <a name="support-for-private-terraform-enterprise" class="anchor" href="#support-for-private-terraform-enterprise">&raquo;</a>
+  Support for Private Terraform Enterprise
+</h2>
+<p>If some aspect of Private Terraform Enterprise is not working as
+expected, please reach out to support for help.</p>
+<h3 id="email">
+  <a name="email" class="anchor" href="#email">&raquo;</a>
+  Email
+</h3>
+<p>You can engage HashiCorp support via the web portal at <a href="https://support.hashicorp.com">https://support.hashicorp.com</a> or
+by email at <a href="mailto:support@hashicorp.com">support@hashicorp.com</a>. Please make sure
+to use your organization email (not your personal email) when contacting us so
+we can associate the support request with your organization and expedite our
+response.</p>
+<h3 id="diagnostics">
+  <a name="diagnostics" class="anchor" href="#diagnostics">&raquo;</a>
+  Diagnostics
+</h3>
+<p>For most technical issues, HashiCorp support will ask you to include diagnostic
+information in your support request. To ensure the required information is included,
+PTFE has the ability to automatically generate a support bundle including logs and configuration details.</p>
+
+<ul>
+<li><a href="/docs/enterprise/private/diagnostics.html#ami-based-installs">AMI-based instance bundle generation</a>
+</li>
+<li><a href="/docs/enterprise/private/diagnostics.html#installer-based-instances">Installer-based instance bundle generation</a>
+</li>
+</ul>
+<h2 id="managing-tool-versions">
+  <a name="managing-tool-versions" class="anchor" href="#managing-tool-versions">&raquo;</a>
+  Managing Tool Versions
+</h2>
+<p>Terraform Enterprise has a control panel that allows admins to manage the versions of Terraform and Packer and their download locations.</p>
+<p>In older Terraform Enterprise installations (prior to 201807-1) this control panel is available at the <code>/admin/tools</code> path or as a link in the sidebar from the general administrative interface at <code>/admin/manager</code>.</p>
+<p><img alt="admin-tools-index" src="/docs/enterprise/private/assets/admin-tools-index-0371b56e.png" /></p>
+<p>Here you&#39;ll find a list of Packer and Terraform versions as well as a link to add tool versions. If you click the <code>Edit</code> button on an individual tool version, you&#39;ll see that each version consists of:</p>
+
+<ul>
+<li><strong>Version Number</strong> - will show up in dropdown lists for users to select
+</li>
+<li><strong>Download URL</strong> - must point to a <code>linux-amd64</code> build of the tool
+</li>
+<li><strong>SHA256 Checksum Value</strong> - must match the SHA256 checksum value of the download
+</li>
+</ul>
+<p><img alt="admin-tools-edit" src="/docs/enterprise/private/assets/admin-tools-edit-e71b6585.png" /></p>
+<p>In Terraform Enterprise installations 201807-1 or later, see <a href="/docs/enterprise/private/admin/resources.html#managing-terraform-versions">Managing Tool Versions</a>.</p>
+<h2 id="migrating-from-terraform-enterprise-saas">
+  <a name="migrating-from-terraform-enterprise-saas" class="anchor" href="#migrating-from-terraform-enterprise-saas">&raquo;</a>
+  Migrating from Terraform Enterprise SaaS
+</h2>
+<p>If you are already a user of the Terraform Enterprise SaaS (hereafter &quot;the SaaS&quot;), you may have Environments that you want to migrate over to your new Private Terraform Enterprise installation.</p>
+<p>These instructions assume Terraform 0.9 or greater. See <a href="/docs/backends/legacy-0-8.html">docs on legacy remote state</a> for information on upgrading usage of remote state in prior versions of Terraform.</p>
+<h3 id="prerequisites">
+  <a name="prerequisites" class="anchor" href="#prerequisites">&raquo;</a>
+  Prerequisites
+</h3>
+<p>Have a Terraform Enterprise user API token (&quot;Atlas token&quot;) handy for both Private Terraform Enterprise and the SaaS. The following examples will assume you have these stored in <code>PTFE_ATLAS_TOKEN</code> and <code>SAAS_ATLAS_TOKEN</code>, respectively.</p>
+<h3 id="step-1-connect-local-config-to-saas">
+  <a name="step-1-connect-local-config-to-saas" class="anchor" href="#step-1-connect-local-config-to-saas">&raquo;</a>
+  Step 1: Connect local config to SaaS
+</h3>
+<p>Set up a local copy of your Terraform config that&#39;s connected to the SaaS via a <code>backend</code> block.</p>
+<p>Assuming your environment is located at <code>my-organization/my-environment</code> in the SaaS, in a local copy of the Terraform config, ensure you have a backend configuration like this:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">terraform</span> <span class="p">{</span>
+  <span class="n">backend</span> <span class="s2">"atlas"</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"my-organization/my-environment"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>Assign your SaaS API token to <code>ATLAS_TOKEN</code> and run <code>terraform init</code>:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>export ATLAS_TOKEN=$SAAS_ATLAS_TOKEN
+terraform init
+</code></pre></div><h3 id="step-2-copy-state-locally">
+  <a name="step-2-copy-state-locally" class="anchor" href="#step-2-copy-state-locally">&raquo;</a>
+  Step 2: Copy state locally
+</h3>
+<p>This step fetches the latest copy of the state locally so it can be pushed to Private Terraform Enterprise. First, comment out the <code>backend</code> section of the config:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="c1"># Temporarily commented out to copy state locally</span>
+<span class="c1"># terraform {</span>
+<span class="c1">#   backend "atlas" {</span>
+<span class="c1">#     name = "my-organization/my-environment"</span>
+<span class="c1">#   }</span>
+<span class="c1"># }</span>
+</code></pre></div><p>Then, re-run <code>terraform init</code>:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>terraform init
+</code></pre></div><p>This will cause Terraform to detect the change in backend and ask you if you want to copy the state.</p>
+<p>Type <code>yes</code> to allow the state to be copied locally. Your state should now be present on disk as <code>terraform.tfstate</code>, ready to be uploaded to Private Terraform Enterprise.</p>
+<h3 id="step-3-update-backend-configuration-for-private-terraform-enterprise">
+  <a name="step-3-update-backend-configuration-for-private-terraform-enterprise" class="anchor" href="#step-3-update-backend-configuration-for-private-terraform-enterprise">&raquo;</a>
+  Step 3: Update backend configuration for Private Terraform Enterprise
+</h3>
+<p>Change the backend config to point to the Private Terraform Enterprise installation:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">terraform</span> <span class="p">{</span>
+  <span class="n">backend</span> <span class="s2">"atlas"</span> <span class="p">{</span>
+    <span class="n">address</span> <span class="o">=</span> <span class="s2">"https://tfe.mycompany.example.com"</span> <span class="c1"># the address of your PTFE installation</span>
+    <span class="nb">name</span>    <span class="o">=</span> <span class="s2">"my-organization/my-environment"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>Assign your Private TFE API token to <code>ATLAS_TOKEN</code> and run <code>terraform init</code>:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>export ATLAS_TOKEN=$PTFE_ATLAS_TOKEN
+terraform init
+</code></pre></div><p>You will again be asked if you want to copy the state file. Type <code>yes</code> and the state will be uploaded to your Private Terraform Enterprise installation.</p>
+
+<hr/>
+<h2 id="outbound-access">
+  <a name="outbound-access" class="anchor" href="#outbound-access">&raquo;</a>
+  Outbound Access
+</h2>
+<p>This is a list of hostnames that the product connects to and should be available for egress:</p>
+
+<ul>
+<li>releases.hashicorp.com
+
+<ul>
+<li>This egress is not required if a <a href="/docs/enterprise/run/index.html#custom-and-community-providers">custom Terraform bundle</a> is supplied.
+</li>
+</ul>
+</li>
+</ul>
+<p>Additionally these hostnames are accessed by the Installer product in online mode:</p>
+
+<ul>
+<li>get.replicated.com
+</li>
+<li>api.replicated.com
+</li>
+<li>registry.replicated.com
+</li>
+<li>registry-data.replicated.com
+</li>
+<li>quay.io
+</li>
+</ul>
+
+<hr/>
+<h2 id="about-the-private-terraform-enterprise-ami">
+  <a name="about-the-private-terraform-enterprise-ami" class="anchor" href="#about-the-private-terraform-enterprise-ami">&raquo;</a>
+  About the Private Terraform Enterprise AMI
+</h2>
+<p>This section contains information about the Terraform Enterprise AMI.</p>
+<h3 id="operating-system">
+  <a name="operating-system" class="anchor" href="#operating-system">&raquo;</a>
+  Operating System
+</h3>
+<p>The Private Terraform Enterprise AMI is based on the latest release of Ubuntu 16.04 with all security
+patches applied.</p>
+<h3 id="network-ports">
+  <a name="network-ports" class="anchor" href="#network-ports">&raquo;</a>
+  Network Ports
+</h3>
+<p>The Private Terraform Enterprise AMI requires that port :8080 be accessible. This is where all traffic
+from the ELB is routed. Many other internal Private Terraform Enterprise services listen on the host,
+but they do not require external traffic. The AWS security group for the
+instance as well as software firewall rules within the runtime enforce this.</p>
+<h3 id="ulimits">
+  <a name="ulimits" class="anchor" href="#ulimits">&raquo;</a>
+  <code>ulimits</code>
+</h3>
+<p>The necessary limits on open file descriptors are raised within
+<code>/etc/security/limits.d/nofile.conf</code> on the machine image.</p>
+<h3 id="critical-services">
+  <a name="critical-services" class="anchor" href="#critical-services">&raquo;</a>
+  Critical Services
+</h3>
+<p>The Private Terraform Enterprise AMI contains dozens of services that are required for proper operation
+of Terraform Enterprise. These services are all configured to launch on boot.
+Application-level services are managed via Nomad and system-level automation is
+managed via <code>systemd</code>.</p>
+<h2 id="ami-ids">
+  <a name="ami-ids" class="anchor" href="#ami-ids">&raquo;</a>
+  AMI IDs
+</h2>
+<p>For the most up-to-date list of AMI IDs, see the <a href="https://github.com/hashicorp/terraform-enterprise-modules/blob/master/docs/ami-ids.md">list maintained on our GitHub repo</a>.</p>
+<h2 id="additional-configuration-info">
+  <a name="additional-configuration-info" class="anchor" href="#additional-configuration-info">&raquo;</a>
+  Additional Configuration Info
+</h2>
+
+<ul>
+<li><a href="https://github.com/hashicorp/terraform-enterprise-modules/blob/master/aws-extra/base-vpc"><code>base-vpc</code></a> - Configuration for creating a basic VPC and subnets that meet <a href="/docs/enterprise/private/install-ami.html#preflight">the documented requirements for Private Terraform Enterprise installation</a>.
+</li>
+<li><a href="https://github.com/hashicorp/terraform-enterprise-modules/blob/master/aws-extra/minimum-viable-iam"><code>minimum-viable-iam</code></a> - Configuration for creating an AWS user with a minimum access policy required to perform a Terraform Enterprise installation. Please note using the <code>AdministratorAccess</code> policy is recommended. This access is only required for the initial deployment.
+</li>
+</ul>
+<h2 id="network-access">
+  <a name="network-access" class="anchor" href="#network-access">&raquo;</a>
+  Network Access
+</h2>
+<p>This section details the ingress and egress network access required by Terraform Enterprise to function properly.</p>
+<h3 id="ingress-traffic">
+  <a name="ingress-traffic" class="anchor" href="#ingress-traffic">&raquo;</a>
+  Ingress Traffic
+</h3>
+<p>Terraform Enterprise requires certain ports to be accessible for it to function. The Terraform configuration that ships with Terraform Enterprise will by default create Security Groups (SGs) that make the appropriate ports available, but you can also specify custom SGs to be used instead.</p>
+<p>Here are the two SGs in the system relevant for user access and the ports they require to be open:</p>
+
+<ul>
+<li><strong>Load Balancer SG</strong>: Applied to the Elastic Load Balancer (ELB), controls incoming HTTP traffic from users
+
+<ul>
+<li><strong>Port 443</strong> must be accessible to users for basic functionality, must also be accessible from the VPC itself, as certain internal services reach over the ELB to access cross-service APIs
+</li>
+<li><strong>Port 80</strong> is recommended to leave open for convenience - the system is set up to force SSL by redirecting users who visit Private Terraform Enterprise over HTTP to the HTTPS equivalent URL. If this port is not available, users who mistakenly visit the site over HTTP will see hanging requests in their browser
+</li>
+</ul>
+</li>
+<li><strong>Instance SG</strong>: Applied to the EC2 Instance running the application
+
+<ul>
+<li><strong>Port 8080</strong> must be accessible to the ELB to serve traffic
+</li>
+<li><strong>Port 22</strong> must be accessible to operators to perform diagnostics and troubleshooting over SSH
+</li>
+</ul>
+</li>
+</ul>
+<p>There are also two internal SGs that are not currently user-configurable:</p>
+
+<ul>
+<li><strong>Database SG</strong>: Applied to the RDS instance - allows the application to talk to PostgreSQL
+</li>
+<li><strong>Redis SG</strong>: Applied to the ElastiCache instance - allows the application to talk to Redis
+</li>
+</ul>
+<h3 id="egress-traffic">
+  <a name="egress-traffic" class="anchor" href="#egress-traffic">&raquo;</a>
+  Egress Traffic
+</h3>
+<p>Terraform Enterprise makes several categories of outbound requests, detailed in the sections below.</p>
+<h4 id="primary-data-stores">
+  <a name="primary-data-stores" class="anchor" href="#primary-data-stores">&raquo;</a>
+  Primary Data Stores
+</h4>
+<p><strong>S3</strong> is used for object storage, so access to the AWS S3 API and endpoints is required for basic functionality</p>
+<p><strong>RDS and ElastiCache</strong> instances are provisioned for application data storage. These instances are within the same VPC as the application, so communication with them does not constitute outbound traffic.</p>
+<h4 id="version-control-system-integrations">
+  <a name="version-control-system-integrations" class="anchor" href="#version-control-system-integrations">&raquo;</a>
+  Version Control System Integrations
+</h4>
+<p>Private Terraform Enterprise can be configured to connect to a number of <a href="https://www.terraform.io/docs/enterprise/vcs/index.html">Version Control Systems (VCSs)</a>, some supporting both SaaS and private-network installations.</p>
+<p>In order to perform ingress of Terraform configuration from a configured VCS, Private Terraform Enterprise will need to be able to communciate with that provider&#39;s API, and webhooks from that provider will need to be able to reach Private Terraform Enterprise.</p>
+<p>For example, an integration with GitHub.com will require Private Terraform Enterprise to have access to <a href="https://github.com">https://github.com</a> and for GitHub&#39;s webhooks to be able to route back to Terraform. Similarly, an integration with GitHub Enterprise will require Terraform to have access to the local GitHub instance.</p>
+<h4 id="terraform-execution">
+  <a name="terraform-execution" class="anchor" href="#terraform-execution">&raquo;</a>
+  Terraform Execution
+</h4>
+<p>As a part of its primary mode of operation, Terraform makes API calls out to infrastructure provider APIs. Since Private Terraform Enterprise runs Terraform on behalf of users, Private Terraform Enterprise will therefore need access to any Provider APIs that your colleagues want to manage with Private Terraform Enterprise.</p>
+<h4 id="terraform-release-downloading">
+  <a name="terraform-release-downloading" class="anchor" href="#terraform-release-downloading">&raquo;</a>
+  Terraform Release Downloading
+</h4>
+<p>By default, Private Terraform Enterprise downloads the versions of Terraform that it executes from <a href="https://releases.hashicorp.com/">https://releases.hashicorp.com/</a>. This behavior can be customized by specifying different download locations. See <a href="#managing-tool-versions">Managing Tool Versions</a>.</p>
+<h4 id="terraform-latest-version-notifications">
+  <a name="terraform-latest-version-notifications" class="anchor" href="#terraform-latest-version-notifications">&raquo;</a>
+  Terraform Latest Version Notifications
+</h4>
+<p>When displaying Terraform Runs, Private Terraform Enterprise has JavaScript that reaches out to <a href="https://checkpoint.hashicorp.com">https://checkpoint.hashicorp.com</a> to determine the latest released version of Terraform and notify users if there is a newer version available than the one they are running. This functionality is non-essential; new version notifications will not be displayed in the Web UI if checkpoint.hashicorp.com cannot be reached from a user&#39;s browser.</p>
+<h4 id="communication-functions">
+  <a name="communication-functions" class="anchor" href="#communication-functions">&raquo;</a>
+  Communication Functions
+</h4>
+
+<ul>
+<li>Private Terraform Enterprise uses the configured SMTP endpoint for sending emails
+</li>
+<li>Twilio can optionally be set up for for SMS-based 2FA. (Virtual TOTP support is available separately, which does not make external API calls.)
+</li>
+</ul>
+<h2 id="storing-terraform-enterprise-state">
+  <a name="storing-terraform-enterprise-state" class="anchor" href="#storing-terraform-enterprise-state">&raquo;</a>
+  Storing Terraform Enterprise State
+</h2>
+<p>The Private Terraform Enterprise AMI install process uses Terraform, and therefore must store Terraform state. This presents a bootstrapping problem, because while generally you can use Terraform Enterprise to securely store versioned Terraform state, in this case Terraform Enterprise is not ready yet.</p>
+<p>Therefore, you must choose a separate mechanism for storing the Terraform State produced by the install process.</p>
+<h3 id="security-considerations-for-terraform-state">
+  <a name="security-considerations-for-terraform-state" class="anchor" href="#security-considerations-for-terraform-state">&raquo;</a>
+  Security Considerations for Terraform State
+</h3>
+<p>The Terraform state file for the Private Terraform Enterprise instance will contain the RDS Database password used by the application. While sensitive fields are separately encrypted-at-rest via Vault, this credential and network access to the database would yield access to all of the unencrypted metadata stored by Terraform Enterprise.</p>
+<p>HashiCorp recommends storing the Terraform state for the install in an encrypted data store.</p>
+<h3 id="recommended-state-storage-setup">
+  <a name="recommended-state-storage-setup" class="anchor" href="#recommended-state-storage-setup">&raquo;</a>
+  Recommended State Storage Setup
+</h3>
+<p>Terraform supports various <a href="https://www.terraform.io/docs/state/remote.html">remote state</a> backends that can be used to securely store the Terraform state produced by the install.</p>
+<p>HashiCorp recommends a versioned, encrypted-at-rest S3 bucket as a good default choice.</p>
+<p>Here are steps for setting up and using an S3 bucket for remote state storage:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="c"># From the root dir of your Private Terraform Enterprise installation config</span>
+<span class="nv">BUCKETNAME</span><span class="o">=</span><span class="s2">"mycompany-terraform-enterprise-state"</span>
+
+<span class="c"># Create bucket</span>
+aws s3 mb <span class="s2">"s3://</span><span class="k">${</span><span class="nv">BUCKETNAME</span><span class="k">}</span><span class="s2">"</span>
+
+<span class="c"># Turn on versioning for the bucket</span>
+aws s3api put-bucket-versioning <span class="nt">--bucket</span> <span class="s2">"</span><span class="k">${</span><span class="nv">BUCKETNAME</span><span class="k">}</span><span class="s2">"</span> <span class="nt">--versioning-configuration</span> <span class="nv">status</span><span class="o">=</span>Enabled
+
+<span class="c"># Configure terraform backend to point to the S3 bucket</span>
+<span class="nb">cat</span> <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh"> &gt;backend.tf
+terraform {
+  backend "s3" {
+    bucket  = "</span><span class="k">${</span><span class="nv">BUCKETNAME</span><span class="k">}</span><span class="sh">"
+    key     = "terraform-enterprise.tfstate"
+    encrypt = true
+  }
+}
+</span><span class="no">EOF
+
+</span><span class="c"># Initialize Terraform with the Remote Backend</span>
+terraform init 
+</code></pre></div><p>Now, if you keep the <code>backend.tf</code> file in scope when you run <code>terraform</code> operations, all state will be stored in the configured bucket.</p>
+<h2 id="private-terraform-enterprise-architecture">
+  <a name="private-terraform-enterprise-architecture" class="anchor" href="#private-terraform-enterprise-architecture">&raquo;</a>
+  Private Terraform Enterprise Architecture
+</h2>
+<p>This document describes aspects of the architecture of Private Terraform Enterprise as deployed via the AMI.</p>
+<h3 id="services">
+  <a name="services" class="anchor" href="#services">&raquo;</a>
+  Services
+</h3>
+<p>These are the services used to run Private Terraform Enterprise. Each service contains a description of what actions it performs, a policy for restarts, impact of failing or degraded performance, and the service&#39;s dependencies.</p>
+
+<ul>
+<li><a href="https://github.com/hashicorp/terraform-enterprise-modules/blob/master/docs/services/atlas.md"><code>atlas-frontend</code> and <code>atlas-worker</code></a>
+</li>
+<li><a href="https://github.com/hashicorp/terraform-enterprise-modules/blob/master/docs/services/archivist.md"><code>archivist</code>, <code>binstore</code>, <code>storagelocker</code>, and <code>logstream</code></a>
+</li>
+<li><a href="https://github.com/hashicorp/terraform-enterprise-modules/blob/master/docs/services/build-pipeline.md"><code>terraform-build-manager</code>, and <code>terraform-build-worker</code></a>
+</li>
+<li><a href="https://github.com/hashicorp/terraform-enterprise-modules/blob/master/docs/services/slugs.md"><code>slug-extract</code>, <code>slug-ingress</code>, <code>slug-merge</code></a>
+</li>
+</ul>
+<h3 id="data-flow-diagram">
+  <a name="data-flow-diagram" class="anchor" href="#data-flow-diagram">&raquo;</a>
+  Data Flow Diagram
+</h3>
+<p>The following diagram shows the way data flows through the various services and data stores in Terraform Enterprise.</p>
+<p><img alt="tfe-data-flow-arch" src="/docs/enterprise/private/assets/tfe-data-flow-arch-6033dd1e.png" /></p>
+<p>(Note: The services in double square brackets are soon to be replaced by the service that precedes them.)</p>
+<h2 id="advanced-terraform">
+  <a name="advanced-terraform" class="anchor" href="#advanced-terraform">&raquo;</a>
+  Advanced Terraform
+</h2>
+<p>The <code>aws-standard</code> Terraform module can be used as a true Terraform module
+to enable some additional features to configure the cluster.</p>
+<h3 id="additional-iam-role-policies">
+  <a name="additional-iam-role-policies" class="anchor" href="#additional-iam-role-policies">&raquo;</a>
+  Additional IAM Role policies
+</h3>
+<p>The module outputs the role name used by the instance, allowing you
+to attach additional policies to configure access:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">provider</span> <span class="s2">"aws"</span> <span class="p">{</span>
+  <span class="n">region</span> <span class="o">=</span> <span class="s2">"us-west-2"</span>
+<span class="p">}</span>
+
+<span class="n">module</span> <span class="s2">"standard"</span> <span class="p">{</span>
+  <span class="n">source</span> <span class="o">=</span> <span class="s2">"../../terraform/aws-standard"</span>
+  <span class="c1"># Variables that would be in terraform.tfvars go here</span>
+<span class="p">}</span>
+
+<span class="n">data</span> <span class="s2">"aws_iam_policy_document"</span> <span class="s2">"extra-s3-perms"</span> <span class="p">{</span>
+  <span class="n">statement</span> <span class="p">{</span>
+    <span class="n">sid</span>    <span class="o">=</span> <span class="s2">"AllowS3Access"</span>
+    <span class="n">effect</span> <span class="o">=</span> <span class="s2">"Allow"</span>
+
+    <span class="n">resources</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="s2">"arn:aws:s3:::my-private-artifacts/*"</span><span class="p">,</span>
+      <span class="s2">"arn:aws:s3:::my-private-artifacts"</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="n">actions</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="s2">"s3:*"</span><span class="p">,</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"aws_iam_role_policy"</span> <span class="s2">"extra-s3-perms"</span> <span class="p">{</span>
+  <span class="n">role</span>   <span class="o">=</span> <span class="s2">"${module.standard.iam_role}"</span>
+  <span class="n">policy</span> <span class="o">=</span> <span class="s2">"${data.aws_iam_policy_document.extra-s3-perms.json}"</span>
+<span class="p">}</span>
+
+</code></pre></div><h2 id="rekeying-vault">
+  <a name="rekeying-vault" class="anchor" href="#rekeying-vault">&raquo;</a>
+  Rekeying Vault
+</h2>
+<p>(Requires an AMI version <code>201709-1</code> or later)</p>
+<p>The Vault instance used by Private Terraform Enterprise self-manages its unseal key by
+default. This unseal key is stored in a KMS-encrypted file on S3 and is
+downloaded by the instance on boot to automatically unseal Vault.</p>
+<p>If the above configuration is insufficient for your security needs, you can
+choose to rekey the Vault instance after bootstrapping is completed. This
+allows you to change the key shares and key threshold settings, places the
+Vault unseal keys under your control, and deactivates the auto-unseal behavior
+of the Private Terraform Enterprise instance.</p>
+<p>The Vault documentation has a
+<a href="https://www.vaultproject.io/guides/rekeying-and-rotating.html#rekeying-vault">guide</a>
+on how to perform a rekey operation and <code>vault rekey -help</code> output provides
+full docs on the various options available.</p>
+<h3 id="walkthrough-of-rekey-operation">
+  <a name="walkthrough-of-rekey-operation" class="anchor" href="#walkthrough-of-rekey-operation">&raquo;</a>
+  Walkthrough of Rekey Operation
+</h3>
+<p>Here is an example of rekeying the Private Terraform Enterprise vault to use 5 key shares with a key
+threshold of 2. These commands are executed from an SSH session on the Private Terraform Enterprise
+instance as the <code>tfe-admin</code> user.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>vault rekey -init -key-shares=5 -key-threshold=2
+
+WARNING: If you lose the keys after they are returned to you, there is no
+recovery. Consider using the '-pgp-keys' option to protect the returned unseal
+keys along with '-backup=true' to allow recovery of the encrypted keys in case
+of emergency. They can easily be deleted at a later time with
+'vault rekey -delete'.
+
+Nonce: acdd8a46-3b...
+Started: true
+Key Shares: 5
+Key Threshold: 2
+Rekey Progress: 0
+Required Keys: 1
+</code></pre></div><p>The rekey operation has now been started. The printed nonce and the current
+unseal key are required to complete it.</p>
+<p>The current unseal key can be found under <code>/data/vault-unseal-key</code></p>
+<div class="highlight"><pre class="highlight plaintext"><code>VAULT_UNSEAL_KEY=$(sudo cat /data/vault-unseal-key)
+vault rekey -nonce=acdd8a46-3b... $VAULT_UNSEAL_KEY
+
+Key 1: jcLit6uk...
+Key 2: qi/AfO30...
+Key 3: t3TezCbE...
+Key 4: 5O6E8WFU...
+Key 5: +bWaQapk...
+
+Operation nonce: acdd8a46-3b2a-840e-0db8-e53e84fa7e64
+
+Vault rekeyed with 5 keys and a key threshold of 2. Please
+securely distribute the above keys. When the Vault is re-sealed,
+restarted, or stopped, you must provide at least 2 of these keys
+to unseal it again.
+
+Vault does not store the master key. Without at least 2 keys,
+your Vault will remain permanently sealed.
+</code></pre></div><h3 id="important-after-rekeying">
+  <a name="important-after-rekeying" class="anchor" href="#important-after-rekeying">&raquo;</a>
+  IMPORTANT: After Rekeying
+</h3>
+<p><strong>Note</strong>: After performing a rekey it&#39;s important to remove the old unseal key
+and trigger a backup before rebooting the machine. This will ensure that Private Terraform Enterprise
+knows to prompt for Vault unseal keys.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>sudo rm /data/vault-unseal-key
+sudo atlas-backup
+</code></pre></div><h2 id="minimum-viable-iam-access-policy">
+  <a name="minimum-viable-iam-access-policy" class="anchor" href="#minimum-viable-iam-access-policy">&raquo;</a>
+  Minimum Viable IAM Access Policy
+</h2>
+<p>HashiCorp does not recommend using the minimum viable IAM access policy. You will need to edit this policy to account for any and all actions you wish Terraform to be able to perform against your AWS account. We do, however, provide a <a href="https://github.com/hashicorp/terraform-enterprise-modules/tree/master/aws-extra/minimum-viable-iam">git repo</a> you can use as a base example to start from.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

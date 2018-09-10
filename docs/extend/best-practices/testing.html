@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Testing Patterns covers essential acceptance test patterns to implement for Terraform resources. ">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/extend/best-practices/testing.html" />
+    <meta property="og:title" content="Extending Terraform: Testing Patterns - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="Testing Patterns covers essential acceptance test patterns to implement for Terraform resources. " />
+
+    <title>Extending Terraform: Testing Patterns - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b19bad99.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-extend-best-practices-testing" class="layout-extend page-extending-terraform-testing-patterns">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <ul class="nav docs-sidenav">
+      <li>
+        <a href="/docs/extend/index.html">Extending Terraform</a>
+      </li>
+      <li>
+        <a href="/docs/extend/how-terraform-works.html">How Terraform Works</a>
+      </li>
+      <li>
+        <a href="/docs/extend/plugin-types.html">Plugin Types</a>
+      </li>
+      <li>
+        <!-- possibly make this "Guides" and collect some? -->
+        <a href="/docs/extend/writing-custom-providers.html">Writing Custom Providers</a>
+      </li>
+
+      <li>
+        <a href="/docs/extend/schemas/index.html">Schemas</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/schemas/schema-types.html">Schema Types</a>
+          </li>
+          <li>
+            <a href="/docs/extend/schemas/schema-behaviors.html">Schema Behaviors</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/docs/extend/resources.html">Resources</a>
+      </li>
+      <li class="active">
+        <a href="/docs/extend/best-practices/index.html">Best Practices</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/best-practices/deprecations.html">Deprecations, Removals, and Renames</a>
+          </li>
+
+          <li>
+            <a href="/docs/extend/best-practices/detecting-drift.html">Detecting Drift</a>
+          </li>
+
+          <li class="active">
+            <a href="/docs/extend/best-practices/testing.html">Testing Patterns</a>
+          </li>
+
+          <li>
+            <a href="/docs/extend/best-practices/versioning.html">Versioning and Changelog</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/extend/testing/index.html">Testing</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/testing/acceptance-tests/index.html">Acceptance Tests</a>
+          </li>
+          <li>
+            <a href="/docs/extend/testing/unit-testing.html">Unit Testing</a>
+          </li>
+          <!--
+          <li>
+            <a href="/docs/extend/testing/testing-patterns.html">Resource Test Patterns</a>
+          </li>
+          -->
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/extend/community/index.html">Community</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/extend/community/contributing.html">Contributing</a>
+          </li>
+          <li>
+            <a href="/docs/extend/community/code-of-conduct.html">Code of Conduct</a>
+          </li>
+          <li>
+            <a href="/docs/extend/community/events/index.html">Events</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/extend/community/events/2018/fall-gardening.html">Gardening - Fall 2018</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/extend/community/maintainers.html">Maintainers</a>
+          </li>
+        </ul>
+      </li>
+
+      <hr>
+
+      <li>
+        <a class="back" href="/docs/internals/index.html">Terraform Internals</a>
+      </li>
+      <li>
+        <a class="back" href="/guides/terraform-provider-development-program.html">Terraform Provider Development Program</a>
+      </li>
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="testing-patterns">
+  <a name="testing-patterns" class="anchor" href="#testing-patterns">&raquo;</a>
+  Testing Patterns
+</h1>
+<p>In <a href="/docs/extend/testing/index.html">Testing Terraform Plugins</a> we introduce Terraform’s Testing Framework,
+providing reference for its functionality and introducing the basic parts of
+writing acceptance tests. In this section we’ll cover some test patterns that
+are common and considered a best practice to have when developing and verifying
+your Terraform plugins. At time of writing these guides are particular to
+Terraform Resources, but other testing best practices may be added later.</p>
+<h2 id="table-of-contents">
+  <a name="table-of-contents" class="anchor" href="#table-of-contents">&raquo;</a>
+  Table of Contents
+</h2>
+
+<ul>
+<li><a href="#built-in-patterns">Built-in Patterns</a> 
+</li>
+<li><a href="#basic-test-to-verify-attributes">Basic test to verify attributes</a> 
+</li>
+<li><a href="#update-test-verify-configuration-changes">Update test verify configuration changes</a> 
+</li>
+<li><a href="#expecting-errors-or-non-empty-plans">Expecting errors or non-empty plans</a> 
+</li>
+<li><a href="#regression-tests">Regression tests</a> 
+</li>
+</ul>
+<h2 id="built-in-patterns">
+  <a name="built-in-patterns" class="anchor" href="#built-in-patterns">&raquo;</a>
+  Built-in Patterns
+</h2>
+<p>Acceptance tests use <a href="/docs/extend/testing/acceptance-tests/testcase.html">TestCases</a> to construct scenarios that can be evaluated
+with Terraform’s lifecycle of plan, apply, refresh, and destroy. The test
+framework has some behaviors built in that provide very basic workflow assurance
+tests, such as verifying configurations apply with no diff generated by the next
+plan.</p>
+<p>Each TestCase will run any <a href="/docs/extend/testing/acceptance-tests/testcase.html#precheck">PreCheck</a> function provided before running the
+test, and then any <a href="/docs/extend/testing/acceptance-tests/testcase.html#checkdestroy">CheckDestroy</a> functions after the test concludes. These
+functions allow developers to verify the state of the resource and test before
+and after it runs.</p>
+<p>When a test is ran, Terraform runs plan, apply, refresh, and then final plan for
+each <a href="/docs/extend/testing/acceptance-tests/teststep.html">TestStep</a> in the TestCase. If the last plan results in a non-empty
+plan, Terraform will exit with an error. This enables developers to ensure that
+configurations apply cleanly. In the case of introducing regression tests or
+otherwise testing specific error behavior, TestStep offers a boolean field
+<a href="https://github.com/hashicorp/terraform/blob/9441e78fb9c35037da71fd0284b97e546dd6a53b/helper/resource/testing.go#L299-L301">ExpectNonEmptyPlan</a> as well <a href="https://github.com/hashicorp/terraform/blob/9441e78fb9c35037da71fd0284b97e546dd6a53b/helper/resource/testing.go#L303-L306">ExpectError</a> regex field to specify ways the
+test framework can handle expected failures. If these properties are omitted and
+either a non-empty plan occurs or an error encountered, Terraform will fail the
+test.</p>
+<p>After all TestSteps have been ran, Terraform then runs destroy, and ends by
+running any CheckDestroy function provided.</p>
+<p><a href="#table-of-contents">Back to top</a></p>
+<h2 id="basic-test-to-verify-attributes">
+  <a name="basic-test-to-verify-attributes" class="anchor" href="#basic-test-to-verify-attributes">&raquo;</a>
+  Basic test to verify attributes
+</h2>
+<p>The most basic resource acceptance test should use what is likely to be a common
+configuration for the resource under test, and verify that Terraform can
+correctly create the resource, and that resources attributes are what Terraform
+expects them to be. At a high level, the first basic test for a resource should
+establish the following:</p>
+<p>Terraform can plan and apply a common resource configuration without error
+Verify the expected attributes are saved to state, and contain the values
+expected. Verify the values in the remote API/Service for the resource match
+what is stored in state Verify that a subsequent terraform plan does not produce
+a diff/change</p>
+<p>The first and last item are provided by the test framework as described above in
+<strong>Built-in Patterns</strong>. The middle items are implemented by composing a series of
+Check Functions as described in <a href="/docs/extend/testing/acceptance-tests/teststep.html#check-functions">Acceptance Tests: TestSteps</a>.</p>
+<p>To verify attributes are saved to the state file correctly, use a combination of
+the built-in check functions provided by the testing framework. See <a href="/docs/extend/testing/acceptance-tests/teststep.html#builtin-check-functions">Built-in
+Check Functions</a> to see available functions.</p>
+<p>Checking the values in a remote API generally consists of two parts: a function
+to verify the corresponding object exists remotely, and a separate function to
+verify the values of the object. By separating the check used to verify the
+object exists into its own function, developers are free to re-use it for all
+TestCases as a means of retrieving it’s values, and can provide custom check
+functions per TestCase to verify different attributes or scenarios specific to
+that TestCase.</p>
+<p>Here’s an example test, with in-line comments to demonstrate the key parts of a
+basic test.</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">example</span><span class="x">
+
+</span><span class="c">// example.Widget represents a concrete Go type that represents an API resource</span><span class="x">
+</span><span class="k">func</span><span class="x"> </span><span class="n">TestAccExampleWidget_basic</span><span class="p">(</span><span class="n">t</span><span class="x"> </span><span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">var</span><span class="x"> </span><span class="n">widget</span><span class="x"> </span><span class="n">example</span><span class="o">.</span><span class="n">Widget</span><span class="x">
+
+    </span><span class="c">// generate a random name for each widget test run, to avoid</span><span class="x">
+    </span><span class="c">// collisions from multiple concurrent tests.</span><span class="x">
+    </span><span class="c">// the acctest package includes many helpers such as RandStringFromCharSet</span><span class="x">
+    </span><span class="c">// See https://godoc.org/github.com/hashicorp/terraform/helper/acctest</span><span class="x">
+    </span><span class="n">rName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">acctest</span><span class="o">.</span><span class="n">RandStringFromCharSet</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="x"> </span><span class="n">acctest</span><span class="o">.</span><span class="n">CharSetAlphaNum</span><span class="p">)</span><span class="x">
+
+    </span><span class="n">resource</span><span class="o">.</span><span class="n">Test</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCase</span><span class="p">{</span><span class="x">
+        </span><span class="n">PreCheck</span><span class="o">:</span><span class="x">     </span><span class="k">func</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x"> </span><span class="n">testAccPreCheck</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="x"> </span><span class="p">},</span><span class="x">
+        </span><span class="n">Providers</span><span class="o">:</span><span class="x">    </span><span class="n">testAccProviders</span><span class="p">,</span><span class="x">
+        </span><span class="n">CheckDestroy</span><span class="o">:</span><span class="x"> </span><span class="n">testAccCheckExampleResourceDestroy</span><span class="p">,</span><span class="x">
+        </span><span class="n">Steps</span><span class="o">:</span><span class="x"> </span><span class="p">[]</span><span class="n">resource</span><span class="o">.</span><span class="n">TestStep</span><span class="p">{</span><span class="x">
+            </span><span class="p">{</span><span class="x">
+                </span><span class="c">// use a dynamic configuration with the random name from above</span><span class="x">
+                </span><span class="n">Config</span><span class="o">:</span><span class="x"> </span><span class="n">testAccExampleResource</span><span class="p">(</span><span class="n">rName</span><span class="p">),</span><span class="x">
+                </span><span class="c">// compose a basic test, checking both remote and local values</span><span class="x">
+                </span><span class="n">Check</span><span class="o">:</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">ComposeTestCheckFunc</span><span class="p">(</span><span class="x">
+                    </span><span class="c">// query the API to retrieve the widget object</span><span class="x">
+                    </span><span class="n">testAccCheckExampleResourceExists</span><span class="p">(</span><span class="s">"example_widget.foo"</span><span class="p">,</span><span class="x"> </span><span class="o">&amp;</span><span class="n">widget</span><span class="p">),</span><span class="x">
+                    </span><span class="c">// verify remote values</span><span class="x">
+                    </span><span class="n">testAccCheckExampleWidgetValues</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span><span class="x"> </span><span class="n">rName</span><span class="p">),</span><span class="x">
+                    </span><span class="c">// verify local values</span><span class="x">
+                    </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCheckResourceAttr</span><span class="p">(</span><span class="s">"example_widget.foo"</span><span class="p">,</span><span class="x"> </span><span class="s">"active"</span><span class="p">,</span><span class="x"> </span><span class="s">"true"</span><span class="p">),</span><span class="x">
+                    </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCheckResourceAttr</span><span class="p">(</span><span class="s">"example_widget.foo"</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="p">,</span><span class="x"> </span><span class="n">rName</span><span class="p">),</span><span class="x">
+                </span><span class="p">),</span><span class="x">
+            </span><span class="p">},</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+    </span><span class="p">})</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">testAccCheckExampleWidgetValues</span><span class="p">(</span><span class="n">widget</span><span class="x"> </span><span class="o">*</span><span class="n">example</span><span class="o">.</span><span class="n">Widget</span><span class="p">,</span><span class="x"> </span><span class="n">name</span><span class="x"> </span><span class="kt">string</span><span class="p">)</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCheckFunc</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="k">func</span><span class="p">(</span><span class="n">s</span><span class="x"> </span><span class="o">*</span><span class="n">terraform</span><span class="o">.</span><span class="n">State</span><span class="p">)</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="o">*</span><span class="n">widget</span><span class="o">.</span><span class="n">Active</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">true</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"bad active state, expected </span><span class="se">\"</span><span class="s">true</span><span class="se">\"</span><span class="s">, got: %#v"</span><span class="p">,</span><span class="x"> </span><span class="o">*</span><span class="n">widget</span><span class="o">.</span><span class="n">Active</span><span class="p">)</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="o">*</span><span class="n">widget</span><span class="o">.</span><span class="n">Name</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="n">name</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"bad name, expected </span><span class="se">\"</span><span class="s">%s</span><span class="se">\"</span><span class="s">, got: %#v"</span><span class="p">,</span><span class="x"> </span><span class="n">name</span><span class="p">,</span><span class="x"> </span><span class="o">*</span><span class="n">widget</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">// testAccCheckExampleResourceExists queries the API and retrieves the matching Widget.</span><span class="x">
+</span><span class="k">func</span><span class="x"> </span><span class="n">testAccCheckExampleResourceExists</span><span class="p">(</span><span class="n">n</span><span class="x"> </span><span class="kt">string</span><span class="p">,</span><span class="x"> </span><span class="n">widget</span><span class="x"> </span><span class="o">*</span><span class="n">example</span><span class="o">.</span><span class="n">Widget</span><span class="p">)</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCheckFunc</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="k">func</span><span class="p">(</span><span class="n">s</span><span class="x"> </span><span class="o">*</span><span class="n">terraform</span><span class="o">.</span><span class="n">State</span><span class="p">)</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="c">// find the corresponding state object</span><span class="x">
+        </span><span class="n">rs</span><span class="p">,</span><span class="x"> </span><span class="n">ok</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">s</span><span class="o">.</span><span class="n">RootModule</span><span class="p">()</span><span class="o">.</span><span class="n">Resources</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="o">!</span><span class="n">ok</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Not found: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">n</span><span class="p">)</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+
+        </span><span class="c">// retrieve the configured client from the test setup</span><span class="x">
+        </span><span class="n">conn</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">testAccProvider</span><span class="o">.</span><span class="n">Meta</span><span class="p">()</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">ExampleClient</span><span class="p">)</span><span class="x">
+        </span><span class="n">resp</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">conn</span><span class="o">.</span><span class="n">DescribeWidget</span><span class="p">(</span><span class="o">&amp;</span><span class="n">example</span><span class="o">.</span><span class="n">DescribeWidgetsInput</span><span class="p">{</span><span class="x">
+            </span><span class="n">WidgetIdentifier</span><span class="o">:</span><span class="x"> </span><span class="n">rs</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span><span class="x">
+        </span><span class="p">})</span><span class="x">
+
+        </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">err</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+
+        </span><span class="c">// If no error, assign the response Widget attribute to the widget pointer</span><span class="x">
+        </span><span class="o">*</span><span class="n">widget</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="o">*</span><span class="n">resp</span><span class="o">.</span><span class="n">Widget</span><span class="x">
+
+        </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Widget (%s) not found"</span><span class="p">,</span><span class="x"> </span><span class="n">rs</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">ID</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">// testAccExampleResource returns an configuration for an Example Widget with the provided name</span><span class="x">
+</span><span class="k">func</span><span class="x"> </span><span class="n">testAccExampleResource</span><span class="p">(</span><span class="n">name</span><span class="x"> </span><span class="kt">string</span><span class="p">)</span><span class="x"> </span><span class="kt">string</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">`
+resource "example_widget" "foo" {
+  active = true
+  name = "%s"
+}`</span><span class="p">,</span><span class="x"> </span><span class="n">name</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>This example covers all the items needed for a basic test, and will be
+referenced or added to in the other test cases to come.</p>
+<p><a href="#table-of-contents">Back to top</a></p>
+<h2 id="update-test-verify-configuration-changes">
+  <a name="update-test-verify-configuration-changes" class="anchor" href="#update-test-verify-configuration-changes">&raquo;</a>
+  Update test verify configuration changes
+</h2>
+<p>A basic test covers a simple configuration that should apply successfully and
+with no follow up differences in state. To verify a resource correctly applies
+updates, the second most common test found is an extension of the basic test,
+that simply applies another <code>TestStep</code> with a modified version of the original
+configuration.</p>
+<p>Below is an example test, copied and modified from the basic test. Here we
+preserve the <code>TestStep</code> from the basic test, but we add an additional
+<code>TestStep</code>, changing the configuration and rechecking the values, with a
+different configuration function <code>testAccExampleResourceUpdated</code> and check
+function <code>testAccCheckExampleWidgetValuesUpdated</code> for verifying the values.</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">TestAccExampleWidget_update</span><span class="p">(</span><span class="n">t</span><span class="x"> </span><span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">var</span><span class="x"> </span><span class="n">widget</span><span class="x"> </span><span class="n">example</span><span class="o">.</span><span class="n">Widget</span><span class="x">
+    </span><span class="n">rName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">acctest</span><span class="o">.</span><span class="n">RandStringFromCharSet</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="x"> </span><span class="n">acctest</span><span class="o">.</span><span class="n">CharSetAlphaNum</span><span class="p">)</span><span class="x">
+
+    </span><span class="n">resource</span><span class="o">.</span><span class="n">Test</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCase</span><span class="p">{</span><span class="x">
+        </span><span class="n">PreCheck</span><span class="o">:</span><span class="x">     </span><span class="k">func</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x"> </span><span class="n">testAccPreCheck</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="x"> </span><span class="p">},</span><span class="x">
+        </span><span class="n">Providers</span><span class="o">:</span><span class="x">    </span><span class="n">testAccProviders</span><span class="p">,</span><span class="x">
+        </span><span class="n">CheckDestroy</span><span class="o">:</span><span class="x"> </span><span class="n">testAccCheckExampleResourceDestroy</span><span class="p">,</span><span class="x">
+        </span><span class="n">Steps</span><span class="o">:</span><span class="x"> </span><span class="p">[]</span><span class="n">resource</span><span class="o">.</span><span class="n">TestStep</span><span class="p">{</span><span class="x">
+            </span><span class="p">{</span><span class="x">
+                </span><span class="c">// use a dynamic configuration with the random name from above</span><span class="x">
+                </span><span class="n">Config</span><span class="o">:</span><span class="x"> </span><span class="n">testAccExampleResource</span><span class="p">(</span><span class="n">rName</span><span class="p">),</span><span class="x">
+                </span><span class="n">Check</span><span class="o">:</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">ComposeTestCheckFunc</span><span class="p">(</span><span class="x">
+                    </span><span class="n">testAccCheckExampleResourceExists</span><span class="p">(</span><span class="s">"example_widget.foo"</span><span class="p">,</span><span class="x"> </span><span class="o">&amp;</span><span class="n">widget</span><span class="p">),</span><span class="x">
+                    </span><span class="n">testAccCheckExampleWidgetValues</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span><span class="x"> </span><span class="n">rName</span><span class="p">),</span><span class="x">
+                    </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCheckResourceAttr</span><span class="p">(</span><span class="s">"example_widget.foo"</span><span class="p">,</span><span class="x"> </span><span class="s">"active"</span><span class="p">,</span><span class="x"> </span><span class="s">"true"</span><span class="p">),</span><span class="x">
+                    </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCheckResourceAttr</span><span class="p">(</span><span class="s">"example_widget.foo"</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="p">,</span><span class="x"> </span><span class="n">rName</span><span class="p">),</span><span class="x">
+                </span><span class="p">),</span><span class="x">
+            </span><span class="p">},</span><span class="x">
+            </span><span class="p">{</span><span class="x">
+                </span><span class="c">// use a dynamic configuration with the random name from above</span><span class="x">
+                </span><span class="n">Config</span><span class="o">:</span><span class="x"> </span><span class="n">testAccExampleResourceUpdated</span><span class="p">(</span><span class="n">rName</span><span class="p">),</span><span class="x">
+                </span><span class="n">Check</span><span class="o">:</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">ComposeTestCheckFunc</span><span class="p">(</span><span class="x">
+                    </span><span class="n">testAccCheckExampleResourceExists</span><span class="p">(</span><span class="s">"example_widget.foo"</span><span class="p">,</span><span class="x"> </span><span class="o">&amp;</span><span class="n">widget</span><span class="p">),</span><span class="x">
+                    </span><span class="n">testAccCheckExampleWidgetValuesUpdated</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span><span class="x"> </span><span class="n">rName</span><span class="p">),</span><span class="x">
+                    </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCheckResourceAttr</span><span class="p">(</span><span class="s">"example_widget.foo"</span><span class="p">,</span><span class="x"> </span><span class="s">"active"</span><span class="p">,</span><span class="x"> </span><span class="s">"false"</span><span class="p">),</span><span class="x">
+                    </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCheckResourceAttr</span><span class="p">(</span><span class="s">"example_widget.foo"</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="p">,</span><span class="x"> </span><span class="n">rName</span><span class="p">),</span><span class="x">
+                </span><span class="p">),</span><span class="x">
+            </span><span class="p">},</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+    </span><span class="p">})</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">testAccCheckExampleWidgetValuesUpdated</span><span class="p">(</span><span class="n">widget</span><span class="x"> </span><span class="o">*</span><span class="n">example</span><span class="o">.</span><span class="n">Widget</span><span class="p">,</span><span class="x"> </span><span class="n">name</span><span class="x"> </span><span class="kt">string</span><span class="p">)</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCheckFunc</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="k">func</span><span class="p">(</span><span class="n">s</span><span class="x"> </span><span class="o">*</span><span class="n">terraform</span><span class="o">.</span><span class="n">State</span><span class="p">)</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="o">*</span><span class="n">widget</span><span class="o">.</span><span class="n">Active</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">false</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"bad active state, expected </span><span class="se">\"</span><span class="s">false</span><span class="se">\"</span><span class="s">, got: %#v"</span><span class="p">,</span><span class="x"> </span><span class="o">*</span><span class="n">widget</span><span class="o">.</span><span class="n">Active</span><span class="p">)</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="o">*</span><span class="n">widget</span><span class="o">.</span><span class="n">Name</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="n">name</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"bad name, expected </span><span class="se">\"</span><span class="s">%s</span><span class="se">\"</span><span class="s">, got: %#v"</span><span class="p">,</span><span class="x"> </span><span class="n">name</span><span class="p">,</span><span class="x"> </span><span class="o">*</span><span class="n">widget</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">// testAccExampleResource returns an configuration for an Example Widget with the provided name</span><span class="x">
+</span><span class="k">func</span><span class="x"> </span><span class="n">testAccExampleResourceUpdated</span><span class="p">(</span><span class="n">name</span><span class="x"> </span><span class="kt">string</span><span class="p">)</span><span class="x"> </span><span class="kt">string</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">`
+resource "example_widget" "foo" {
+  active = false
+  name = "%s"
+}`</span><span class="p">,</span><span class="x"> </span><span class="n">name</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>It’s common for resources to just have the above update test, as it is a
+superset of the basic test. So long as the basics are covered, combining the two
+tests is sufficient as opposed to having two separate tests.</p>
+<p><a href="#table-of-contents">Back to top</a></p>
+<h2 id="expecting-errors-or-non-empty-plans">
+  <a name="expecting-errors-or-non-empty-plans" class="anchor" href="#expecting-errors-or-non-empty-plans">&raquo;</a>
+  Expecting errors or non-empty plans
+</h2>
+<p>The number of acceptance tests for a given resource typically start small with
+the basic and update scenarios covered. Other tests should be added to
+demonstrate common expected configurations or behavior scenarios for a given
+resource, such as typical updates or changes to configuration, or exercising
+logic that uses polling for updates such as an autoscaling group adding or
+draining instances.</p>
+<p>It is possible for scenarios to exist where a valid configuration (no errors
+during <code>plan</code>) would result in a non-empty <code>plan</code> after successfully running
+<code>terraform apply</code>. This is typically due to a valid but otherwise
+misconfiguration of the resource, and is generally undesirable. Occasionally it
+is useful to intentionally create this scenario in an early <code>TestStep</code> in order
+to demonstrate correcting the state with proper configuration in a follow-up
+<code>TestStep</code>. Normally a <code>TestStep</code> that results in a non-empty plan would fail
+the test after apply, however developers can use the <code>ExpectNonEmptyPlan</code>
+attribute to prevent failure and allow the <code>TestCase</code> to continue:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">TestAccExampleWidget_expectPlan</span><span class="p">(</span><span class="n">t</span><span class="x"> </span><span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">var</span><span class="x"> </span><span class="n">widget</span><span class="x"> </span><span class="n">example</span><span class="o">.</span><span class="n">Widget</span><span class="x">
+    </span><span class="n">rName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">acctest</span><span class="o">.</span><span class="n">RandStringFromCharSet</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="x"> </span><span class="n">acctest</span><span class="o">.</span><span class="n">CharSetAlphaNum</span><span class="p">)</span><span class="x">
+
+    </span><span class="n">resource</span><span class="o">.</span><span class="n">Test</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCase</span><span class="p">{</span><span class="x">
+        </span><span class="n">PreCheck</span><span class="o">:</span><span class="x">     </span><span class="k">func</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x"> </span><span class="n">testAccPreCheck</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="x"> </span><span class="p">},</span><span class="x">
+        </span><span class="n">Providers</span><span class="o">:</span><span class="x">    </span><span class="n">testAccProviders</span><span class="p">,</span><span class="x">
+        </span><span class="n">CheckDestroy</span><span class="o">:</span><span class="x"> </span><span class="n">testAccCheckExampleResourceDestroy</span><span class="p">,</span><span class="x">
+        </span><span class="n">Steps</span><span class="o">:</span><span class="x"> </span><span class="p">[]</span><span class="n">resource</span><span class="o">.</span><span class="n">TestStep</span><span class="p">{</span><span class="x">
+            </span><span class="p">{</span><span class="x">
+                </span><span class="c">// use an incomplete configuration that we expect</span><span class="x">
+                </span><span class="c">// to result in a non-empty plan after apply</span><span class="x">
+                </span><span class="n">Config</span><span class="o">:</span><span class="x"> </span><span class="n">testAccExampleResourceIncomplete</span><span class="p">(</span><span class="n">rName</span><span class="p">),</span><span class="x">
+                </span><span class="n">Check</span><span class="o">:</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">ComposeTestCheckFunc</span><span class="p">(</span><span class="x">
+                    </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCheckResourceAttr</span><span class="p">(</span><span class="s">"example_widget.foo"</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="p">,</span><span class="x"> </span><span class="n">rName</span><span class="p">),</span><span class="x">
+                </span><span class="p">),</span><span class="x">
+                </span><span class="n">ExpectNonEmptyPlan</span><span class="o">:</span><span class="x"> </span><span class="no">true</span><span class="p">,</span><span class="x">
+            </span><span class="p">},</span><span class="x">
+            </span><span class="p">{</span><span class="x">
+                </span><span class="c">// apply the complete configuration</span><span class="x">
+                </span><span class="n">Config</span><span class="o">:</span><span class="x"> </span><span class="n">testAccExampleResourceComplete</span><span class="p">(</span><span class="n">rName</span><span class="p">),</span><span class="x">
+                </span><span class="n">Check</span><span class="o">:</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">ComposeTestCheckFunc</span><span class="p">(</span><span class="x">
+                    </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCheckResourceAttr</span><span class="p">(</span><span class="s">"example_widget.foo"</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="p">,</span><span class="x"> </span><span class="n">rName</span><span class="p">),</span><span class="x">
+                </span><span class="p">),</span><span class="x">
+            </span><span class="p">},</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+    </span><span class="p">})</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>In addition to <code>ExpectNonEmptyPlan</code>, <code>TestStep</code> also exposes an <code>ExpectError</code>
+hook, allowing developers to test configuration that they expect to produce an
+error, such as configuration that fails schema validators:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">func</span><span class="x"> </span><span class="n">TestAccExampleWidget_expectError</span><span class="p">(</span><span class="n">t</span><span class="x"> </span><span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">var</span><span class="x"> </span><span class="n">widget</span><span class="x"> </span><span class="n">example</span><span class="o">.</span><span class="n">Widget</span><span class="x">
+    </span><span class="n">rName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">acctest</span><span class="o">.</span><span class="n">RandStringFromCharSet</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="x"> </span><span class="n">acctest</span><span class="o">.</span><span class="n">CharSetAlphaNum</span><span class="p">)</span><span class="x">
+
+    </span><span class="n">resource</span><span class="o">.</span><span class="n">Test</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="x"> </span><span class="n">resource</span><span class="o">.</span><span class="n">TestCase</span><span class="p">{</span><span class="x">
+        </span><span class="n">PreCheck</span><span class="o">:</span><span class="x">     </span><span class="k">func</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x"> </span><span class="n">testAccPreCheck</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="x"> </span><span class="p">},</span><span class="x">
+        </span><span class="n">Providers</span><span class="o">:</span><span class="x">    </span><span class="n">testAccProviders</span><span class="p">,</span><span class="x">
+        </span><span class="n">CheckDestroy</span><span class="o">:</span><span class="x"> </span><span class="n">testAccCheckExampleResourceDestroy</span><span class="p">,</span><span class="x">
+        </span><span class="n">Steps</span><span class="o">:</span><span class="x"> </span><span class="p">[]</span><span class="n">resource</span><span class="o">.</span><span class="n">TestStep</span><span class="p">{</span><span class="x">
+            </span><span class="p">{</span><span class="x">
+                </span><span class="c">// use a configuration that we expect to fail a validator</span><span class="x">
+                </span><span class="c">// on the resource Name attribute, which only allows alphanumeric</span><span class="x">
+                </span><span class="c">// characters</span><span class="x">
+                </span><span class="n">Config</span><span class="o">:</span><span class="x">      </span><span class="n">testAccExampleResourceError</span><span class="p">(</span><span class="n">rName</span><span class="x"> </span><span class="o">+</span><span class="x"> </span><span class="s">"*$%%^"</span><span class="p">),</span><span class="x">
+                </span><span class="c">// No check function is given because we expect this configuration</span><span class="x">
+                </span><span class="c">// to fail before any infrastructure is created</span><span class="x">
+                </span><span class="n">ExpectError</span><span class="o">:</span><span class="x"> </span><span class="n">regexp</span><span class="o">.</span><span class="n">MustCompile</span><span class="p">(</span><span class="s">"Widget names may only contain alphanumeric characters"</span><span class="p">),</span><span class="x">
+            </span><span class="p">},</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+    </span><span class="p">})</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p><code>ExpectError</code> expects a valid regular expression, and the error message must
+match in order to consider the error as expected and allow the test to pass. If
+the regular expression does not match, the <code>TestStep</code> fails explaining that the
+configuration did not produce the error expected.</p>
+<p><a href="#table-of-contents">Back to top</a></p>
+<h2 id="regression-tests">
+  <a name="regression-tests" class="anchor" href="#regression-tests">&raquo;</a>
+  Regression tests
+</h2>
+<p>As resources are put into use, issues can arise as bugs that need to be fixed
+and released in a new version. Developers are encouraged to introduce regression
+tests that demonstrate not only any bugs reported, but that code modified to
+address any bug is verified as fixing the issues. These regression tests should
+be named and documented appropriately to identify the issue(s) they demonstrate
+fixes for. When possible the documentation for a regression test should include
+a link to the original bug report.</p>
+<p>An ideal bug fix would include at least 2 commits to source control:</p>
+<p>A single commit introducing the regression test, verifying the issue(s) 1 or
+more commits that modify code to fix the issue(s)</p>
+<p>This allows other developers to independently verify that a regression test
+indeed reproduces the issue by checking out the source at that commit first, and
+then advancing the revisions to evaluate the fix.</p>
+<p><a href="#table-of-contents">Back to top</a></p>
+<h1 id="conclusion">
+  <a name="conclusion" class="anchor" href="#conclusion">&raquo;</a>
+  Conclusion
+</h1>
+<p>Terraform’s <a href="/docs/extend/testing/index.html">Testing Framework</a> allows for powerful, iterative acceptance
+tests that enable developers to fully test the behavior of Terraform plugins. By
+following the above best practices, developers can ensure their plugin behavies
+correctly across the most common use cases and everyday operations users will
+have using their plugins, and ensure that Terraform remains a world-class tool
+for safely managing infrastructure.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>
