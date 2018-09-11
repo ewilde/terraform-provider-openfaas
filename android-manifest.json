@@ -2,12 +2,12 @@
   "name": "HashiCorp Terraform",
   "icons": [
     {
-      "src": "/assets/images/favicons/android-chrome-192x192-f5bbc98c.png",
+      "src": "https://ewilde.github.io/terraform-provider-openfaas/assets/images/favicons/android-chrome-192x192-f5bbc98c.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/assets/images/favicons/android-chrome-512x512-cf592eaa.png",
+      "src": "https://ewilde.github.io/terraform-provider-openfaas/assets/images/favicons/android-chrome-512x512-cf592eaa.png",
       "sizes": "512x512",
       "type": "image/png"
     }

@@ -1,1340 +1,1340 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.terraform.io/community.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/community.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/logos.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/logos.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/run/cli.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/run/cli.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/run/ui.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/run/ui.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/run/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/run/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/run/api.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/run/api.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/run/states.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/run/states.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/run/install-software.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/run/install-software.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/sentinel/examples.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/sentinel/examples.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/security.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/security.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/downloads.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/downloads.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/providers/openfaas/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/providers/openfaas/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/providers/openfaas/r/function.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/providers/openfaas/r/function.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/providers/openfaas/d/function.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/providers/openfaas/d/function.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/community/code-of-conduct.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/community/code-of-conduct.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/community/maintainers.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/community/maintainers.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/community/events/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/community/events/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/community/events/2018/fall-gardening.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/community/events/2018/fall-gardening.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/community/events/2018/summer-gardening.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/community/events/2018/summer-gardening.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/community/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/community/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/community/contributing.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/community/contributing.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/how-terraform-works.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/how-terraform-works.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/schemas/schema-methods.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/schemas/schema-methods.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/schemas/schema-behaviors.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/schemas/schema-behaviors.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/schemas/schema-types.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/schemas/schema-types.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/schemas/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/schemas/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/best-practices/deprecations.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/best-practices/deprecations.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/best-practices/testing.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/best-practices/testing.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/best-practices/detecting-drift.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/best-practices/detecting-drift.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/best-practices/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/best-practices/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/best-practices/versioning.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/best-practices/versioning.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/resources.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/resources.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/testing/acceptance-tests/teststep.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/testing/acceptance-tests/teststep.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/testing/acceptance-tests/sweepers.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/testing/acceptance-tests/sweepers.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/testing/acceptance-tests/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/testing/acceptance-tests/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/testing/acceptance-tests/testcase.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/testing/acceptance-tests/testcase.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/testing/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/testing/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/testing/unit-testing.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/testing/unit-testing.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/testing/testing-patterns.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/testing/testing-patterns.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/testing/testing-api.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/testing/testing-api.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/plugin-types.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/plugin-types.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/extend/writing-custom-providers.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/extend/writing-custom-providers.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/organizations/credit-card.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/organizations/credit-card.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/organizations/migrate.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/organizations/migrate.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/organizations/membership.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/organizations/membership.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/organizations/authentication-policy.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/organizations/authentication-policy.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/organizations/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/organizations/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/organizations/create.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/organizations/create.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/organizations/trials.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/organizations/trials.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/support.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/support.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/glossary/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/glossary/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/state/collaborating.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/state/collaborating.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/state/resolving-conflicts.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/state/resolving-conflicts.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/state/pushing.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/state/pushing.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/state/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/state/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/faq/vagrant-cloud-migration.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/faq/vagrant-cloud-migration.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/faq/rolling-deployments.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/faq/rolling-deployments.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/faq/monolithic-artifacts.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/faq/monolithic-artifacts.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/faq/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/faq/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/runs/notifications.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/runs/notifications.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/runs/multifactor-authentication.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/runs/multifactor-authentication.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/runs/scheduling-runs.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/runs/scheduling-runs.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/runs/variables-and-configuration.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/runs/variables-and-configuration.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/runs/managing-terraform-versions.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/runs/managing-terraform-versions.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/runs/how-runs-execute.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/runs/how-runs-execute.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/runs/installing-software.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/runs/installing-software.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/runs/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/runs/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/runs/automatic-applies.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/runs/automatic-applies.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/runs/starting.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/runs/starting.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/artifacts/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/artifacts/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/artifacts/artifact-provider.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/artifacts/artifact-provider.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/artifacts/creating-amis.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/artifacts/creating-amis.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/artifacts/managing-versions.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/artifacts/managing-versions.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/vcs/gitlab.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/vcs/gitlab.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/vcs/github.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/vcs/github.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/vcs/git.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/vcs/git.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/vcs/bitbucket.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/vcs/bitbucket.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/vcs/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/vcs/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/user-accounts/access.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/user-accounts/access.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/user-accounts/authentication.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/user-accounts/authentication.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/user-accounts/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/user-accounts/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/user-accounts/recovery.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/user-accounts/recovery.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/api/users.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/api/users.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/api/runs.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/api/runs.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/api/states.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/api/states.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/api/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/api/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/api/environments.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/api/environments.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/api/configurations.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/api/configurations.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/packer/builds/troubleshooting.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/packer/builds/troubleshooting.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/packer/builds/notifications.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/packer/builds/notifications.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/packer/builds/rebuilding.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/packer/builds/rebuilding.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/packer/builds/how-builds-run.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/packer/builds/how-builds-run.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/packer/builds/installing-software.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/packer/builds/installing-software.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/packer/builds/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/packer/builds/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/packer/builds/scheduling-builds.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/packer/builds/scheduling-builds.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/packer/builds/build-environment.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/packer/builds/build-environment.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/packer/builds/managing-packer-versions.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/packer/builds/managing-packer-versions.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/packer/builds/starting.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/packer/builds/starting.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/packer/artifacts/creating-vagrant-boxes.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/packer/artifacts/creating-vagrant-boxes.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/packer/artifacts/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/packer/artifacts/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise-legacy/packer/artifacts/creating-amis.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise-legacy/packer/artifacts/creating-amis.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/guides/recommended-practices/part2.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/guides/recommended-practices/part2.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/guides/recommended-practices/part3.1.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/guides/recommended-practices/part3.1.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/guides/recommended-practices/part3.4.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/guides/recommended-practices/part3.4.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/guides/recommended-practices/part3.2.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/guides/recommended-practices/part3.2.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/guides/recommended-practices/part1.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/guides/recommended-practices/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/guides/recommended-practices/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/guides/recommended-practices/part3.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/guides/recommended-practices/part3.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/guides/recommended-practices/part3.3.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/guides/recommended-practices/part3.3.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/workspaces/naming.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/workspaces/naming.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/workspaces/access.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/workspaces/access.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/workspaces/ssh-keys.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/workspaces/ssh-keys.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/workspaces/settings.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/workspaces/settings.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/workspaces/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/workspaces/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/workspaces/creating.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/workspaces/creating.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/workspaces/variables.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/workspaces/variables.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/workspaces/repo-structure.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/workspaces/repo-structure.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/saml/troubleshooting.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/saml/troubleshooting.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/saml/team-membership.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/saml/team-membership.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/saml/attributes.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/saml/attributes.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/saml/configuration.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/saml/configuration.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/saml/identity-provider-configuration-adfs.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/saml/identity-provider-configuration-adfs.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/saml/login.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/saml/login.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/saml/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/saml/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/saml/identity-provider-configuration.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/saml/identity-provider-configuration.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/saml/identity-provider-configuration-onelogin.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/saml/identity-provider-configuration-onelogin.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/registry/design.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/registry/design.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/registry/publish.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/registry/publish.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/registry/using.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/registry/using.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/registry/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/registry/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/upgrade/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/upgrade/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/upgrade/batch.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/upgrade/batch.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/upgrade/differences.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/upgrade/differences.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/automating-the-installer.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/automating-the-installer.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/installer.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/installer.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/vmware-setup-guide.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/vmware-setup-guide.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/aws-setup-guide.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/aws-setup-guide.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/automated-recovery.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/automated-recovery.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/reference-architecture-installer.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/reference-architecture-installer.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/upgrades.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/upgrades.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/admin/general.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/admin/general.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/admin/resources.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/admin/resources.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/admin/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/admin/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/admin/integration.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/admin/integration.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/logging.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/logging.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/diagnostics.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/diagnostics.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/azure-setup-guide.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/azure-setup-guide.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/config.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/config.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/reliability-availability.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/reliability-availability.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/gcp-setup-guide.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/gcp-setup-guide.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/install-ami.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/install-ami.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/rhel-install-guide.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/rhel-install-guide.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/migrate.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/migrate.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/install-installer.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/install-installer.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/faq.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/faq.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/vault.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/vault.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/centos-install-guide.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/centos-install-guide.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/minio-setup-guide.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/minio-setup-guide.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/private/data-security.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/private/data-security.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/vcs/troubleshooting.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/vcs/troubleshooting.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/vcs/bitbucket-server.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/vcs/bitbucket-server.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/vcs/gitlab-com.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/vcs/gitlab-com.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/vcs/github-enterprise.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/vcs/github-enterprise.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/vcs/github.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/vcs/github.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/vcs/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/vcs/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/vcs/gitlab-eece.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/vcs/gitlab-eece.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/vcs/bitbucket-cloud.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/vcs/bitbucket-cloud.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/getting-started/access.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/getting-started/access.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/getting-started/runs.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/getting-started/runs.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/getting-started/vcs.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/getting-started/vcs.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/getting-started/workspaces.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/getting-started/workspaces.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/getting-started/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/getting-started/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/state-versions.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/state-versions.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/organization-tokens.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/organization-tokens.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/admin/users.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/admin/users.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/admin/organizations.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/admin/organizations.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/admin/runs.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/admin/runs.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/admin/workspaces.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/admin/workspaces.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/admin/settings.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/admin/settings.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/admin/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/admin/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/admin/terraform-versions.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/admin/terraform-versions.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/configuration-versions.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/configuration-versions.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/plans.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/plans.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/organizations.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/organizations.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/workspaces.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/workspaces.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/policies.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/policies.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/oauth-clients.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/oauth-clients.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/team-members.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/team-members.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/ssh-keys.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/ssh-keys.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/applies.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/applies.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/team-access.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/team-access.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/teams.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/teams.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/oauth-tokens.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/oauth-tokens.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/team-tokens.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/team-tokens.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/modules.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/modules.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/account.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/account.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/variables.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/variables.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/policy-checks.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/policy-checks.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/api/run.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/api/run.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/migrate/workspaces.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/migrate/workspaces.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/migrate/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/migrate/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/users-teams-organizations/users.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/users-teams-organizations/users.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/users-teams-organizations/service-accounts.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/users-teams-organizations/service-accounts.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/sentinel/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/sentinel/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/users-teams-organizations/organizations.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/users-teams-organizations/organizations.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/users-teams-organizations/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/users-teams-organizations/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/users-teams-organizations/2fa.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/users-teams-organizations/2fa.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/users-teams-organizations/teams.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/users-teams-organizations/teams.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/users-teams-organizations/permissions.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/users-teams-organizations/permissions.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/sentinel/import/tfplan.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/sentinel/import/tfplan.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/sentinel/import/tfstate.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/sentinel/import/tfstate.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/sentinel/import/index.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/sentinel/import/index.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/sentinel/import/tfconfig.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/sentinel/import/tfconfig.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/sentinel/integrate-vcs.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/sentinel/integrate-vcs.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/sentinel/manage-policies.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/sentinel/manage-policies.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.terraform.io/docs/enterprise/sentinel/enforce.html</loc>
-    <lastmod>2018-09-10T00:00:00+00:00</lastmod>
+    <loc>https://ewilde.github.io/terraform-provider-openfaas/docs/enterprise/sentinel/enforce.html</loc>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
