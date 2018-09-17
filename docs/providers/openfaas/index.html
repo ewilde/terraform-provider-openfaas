@@ -336,33 +336,69 @@ The provider may need to be configured with the proper credentials to talk to th
   <a name="example-usage" class="anchor" href="#example-usage">&raquo;</a>
   Example Usage
 </h2>
-<div class="highlight"><pre class="highlight hcl"><code><span class="c1"># Configure the AWS Provider</span>
-<span class="n">provider</span> <span class="s2">"aws"</span> <span class="p">{</span>
-  <span class="n">access_key</span> <span class="o">=</span> <span class="s2">"${var.aws_access_key}"</span>
-  <span class="n">secret_key</span> <span class="o">=</span> <span class="s2">"${var.aws_secret_key}"</span>
-  <span class="n">region</span>     <span class="o">=</span> <span class="s2">"us-east-1"</span>
+<div class="highlight"><pre class="highlight hcl"><code><span class="c1"># Configure the OpenFaaS Provider</span>
+<span class="n">provider</span> <span class="s2">"openfaas"</span> <span class="p">{</span>
+  <span class="n">uri</span>       <span class="o">=</span> <span class="s2">"https://localhost:8080"</span>
+  <span class="n">user_name</span> <span class="o">=</span> <span class="s2">"a-username"</span>
+  <span class="n">password</span>  <span class="o">=</span> <span class="s2">"a-password"</span>
 <span class="p">}</span>
 
-<span class="c1"># Create a web server</span>
-<span class="n">resource</span> <span class="s2">"aws_instance"</span> <span class="s2">"web"</span> <span class="p">{</span>
+<span class="c1"># Create a function</span>
+<span class="n">resource</span> <span class="s2">"openfaas_function"</span> <span class="s2">"figlet"</span> <span class="p">{</span>
   <span class="c1"># ...</span>
 <span class="p">}</span>
 </code></pre></div><h2 id="authentication">
   <a name="authentication" class="anchor" href="#authentication">&raquo;</a>
   Authentication
 </h2>
-<p>The AWS provider offers a flexible means of providing credentials for
+<p>The OpenFaaS provider offers a flexible means of providing credentials for
 authentication. The following methods are supported, in this order, and
 explained below:</p>
 
 <ul>
-<li>Static credentials
+<li>Basic authentication
 </li>
-<li>Environment variables
+<li>No authentication
 </li>
-<li>Shared credentials file
+</ul>
+<h3 id="basic-authentication">
+  <a name="basic-authentication" class="anchor" href="#basic-authentication">&raquo;</a>
+  Basic authentication
+</h3>
+<p>This is the <em>recommended</em> option, configure the provider block inline:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">provider</span> <span class="s2">"openfaas"</span> <span class="p">{</span>
+  <span class="n">uri</span>       <span class="o">=</span> <span class="s2">"https://localhost:8080"</span>
+  <span class="n">user_name</span> <span class="o">=</span> <span class="s2">"a-username"</span>
+  <span class="n">password</span>  <span class="o">=</span> <span class="s2">"a-password"</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="no-authentication">
+  <a name="no-authentication" class="anchor" href="#no-authentication">&raquo;</a>
+  No authentication
+</h3>
+<p>This is <em>not</em> recommended, please only use in a private environment:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">provider</span> <span class="s2">"openfaas"</span> <span class="p">{</span>
+  <span class="n">uri</span>       <span class="o">=</span> <span class="s2">"http://localhost:8080"</span>  
+<span class="p">}</span>
+</code></pre></div><h2 id="argument-reference">
+  <a name="argument-reference" class="anchor" href="#argument-reference">&raquo;</a>
+  Argument Reference
+</h2>
+<p>In addition to <a href="https://www.terraform.io/docs/configuration/providers.html">generic <code>provider</code> arguments</a>
+(e.g. <code>alias</code> and <code>version</code>), the following arguments are supported in the AWS
+ <code>provider</code> block:</p>
+
+<ul>
+<li><p><a name="uri" /><a href="#uri"><code>uri</code></a> - (Optional) This <a href="https://docs.openfaas.com/conceptual/#api-gateway-ui-portal">OpenFaaS gateway</a> uri. 
+If omitted, default value is <code>http://localhost:8080</code>.</p>
 </li>
-<li>EC2 Role
+<li><p><a name="tls_insecure" /><a href="#tls_insecure"><code>tls_insecure</code></a> - (Optional) Explicitly allow the provider to perform &quot;insecure&quot; SSL requests. 
+If omitted, default value is <code>false</code>.</p>
+</li>
+<li><p><a name="user_name" /><a href="#user_name"><code>user_name</code></a> - (Optional) This is the OpenFaaS <a href="https://docs.openfaas.com/reference/authentication/#for-the-api-gateway">basic authentication user name</a>.
+If ommited, basic authentication is not used.</p>
+</li>
+<li><p><a name="password" /><a href="#password"><code>password</code></a> - (Optional) This is the OpenFaaS <a href="https://docs.openfaas.com/reference/authentication/#for-the-api-gateway">basic authentication passwrd</a>.
+If ommited, basic authentication is not used.</p>
 </li>
 </ul>
 
