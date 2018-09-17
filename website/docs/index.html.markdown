@@ -19,26 +19,63 @@ Use the navigation to the left to read about the available resources.
 ## Example Usage
 
 ```hcl
-# Configure the AWS Provider
-provider "aws" {
-  access_key = "${var.aws_access_key}"
-  secret_key = "${var.aws_secret_key}"
-  region     = "us-east-1"
+# Configure the OpenFaaS Provider
+provider "openfaas" {
+  uri       = "https://localhost:8080"
+  user_name = "a-username"
+  password  = "a-password"
 }
 
-# Create a web server
-resource "aws_instance" "web" {
+# Create a function
+resource "openfaas_function" "figlet" {
   # ...
 }
 ```
 
 ## Authentication
 
-The AWS provider offers a flexible means of providing credentials for
+The OpenFaaS provider offers a flexible means of providing credentials for
 authentication. The following methods are supported, in this order, and
 explained below:
 
-- Static credentials
-- Environment variables
-- Shared credentials file
-- EC2 Role
+- Basic authentication
+- No authentication
+
+
+### Basic authentication
+This is the *recommended* option, configure the provider block inline:
+
+```hcl
+provider "openfaas" {
+  uri       = "https://localhost:8080"
+  user_name = "a-username"
+  password  = "a-password"
+}
+```
+
+### No authentication
+This is *not* recommended, please only use in a private environment:
+
+```hcl
+provider "openfaas" {
+  uri       = "http://localhost:8080"  
+}
+```
+
+## Argument Reference
+
+In addition to [generic `provider` arguments](https://www.terraform.io/docs/configuration/providers.html)
+(e.g. `alias` and `version`), the following arguments are supported in the AWS
+ `provider` block:
+
+* `uri` - (Optional) This [OpenFaaS gateway](https://docs.openfaas.com/conceptual/#api-gateway-ui-portal) uri. 
+If omitted, default value is `http://localhost:8080`.
+
+* `tls_insecure` - (Optional) Explicitly allow the provider to perform "insecure" SSL requests. 
+If omitted, default value is `false`.
+
+* `user_name` - (Optional) This is the OpenFaaS [basic authentication user name](https://docs.openfaas.com/reference/authentication/#for-the-api-gateway).
+If ommited, basic authentication is not used.
+
+* `password` - (Optional) This is the OpenFaaS [basic authentication passwrd](https://docs.openfaas.com/reference/authentication/#for-the-api-gateway).
+If ommited, basic authentication is not used.
