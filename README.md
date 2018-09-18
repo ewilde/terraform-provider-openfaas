@@ -2,7 +2,7 @@ The terraform provider for [OpenFaaS](https://www.openfaas.com/)
 
 ## Documentation
 
-Full documentation, see: http://openfaas-tfe.edwardwilde.com/docs/providers/openfaas
+Full documentation, see: https://openfaas-tfe.edwardwilde.com/docs/providers/openfaas
 
 ### Example Usage
 
