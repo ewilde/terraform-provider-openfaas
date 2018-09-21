@@ -3,11 +3,14 @@ package openfaas
 import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/terraform"
+	"log"
+
+	openfaas_config "github.com/openfaas/faas-cli/config"
 )
 
 // Provider returns a terraform.ResourceProvider.
 func Provider() terraform.ResourceProvider {
-
+	log.Printf("[DEBUG] returning provider schema")
 	// The actual provider
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
@@ -50,11 +53,16 @@ func Provider() terraform.ResourceProvider {
 }
 
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
+	log.Printf("[DEBUG] configuring provider")
 	config := Config{
 		GatewayURI:      d.Get("uri").(string),
 		TLSInsecure:     d.Get("tls_insecure").(bool),
 		GatewayUserName: d.Get("user_name").(string),
 		GatewayPassword: d.Get("password").(string),
+	}
+
+	if config.GatewayUserName != "" && config.GatewayPassword != "" {
+		openfaas_config.UpdateAuthConfig(config.GatewayURI, config.GatewayUserName, config.GatewayPassword)
 	}
 
 	return config, nil

@@ -60,8 +60,8 @@ func resourceOpenFaaSFunction() *schema.Resource {
 				Set:      schema.HashString,
 			},
 			"labels": &schema.Schema{
-				Type:     schema.TypeMap,
-				Optional: true,
+				Type:             schema.TypeMap,
+				Optional:         true,
 				DiffSuppressFunc: labelsDiffFunc,
 			},
 			"annotations": &schema.Schema{
@@ -260,6 +260,7 @@ var whiteListLabels = map[string]string{
 }
 
 const extraProviderLabelsCount = 2
+
 func labelsDiffFunc(k, old, new string, d *schema.ResourceData) bool {
 	if _, ok := whiteListLabels[k]; ok {
 		return true
