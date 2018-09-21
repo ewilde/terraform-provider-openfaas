@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/ewilde/terraform-provider-openfaas/openfaas"
 	"github.com/hashicorp/terraform/plugin"
-	"github.com/terraform-providers/terraform-provider-aws/aws"
 )
 
 func main() {
 	plugin.Serve(&plugin.ServeOpts{
-		ProviderFunc: aws.Provider})
+		ProviderFunc: openfaas.Provider})
 }

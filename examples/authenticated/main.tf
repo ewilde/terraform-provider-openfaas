@@ -1,6 +1,6 @@
 provider "openfaas" {
   version = "~> 0.1"
-  uri       = "https://localhost:8080"
+  uri       = "http://localhost:8080"
   user_name = "admin"
   password  = "${var.provider_password}"
 }
