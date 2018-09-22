@@ -9,6 +9,8 @@ default: build
 build: fmtcheck
 	go install
 
+travisbuild: release-deps default
+
 sweep:
 	@echo "WARNING: This will destroy infrastructure. Use only in development accounts."
 	go test $(TEST) -v -sweep=$(SWEEP) $(SWEEPARGS)
@@ -51,6 +53,14 @@ test-compile:
 	fi
 	go test -c $(TEST) $(TESTARGS)
 
+release-deps:
+	go get -u golang.org/x/net/context; \
+    go get -u github.com/mitchellh/gox; \
+
+release:
+	go get github.com/goreleaser/goreleaser; \
+    goreleaser; \
+
 website:
 ifeq (,$(wildcard $(GOPATH)/src/$(WEBSITE_REPO)))
 	echo "$(WEBSITE_REPO) not found in your GOPATH (necessary for layouts and assets), get-ting..."
@@ -74,5 +84,5 @@ ifeq (,$(wildcard $(GOPATH)/src/$(WEBSITE_REPO)))
 endif
 	@$(MAKE) -C $(GOPATH)/src/$(WEBSITE_REPO) website-provider-test PROVIDER_PATH=$(shell pwd) PROVIDER_NAME=$(PKG_NAME)
 
-.PHONY: build sweep test testacc vet fmt fmtcheck errcheck vendor-status test-compile website website-build website-test goimports
+.PHONY: build sweep test testacc vet fmt fmtcheck errcheck vendor-status test-compile website website-build website-test goimports travisbuild release release-deps
 

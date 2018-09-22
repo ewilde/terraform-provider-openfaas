@@ -1,0 +1,11 @@
+language: go
+go:
+- 1.10.x
+services:
+- docker
+install:
+- go get github.com/kardianos/govendor
+script:
+- make travisbuild
+after_success:
+- make release
