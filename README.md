@@ -44,7 +44,7 @@ $ make build
 ```
 
 ## Using the provider
-If you're building the provider, follow the instructions to [install it as a plugin.](https://www.terraform.io/docs/plugins/basics.html#installing-a-plugin) After placing it into your plugins directory,  run `terraform init` to initialize it.
+Download the latest [release](https://github.com/ewilde/terraform-provider-openfaas/releases/latest) or build the provider from source, then follow the instructions to [install it as a plugin.](https://www.terraform.io/docs/plugins/basics.html#installing-a-plugin) After placing it into your plugins directory,  run `terraform init` to initialize it.
 
 ## Developing the Provider
 
