@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ewilde/terraform-provider-openfaas.svg?branch=master)](https://travis-ci.org/ewilde/terraform-provider-openfaas)
+
 The terraform provider for [OpenFaaS](https://www.openfaas.com/)
 
 ## Documentation
