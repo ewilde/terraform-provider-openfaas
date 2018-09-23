@@ -79,3 +79,6 @@ If ommited, basic authentication is not used.
 
 * `password` - (Optional) This is the OpenFaaS [basic authentication passwrd](https://docs.openfaas.com/reference/authentication/#for-the-api-gateway).
 If ommited, basic authentication is not used.
+
+## Introduction video
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sSctTy6YIlU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
