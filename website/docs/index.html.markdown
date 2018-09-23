@@ -16,6 +16,9 @@ The provider may need to be configured with the proper credentials to talk to th
 
 Use the navigation to the left to read about the available resources.
 
+## Introduction video
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sSctTy6YIlU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 ## Example Usage
 
 ```hcl
@@ -79,6 +82,3 @@ If ommited, basic authentication is not used.
 
 * `password` - (Optional) This is the OpenFaaS [basic authentication passwrd](https://docs.openfaas.com/reference/authentication/#for-the-api-gateway).
 If ommited, basic authentication is not used.
-
-## Introduction video
-<iframe width="560" height="315" src="https://www.youtube.com/embed/sSctTy6YIlU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
