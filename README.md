@@ -1,3 +1,5 @@
+# Terraform provider for OpenFaaS
+
 [![Build Status](https://travis-ci.org/ewilde/terraform-provider-openfaas.svg?branch=master)](https://travis-ci.org/ewilde/terraform-provider-openfaas)
 
 The terraform provider for [OpenFaaS](https://www.openfaas.com/)
@@ -26,42 +28,78 @@ resource "openfaas_function" "function_test" {
 
 [![image](https://user-images.githubusercontent.com/329397/45926773-920cbd80-bf1f-11e8-9b26-88dc5df0fc7e.png)](https://www.youtube.com/watch?v=sSctTy6YIlU&feature=youtu.be)
 
-## Requirements
+## Building and Installing
 
--	[Terraform](https://www.terraform.io/downloads.html) 0.10.x
--	[Go](https://golang.org/doc/install) 1.9 (to build the provider plugin)
+Since this isn't maintained by Hashicorp, you have to install it manually. There
+are two main ways:
 
-## Building The Provider
+### Download a release
 
-Clone repository to: `$GOPATH/src/github.com/ewilde/terraform-provider-openfaas`
+Download and unzip the [latest
+release](https://github.com/ewilde/terraform-provider-openfaas/releases/latest).
+
+Then, move the binary to your terraform plugins directory. [The
+docs](https://www.terraform.io/docs/configuration/providers.html#third-party-plugins)
+don't fully describe where this is.
+
+* On Mac, it's `~/.terraform.d/plugins/darwin_amd64`
+* On Linux, it's `~/.terraform.d/plugins/linux_amd64`
+* On Windows, it's `$APPDATA\terraform.d\plugins\windows_amd64`
+
+### Build using the Makefile
+
+Install [Go](https://www.golang.org/) v1.9+ on your machine, and
+[dep](https://golang.github.io/dep/docs/installation.html); clone the source,
+and let `make install` do the rest.
+
+#### Mac
 
 ```sh
-$ mkdir -p $GOPATH/src/github.com/terraform-providers; cd $GOPATH/src/github.com/terraform-providers
-$ git clone git@github.com:ewilde/terraform-provider-openfaas
+brew install go  # or upgrade
+brew install dep # or upgrade
+mkdir -p $GOPATH/src/github.com/ewilde; cd $GOPATH/src/github.com/ewilde
+git clone https://github.com/ewilde/terraform-provider-openfaas 
+cd terraform-provider-openfaas
+make install
+# it may take a while to download `hashicorp/terraform`. be patient.
 ```
 
-Enter the provider directory and build the provider
+#### Linux
+
+Install go and dep from your favourite package manager or from source. Then:
 
 ```sh
-$ cd $GOPATH/src/github.com/ewilde/terraform-provider-openfaas
-$ make build
+mkdir -p $GOPATH/src/github.com/ewilde; cd $GOPATH/src/github.com/ewilde
+git clone https://github.com/ewilde/terraform-provider-openfaas 
+cd terraform-provider-openfaas
+make install
+# it may take a while to download `hashicorp/terraform`. be patient.
 ```
 
-## Installing the provider
-Download the latest [release](https://github.com/ewilde/terraform-provider-openfaas/releases/latest) or build the provider from source, then follow the instructions to [install it as a plugin.](https://www.terraform.io/docs/plugins/basics.html#installing-a-plugin) After placing it into your plugins directory,  run `terraform init` to initialize it.
+#### Windows
+
+In PowerShell, running as Administrator:
+
+```powershell
+choco install golang
+choco install dep
+choco install zip
+choco install git # for git-bash
+choco install make
+```
+
+In a shell that has Make, like Git-Bash:
+
+```sh
+mkdir -p $GOPATH/src/github.com/ewilde; cd $GOPATH/src/github.com/ewilde
+git clone https://github.com/ewilde/terraform-provider-openfaas 
+cd terraform-provider-openfaas
+make install
+# it may take a while to download `hashicorp/terraform`. be patient.
+```
+
 
 ## Developing the Provider
-
-If you wish to work on the provider, you'll first need [Go](http://www.golang.org) installed on your machine (version 1.9+ is *required*). You'll also need to correctly setup a [GOPATH](http://golang.org/doc/code.html#GOPATH), as well as adding `$GOPATH/bin` to your `$PATH`.
-
-To compile the provider, run `make build`. This will build the provider and put the provider binary in the `$GOPATH/bin` directory.
-
-```sh
-$ make build
-...
-$ $GOPATH/bin/terraform-provider-openfaas
-...
-```
 
 In order to test the provider, you can simply run `make test`.
 
@@ -71,7 +109,8 @@ $ make test
 
 In order to run the full suite of Acceptance tests, run `make testacc`.
 
-*Note:* Acceptance tests create real resources, and often cost money to run.
+> Note: Ath the moment the acceptance tests assume OpenFaaS gateway is running on http://localhost:8080 *without* 
+basic authentication enabled.
 
 ```sh
 $ make testacc
