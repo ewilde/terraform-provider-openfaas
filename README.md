@@ -109,7 +109,7 @@ $ make test
 
 In order to run the full suite of Acceptance tests, run `make testacc`.
 
-> Note: Ath the moment the acceptance tests assume OpenFaaS gateway is running on http://localhost:8080 *without* 
+> Note: At the moment the acceptance tests assume OpenFaaS gateway is running on http://localhost:8080 *without* 
 basic authentication enabled.
 
 ```sh
