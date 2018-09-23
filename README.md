@@ -22,6 +22,8 @@ resource "openfaas_function" "function_test" {
 }
 ```
 
+[![image](https://user-images.githubusercontent.com/329397/45926773-920cbd80-bf1f-11e8-9b26-88dc5df0fc7e.png)](https://www.youtube.com/watch?v=sSctTy6YIlU&feature=youtu.be)
+
 ## Requirements
 
 -	[Terraform](https://www.terraform.io/downloads.html) 0.10.x
