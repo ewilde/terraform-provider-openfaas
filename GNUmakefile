@@ -2,7 +2,7 @@ SWEEP?=us-east-1,us-west-2
 TEST?=./...
 GOFMT_FILES?=$$(find . -name '*.go' |grep -v vendor)
 PKG_NAME=openfaas
-WEBSITE_REPO=github.com/hashicorp/terraform-website
+WEBSITE_REPO=github.com/ewilde/terraform-website
 
 default: build
 

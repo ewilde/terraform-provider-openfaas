@@ -115,3 +115,17 @@ basic authentication enabled.
 ```sh
 $ make testacc
 ```
+
+## Building the documentation
+Current a bit manual ¯\_(ツ)_/¯
+
+1. build the content
+```sh
+$ make website-build
+```
+
+2. copy build output into `gh-pages` branch of this repo
+```sh
+$ git checkout gh-pages 
+cp -r ../terraform-website/content/build/docs/providers/openfaas/ ./docs/providers/openfaas
+```
