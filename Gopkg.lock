@@ -29,7 +29,6 @@
   name = "github.com/aws/aws-sdk-go"
   packages = [
     "aws",
-    "aws/arn",
     "aws/awserr",
     "aws/awsutil",
     "aws/client",
@@ -51,107 +50,18 @@
     "internal/sdkuri",
     "internal/shareddefaults",
     "private/protocol",
-    "private/protocol/ec2query",
     "private/protocol/eventstream",
     "private/protocol/eventstream/eventstreamapi",
-    "private/protocol/json/jsonutil",
-    "private/protocol/jsonrpc",
     "private/protocol/query",
     "private/protocol/query/queryutil",
     "private/protocol/rest",
-    "private/protocol/restjson",
     "private/protocol/restxml",
     "private/protocol/xml/xmlutil",
-    "private/signer/v2",
-    "service/acm",
-    "service/acmpca",
-    "service/apigateway",
-    "service/applicationautoscaling",
-    "service/appsync",
-    "service/athena",
-    "service/autoscaling",
-    "service/batch",
-    "service/budgets",
-    "service/cloud9",
-    "service/cloudformation",
-    "service/cloudfront",
-    "service/cloudtrail",
-    "service/cloudwatch",
-    "service/cloudwatchevents",
-    "service/cloudwatchlogs",
-    "service/codebuild",
-    "service/codecommit",
-    "service/codedeploy",
-    "service/codepipeline",
-    "service/cognitoidentity",
-    "service/cognitoidentityprovider",
-    "service/configservice",
-    "service/databasemigrationservice",
-    "service/dax",
-    "service/devicefarm",
-    "service/directconnect",
-    "service/directoryservice",
-    "service/dynamodb",
-    "service/ec2",
-    "service/ecr",
-    "service/ecs",
-    "service/efs",
-    "service/eks",
-    "service/elasticache",
-    "service/elasticbeanstalk",
-    "service/elasticsearchservice",
-    "service/elastictranscoder",
-    "service/elb",
-    "service/elbv2",
-    "service/emr",
-    "service/firehose",
-    "service/fms",
-    "service/gamelift",
-    "service/glacier",
-    "service/glue",
-    "service/guardduty",
-    "service/iam",
-    "service/inspector",
-    "service/iot",
-    "service/kinesis",
-    "service/kms",
-    "service/lambda",
-    "service/lexmodelbuildingservice",
-    "service/lightsail",
-    "service/macie",
-    "service/mediastore",
-    "service/mq",
-    "service/neptune",
-    "service/opsworks",
-    "service/organizations",
-    "service/pricing",
-    "service/rds",
-    "service/redshift",
-    "service/route53",
     "service/s3",
-    "service/secretsmanager",
-    "service/servicecatalog",
-    "service/servicediscovery",
-    "service/ses",
-    "service/sfn",
-    "service/simpledb",
-    "service/sns",
-    "service/sqs",
-    "service/ssm",
-    "service/storagegateway",
-    "service/sts",
-    "service/swf",
-    "service/waf",
-    "service/wafregional"
+    "service/sts"
   ]
   revision = "04abd557eeaab3cfdded45467eea00fc03db9cb9"
   version = "v1.15.26"
-
-[[projects]]
-  name = "github.com/beevik/etree"
-  packages = ["."]
-  revision = "9d7e8feddccb4ed1b8afb54e368bd323d2ff652c"
-  version = "v1.0.1"
 
 [[projects]]
   branch = "master"
@@ -200,12 +110,6 @@
   ]
   revision = "aa810b61a9c79d51363740d207bb46cf8e620ed5"
   version = "v1.2.0"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/golang/snappy"
-  packages = ["."]
-  revision = "2e65f85255dbc3072edf28d6b5b8efc472979f5a"
 
 [[projects]]
   name = "github.com/hashicorp/errwrap"
@@ -319,17 +223,13 @@
     "config/module",
     "dag",
     "flatmap",
+    "helper/acctest",
     "helper/config",
-    "helper/customdiff",
-    "helper/encryption",
     "helper/hashcode",
     "helper/hilmapstructure",
     "helper/logging",
-    "helper/mutexkv",
     "helper/resource",
     "helper/schema",
-    "helper/structure",
-    "helper/validation",
     "httpclient",
     "moduledeps",
     "plugin",
@@ -348,50 +248,15 @@
   version = "v0.11.8"
 
 [[projects]]
-  name = "github.com/hashicorp/vault"
-  packages = [
-    "helper/compressutil",
-    "helper/jsonutil",
-    "helper/pgpkeys"
-  ]
-  revision = "87492f9258e0227f3717e3883c6a8be5716bf564"
-  version = "v0.11.0"
-
-[[projects]]
   branch = "master"
   name = "github.com/hashicorp/yamux"
   packages = ["."]
   revision = "cc6d2ea263b2471faabce371255777a365bf8306"
 
 [[projects]]
-  name = "github.com/jen20/awspolicyequivalence"
-  packages = ["."]
-  revision = "9ebbf3c225b2b9da629263e13c3015a5de7965d1"
-  version = "v1.0.0"
-
-[[projects]]
   name = "github.com/jmespath/go-jmespath"
   packages = ["."]
   revision = "0b12d6b5"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/keybase/go-crypto"
-  packages = [
-    "brainpool",
-    "cast5",
-    "curve25519",
-    "ed25519",
-    "ed25519/internal/edwards25519",
-    "openpgp",
-    "openpgp/armor",
-    "openpgp/ecdh",
-    "openpgp/elgamal",
-    "openpgp/errors",
-    "openpgp/packet",
-    "openpgp/s2k"
-  ]
-  revision = "c84d7cbef16bcd1cd873e1d5793b18865f443ba0"
 
 [[projects]]
   name = "github.com/mattn/go-colorable"
@@ -490,12 +355,6 @@
   revision = "256dc444b735e061061cf46c809487313d5b0065"
 
 [[projects]]
-  name = "github.com/terraform-providers/terraform-provider-aws"
-  packages = ["aws"]
-  revision = "101f95730d3fabb5fae0cad826b4e21f51bed9d6"
-  version = "v1.34.0"
-
-[[projects]]
   name = "github.com/ulikunitz/xz"
   packages = [
     ".",
@@ -533,12 +392,19 @@
     "bcrypt",
     "blowfish",
     "cast5",
+    "curve25519",
+    "ed25519",
+    "ed25519/internal/edwards25519",
+    "internal/chacha20",
+    "internal/subtle",
     "openpgp",
     "openpgp/armor",
     "openpgp/elgamal",
     "openpgp/errors",
     "openpgp/packet",
-    "openpgp/s2k"
+    "openpgp/s2k",
+    "poly1305",
+    "ssh"
   ]
   revision = "182538f80094b6a8efaade63a8fd8e0d9d5843dd"
 
@@ -634,6 +500,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "635728e80d0d71c47f1065a5980d644de33aced9a55b69f2ff568b9b11796d3b"
+  inputs-digest = "53620b0030ec96a4159c4b6cc6811d25390e5110dfc46aa95ef219d776e40a3e"
   solver-name = "gps-cdcl"
   solver-version = 1

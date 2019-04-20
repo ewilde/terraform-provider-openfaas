@@ -2,9 +2,9 @@ package openfaas
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/viveksyngh/faas-cli/proxy"
 	"github.com/openfaas/faas-cli/stack"
 	"github.com/openfaas/faas/gateway/requests"
+	"github.com/viveksyngh/faas-cli/proxy"
 )
 
 func expandDeploymentSpec(d *schema.ResourceData, meta interface{}, name string) *proxy.DeployFunctionSpec {

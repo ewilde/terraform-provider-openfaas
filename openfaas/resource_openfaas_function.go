@@ -7,8 +7,6 @@ import (
 	"strconv"
 
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/openfaas/faas-cli/stack"
-	"github.com/openfaas/faas/gateway/requests"
 	"github.com/viveksyngh/faas-cli/proxy"
 )
 
@@ -49,13 +47,13 @@ func resourceOpenFaaSFunction() *schema.Resource {
 			},
 			"constraints": {
 				Type:     schema.TypeSet,
-				Computed: true,
+				Optional: true,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Set:      schema.HashString,
 			},
 			"secrets": {
 				Type:     schema.TypeSet,
-				Computed: true,
+				Optional: true,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Set:      schema.HashString,
 			},
