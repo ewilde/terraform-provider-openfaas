@@ -3,6 +3,7 @@ TEST?=./...
 GOFMT_FILES?=$$(find . -name '*.go' |grep -v vendor)
 PKG_NAME=openfaas
 WEBSITE_REPO=github.com/ewilde/terraform-website
+GO111MODULE=off
 
 default: build
 

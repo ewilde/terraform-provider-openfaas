@@ -26,6 +26,7 @@ func TestAccResourceOpenFaaSFunction_basic(t *testing.T) {
 				Config: testAccOpenFaaSFunctionConfig_basic(functionName),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckOpenFaaSFunctionExists("openfaas_function.function_test", &conf),
+					checkIntEqual(func() int { return len(*conf.Annotations)}, 1),
 					resource.TestCheckResourceAttr("openfaas_function.function_test", "name", functionName),
 					resource.TestCheckResourceAttr("openfaas_function.function_test", "image", "functions/alpine:latest"),
 					resource.TestCheckResourceAttr("openfaas_function.function_test", "f_process", "sha512sum"),
@@ -34,6 +35,12 @@ func TestAccResourceOpenFaaSFunction_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("openfaas_function.function_test", "labels.Environment", "Test"),
 					resource.TestCheckResourceAttr("openfaas_function.function_test", "annotations.%", "1"),
 					resource.TestCheckResourceAttr("openfaas_function.function_test", "annotations.CreatedDate", "Mon Sep  3 07:15:55 BST 2018"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "requests.#", "1"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "requests.1856818071.cpu", "100m"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "requests.1856818071.memory", "20m"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "limits.#", "1"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "limits.1645158585.cpu", "200m"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "limits.1645158585.memory", "40m"),
 				),
 			},
 		},
@@ -89,6 +96,17 @@ func testAccCheckOpenFaaSFunctionExists(n string, res *requests.Function) resour
 	}
 }
 
+func checkIntEqual(got func()int, want int) resource.TestCheckFunc {
+	return func(*terraform.State) error {
+		v := got()
+		if v != want {
+			return fmt.Errorf("want %d got %d", want, v)
+		}
+
+		return nil
+	}
+}
+
 func testAccOpenFaaSFunctionConfig_basic(functionName string) string {
 	return fmt.Sprintf(`resource "openfaas_function" "function_test" {
   name            = "%s"
@@ -101,6 +119,16 @@ func testAccOpenFaaSFunctionConfig_basic(functionName string) string {
 
   annotations {
     CreatedDate = "Mon Sep  3 07:15:55 BST 2018"
+  }
+
+  requests {
+    cpu    = "100m" // 1/10 of a core
+    memory = "20m"  // Mi for k8s m for docker
+  }
+
+  limits {
+    cpu    = "200m" // 1/5 of a core
+    memory = "40m"
   }
 }`, functionName)
 }
