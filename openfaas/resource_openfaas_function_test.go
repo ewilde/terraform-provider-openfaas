@@ -12,6 +12,8 @@ import (
 	"github.com/viveksyngh/faas-cli/proxy"
 )
 
+// TestAccResourceOpenFaaSFunction_basic requires an anonymous OpenFaaS
+// deployment running on localhost:8080, with a secret foo. i.e. `faas secret create foo --from-literal baz`
 func TestAccResourceOpenFaaSFunction_basic(t *testing.T) {
 	var conf requests.Function
 	functionName := fmt.Sprintf("testaccopenfaasfunction-basic-%s", acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum))
@@ -34,6 +36,14 @@ func TestAccResourceOpenFaaSFunction_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("openfaas_function.function_test", "labels.Environment", "Test"),
 					resource.TestCheckResourceAttr("openfaas_function.function_test", "annotations.%", "1"),
 					resource.TestCheckResourceAttr("openfaas_function.function_test", "annotations.CreatedDate", "Mon Sep  3 07:15:55 BST 2018"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "requests.#", "1"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "requests.2082038905.memory", "10m"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "requests.2082038905.cpu", "100m"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "limits.#", "1"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "limits.1197768549.memory", "20m"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "limits.1197768549.cpu", "200m"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "secrets.#", "1"),
+					resource.TestCheckResourceAttr("openfaas_function.function_test", "secrets.2356372769", "foo"),
 				),
 			},
 		},
@@ -102,5 +112,17 @@ func testAccOpenFaaSFunctionConfig_basic(functionName string) string {
   annotations {
     CreatedDate = "Mon Sep  3 07:15:55 BST 2018"
   }
+
+  requests {
+    memory = "10m"
+    cpu    = "100m"
+  }
+
+  limits {
+    memory = "20m"
+    cpu    = "200m"
+  }
+
+  secrets = ["foo"]
 }`, functionName)
 }
