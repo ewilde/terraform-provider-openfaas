@@ -7,6 +7,11 @@ resource "openfaas_function" "function_test" {
     Environment = "Test"
   }
 
+  limits {
+    memory = "20m"
+    cpu    = "100m"
+  }
+
   env_vars {
     database_name = "${postgresql_database.function_db.name}"
   }
