@@ -9,7 +9,7 @@ default: build
 build: fmtcheck
 	go install
 
-travisbuild: release-deps default
+travisbuild: default
 
 sweep:
 	@echo "WARNING: This will destroy infrastructure. Use only in development accounts."
@@ -52,14 +52,6 @@ test-compile:
 		exit 1; \
 	fi
 	go test -c $(TEST) $(TESTARGS)
-
-release-deps:
-	go get -u golang.org/x/net/context; \
-    go get -u github.com/mitchellh/gox; \
-
-release:
-	go get github.com/goreleaser/goreleaser; \
-    goreleaser; \
 
 website:
 ifeq (,$(wildcard $(GOPATH)/src/$(WEBSITE_REPO)))

@@ -6,5 +6,8 @@ builds:
       - windows
     goarch:
       - amd64
-archive:
-  format: zip
+archives:
+  - id: terraform-provider-openfaas_v{{.Version}}-{{.Arch}}
+    format: zip
+    files:
+      - none*
