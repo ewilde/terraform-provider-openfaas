@@ -101,15 +101,15 @@ func testAccCheckOpenFaaSFunctionExists(n string, res *requests.Function) resour
 
 func testAccOpenFaaSFunctionConfig_basic(functionName string) string {
 	return fmt.Sprintf(`resource "openfaas_function" "function_test" {
-  name            = "%s"
-  image           = "functions/alpine:latest"
-  f_process       = "sha512sum"
-  labels {
+  name      = "%s"
+  image     = "functions/alpine:latest"
+  f_process = "sha512sum"
+  labels = {
     Name        = "TestAccOpenFaaSFunction_basic"
     Environment = "Test"
   }
 
-  annotations {
+  annotations = {
     CreatedDate = "Mon Sep  3 07:15:55 BST 2018"
   }
 

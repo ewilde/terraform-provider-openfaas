@@ -48,8 +48,7 @@ don't fully describe where this is.
 
 ### Build using the Makefile
 
-Install [Go](https://www.golang.org/) v1.9+ on your machine, and
-[dep](https://golang.github.io/dep/docs/installation.html); clone the source,
+Install [Go](https://www.golang.org/) v1.9+ on your machine; clone the source,
 and let `make install` do the rest.
 
 #### Mac
@@ -117,7 +116,7 @@ $ make testacc
 ```
 
 ## Building the documentation
-Current a bit manual ¯\_(ツ)_/¯
+Currently a bit manual ¯\_(ツ)_/¯
 
 1. build the content
 ```sh
