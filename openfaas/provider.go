@@ -1,8 +1,8 @@
 package openfaas
 
 import (
-	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/hashicorp/terraform/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 	"log"
 
 	openfaas_config "github.com/openfaas/faas-cli/config"
