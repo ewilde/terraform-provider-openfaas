@@ -5,15 +5,20 @@ package proxy
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/openfaas/faas-cli/stack"
-	"github.com/openfaas/faas/gateway/requests"
+
+	types "github.com/openfaas/faas-provider/types"
+)
+
+var (
+	defaultCommandTimeout = 60 * time.Second
 )
 
 // FunctionResourceRequest defines a request to set function resources
@@ -25,7 +30,6 @@ type FunctionResourceRequest struct {
 // DeployFunctionSpec defines the spec used when deploying a function
 type DeployFunctionSpec struct {
 	FProcess                string
-	Gateway                 string
 	FunctionName            string
 	Image                   string
 	RegistryAuth            string
@@ -41,21 +45,29 @@ type DeployFunctionSpec struct {
 	FunctionResourceRequest FunctionResourceRequest
 	ReadOnlyRootFilesystem  bool
 	TLSInsecure             bool
+	Token                   string
+	Namespace               string
+}
+
+func generateFuncStr(spec *DeployFunctionSpec) string {
+
+	if len(spec.Namespace) > 0 {
+		return fmt.Sprintf("%s.%s", spec.FunctionName, spec.Namespace)
+	}
+	return spec.FunctionName
 }
 
 // DeployFunction first tries to deploy a function and if it exists will then attempt
 // a rolling update. Warnings are suppressed for the second API call (if required.)
-func DeployFunction(spec *DeployFunctionSpec) int {
+func (c *Client) DeployFunction(context context.Context, spec *DeployFunctionSpec) int {
 
 	rollingUpdateInfo := fmt.Sprintf("Function %s already exists, attempting rolling-update.", spec.FunctionName)
-	warnInsecureGateway := true
-	statusCode, deployOutput := Deploy(spec, spec.Update, warnInsecureGateway)
+	statusCode, deployOutput := c.deploy(context, spec, spec.Update)
 
-	warnInsecureGateway = false
 	if spec.Update == true && statusCode == http.StatusNotFound {
 		// Re-run the function with update=false
 
-		statusCode, deployOutput = Deploy(spec, false, warnInsecureGateway)
+		statusCode, deployOutput = c.deploy(context, spec, false)
 	} else if statusCode == http.StatusOK {
 		fmt.Println(rollingUpdateInfo)
 	}
@@ -64,8 +76,8 @@ func DeployFunction(spec *DeployFunctionSpec) int {
 	return statusCode
 }
 
-// Deploy a function to an OpenFaaS gateway over REST
-func Deploy(spec *DeployFunctionSpec, update bool, warnInsecureGateway bool) (int, string) {
+// deploy a function to an OpenFaaS gateway over REST
+func (c *Client) deploy(context context.Context, spec *DeployFunctionSpec, update bool) (int, string) {
 
 	var deployOutput string
 	// Need to alter Gateway to allow nil/empty string as fprocess, to avoid this repetition.
@@ -74,19 +86,11 @@ func Deploy(spec *DeployFunctionSpec, update bool, warnInsecureGateway bool) (in
 		fprocessTemplate = spec.FProcess
 	}
 
-	if warnInsecureGateway {
-		if (spec.RegistryAuth != "") && !strings.HasPrefix(spec.Gateway, "https") {
-			fmt.Println("WARNING! Communication is not secure, please consider using HTTPS. Letsencrypt.org offers free SSL/TLS certificates.")
-		}
-	}
-
-	gateway := strings.TrimRight(spec.Gateway, "/")
-
 	if spec.Replace {
-		DeleteFunction(gateway, spec.FunctionName)
+		c.DeleteFunction(context, spec.FunctionName, spec.Namespace)
 	}
 
-	req := requests.CreateFunctionRequest{
+	req := types.FunctionDeployment{
 		EnvProcess:             fprocessTemplate,
 		Image:                  spec.Image,
 		RegistryAuth:           spec.RegistryAuth,
@@ -98,10 +102,11 @@ func Deploy(spec *DeployFunctionSpec, update bool, warnInsecureGateway bool) (in
 		Labels:                 &spec.Labels,
 		Annotations:            &spec.Annotations,
 		ReadOnlyRootFilesystem: spec.ReadOnlyRootFilesystem,
+		Namespace:              spec.Namespace,
 	}
 
 	hasLimits := false
-	req.Limits = &requests.FunctionResources{}
+	req.Limits = &types.FunctionResources{}
 	if spec.FunctionResourceRequest.Limits != nil && len(spec.FunctionResourceRequest.Limits.Memory) > 0 {
 		hasLimits = true
 		req.Limits.Memory = spec.FunctionResourceRequest.Limits.Memory
@@ -115,7 +120,7 @@ func Deploy(spec *DeployFunctionSpec, update bool, warnInsecureGateway bool) (in
 	}
 
 	hasRequests := false
-	req.Requests = &requests.FunctionResources{}
+	req.Requests = &types.FunctionResources{}
 	if spec.FunctionResourceRequest.Requests != nil && len(spec.FunctionResourceRequest.Requests.Memory) > 0 {
 		hasRequests = true
 		req.Requests.Memory = spec.FunctionResourceRequest.Requests.Memory
@@ -133,9 +138,6 @@ func Deploy(spec *DeployFunctionSpec, update bool, warnInsecureGateway bool) (in
 	reader := bytes.NewReader(reqBytes)
 	var request *http.Request
 
-	timeout := 60 * time.Second
-	client := MakeHTTPClient(&timeout, spec.TLSInsecure)
-
 	method := http.MethodPost
 	// "application/json"
 	if update {
@@ -143,16 +145,17 @@ func Deploy(spec *DeployFunctionSpec, update bool, warnInsecureGateway bool) (in
 	}
 
 	var err error
-	request, err = http.NewRequest(method, gateway+"/system/functions", reader)
-	SetAuth(request, gateway)
+	request, err = c.newRequest(method, "/system/functions", reader)
+
 	if err != nil {
 		deployOutput += fmt.Sprintln(err)
 		return http.StatusInternalServerError, deployOutput
 	}
 
-	res, err := client.Do(request)
+	res, err := c.doRequest(context, request)
+
 	if err != nil {
-		deployOutput += fmt.Sprintln("Is FaaS deployed? Do you need to specify the --gateway flag?")
+		deployOutput += fmt.Sprintln("Is OpenFaaS deployed? Do you need to specify the --gateway flag?")
 		deployOutput += fmt.Sprintln(err)
 		return http.StatusInternalServerError, deployOutput
 	}
@@ -165,16 +168,11 @@ func Deploy(spec *DeployFunctionSpec, update bool, warnInsecureGateway bool) (in
 	case http.StatusOK, http.StatusCreated, http.StatusAccepted:
 		deployOutput += fmt.Sprintf("Deployed. %s.\n", res.Status)
 
-		deployedURL := fmt.Sprintf("URL: %s/function/%s", gateway, spec.FunctionName)
+		deployedURL := fmt.Sprintf("URL: %s/function/%s", c.GatewayURL.String(), generateFuncStr(spec))
 		deployOutput += fmt.Sprintln(deployedURL)
 	case http.StatusUnauthorized:
 		deployOutput += fmt.Sprintln("unauthorized access, run \"faas-cli login\" to setup authentication for this server")
-		/*
-			case http.StatusNotFound:
-				if replace && !update {
-					deployOutput += fmt.Sprintln("Could not delete-and-replace function because it is not found (404)")
-				}
-		*/
+
 	default:
 		bytesOut, err := ioutil.ReadAll(res.Body)
 		if err == nil {

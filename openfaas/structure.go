@@ -2,16 +2,13 @@ package openfaas
 
 import (
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/openfaas/faas-cli/proxy"
 	"github.com/openfaas/faas-cli/stack"
-	"github.com/openfaas/faas/gateway/requests"
-	"github.com/viveksyngh/faas-cli/proxy"
+	"github.com/openfaas/faas-provider/types"
 )
 
-func expandDeploymentSpec(d *schema.ResourceData, meta interface{}, name string) *proxy.DeployFunctionSpec {
-	config := meta.(Config)
-
+func expandDeploymentSpec(d *schema.ResourceData, name string) *proxy.DeployFunctionSpec {
 	deploySpec := &proxy.DeployFunctionSpec{
-		Gateway:      config.GatewayURI,
 		FunctionName: name,
 		Image:        d.Get("image").(string),
 	}
@@ -107,7 +104,7 @@ func expandStringMap(m map[string]interface{}) map[string]string {
 	return list
 }
 
-func flattenOpenFaaSFunctionResource(d *schema.ResourceData, function requests.Function) error {
+func flattenOpenFaaSFunctionResource(d *schema.ResourceData, function types.FunctionStatus) error {
 	d.Set("name", function.Name)
 	d.Set("image", function.Image)
 	d.Set("f_process", function.EnvProcess)

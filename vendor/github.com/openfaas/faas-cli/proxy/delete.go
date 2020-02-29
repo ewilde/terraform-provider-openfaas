@@ -5,34 +5,38 @@ package proxy
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"strings"
 
 	"github.com/openfaas/faas/gateway/requests"
 )
 
-// DeleteFunction delete a function from the FaaS server
-func DeleteFunction(gateway string, functionName string) error {
-	gateway = strings.TrimRight(gateway, "/")
+// DeleteFunction delete a function from the OpenFaaS server
+func (c *Client) DeleteFunction(ctx context.Context, functionName string, namespace string) error {
+	var err error
 	delReq := requests.DeleteFunctionRequest{FunctionName: functionName}
 	reqBytes, _ := json.Marshal(&delReq)
 	reader := bytes.NewReader(reqBytes)
+	deleteEndpoint := "/system/functions"
+	if len(namespace) > 0 {
+		deleteEndpoint, err = addQueryParams(deleteEndpoint, map[string]string{namespaceKey: namespace})
+		if err != nil {
+			return err
+		}
+	}
 
-	c := http.Client{}
-	req, err := http.NewRequest("DELETE", gateway+"/system/functions", reader)
+	req, err := c.newRequest(http.MethodDelete, deleteEndpoint, reader)
 	if err != nil {
 		fmt.Println(err)
 		return err
 	}
-	req.Header.Set("Content-Type", "application/json")
-	SetAuth(req, gateway)
-	delRes, delErr := c.Do(req)
+	delRes, delErr := c.doRequest(ctx, req)
 
 	if delErr != nil {
-		fmt.Printf("Error removing existing function: %s, gateway=%s, functionName=%s\n", delErr.Error(), gateway, functionName)
+		fmt.Printf("Error removing existing function: %s, gateway=%s, functionName=%s\n", delErr.Error(), c.GatewayURL.String(), functionName)
 		return delErr
 	}
 

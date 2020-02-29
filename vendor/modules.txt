@@ -56,6 +56,10 @@ github.com/bgentry/go-netrc/netrc
 github.com/bgentry/speakeasy
 # github.com/davecgh/go-spew v1.1.1
 github.com/davecgh/go-spew/spew
+# github.com/drone/envsubst v1.0.2
+github.com/drone/envsubst
+github.com/drone/envsubst/parse
+github.com/drone/envsubst/path
 # github.com/fatih/color v1.7.0
 github.com/fatih/color
 # github.com/golang/protobuf v1.3.2
@@ -196,9 +200,15 @@ github.com/mitchellh/reflectwalk
 github.com/oklog/run
 # github.com/openfaas/faas v0.0.0-20180822191204-91b6c244941c
 github.com/openfaas/faas/gateway/requests
-# github.com/openfaas/faas-cli v0.0.0-20180829141537-b7ba9a60dc2c
+# github.com/openfaas/faas-cli v0.0.0-20200226083118-b0a70a3f4f20
 github.com/openfaas/faas-cli/config
+github.com/openfaas/faas-cli/proxy
+github.com/openfaas/faas-cli/schema
 github.com/openfaas/faas-cli/stack
+# github.com/openfaas/faas-provider v0.15.0
+github.com/openfaas/faas-provider/httputil
+github.com/openfaas/faas-provider/logs
+github.com/openfaas/faas-provider/types
 # github.com/posener/complete v1.2.1
 github.com/posener/complete
 github.com/posener/complete/cmd
@@ -214,8 +224,6 @@ github.com/ulikunitz/xz
 github.com/ulikunitz/xz/internal/hash
 github.com/ulikunitz/xz/internal/xlog
 github.com/ulikunitz/xz/lzma
-# github.com/viveksyngh/faas-cli v0.0.0-20180831214523-1fe7ecc51fb5
-github.com/viveksyngh/faas-cli/proxy
 # github.com/vmihailenco/msgpack v3.3.3+incompatible
 github.com/vmihailenco/msgpack
 github.com/vmihailenco/msgpack/codes

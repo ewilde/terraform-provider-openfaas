@@ -12,15 +12,15 @@ Full documentation, see: https://openfaas-tfe.edwardwilde.com/docs/providers/ope
 
 ```hcl
 resource "openfaas_function" "function_test" {
-  name            = "test-function"
-  image           = "functions/alpine:latest"
-  f_process       = "sha512sum"
-  labels {
+  name      = "test-function"
+  image     = "functions/alpine:latest"
+  f_process = "sha512sum"
+  labels = {
     Group       = "London"
     Environment = "Test"
   }
 
-  annotations {
+  annotations = {
     CreatedDate = "Mon Sep  3 07:15:55 BST 2018"
   }
 }

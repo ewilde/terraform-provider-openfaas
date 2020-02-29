@@ -1,13 +1,13 @@
 package openfaas
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
 	"strconv"
 
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/viveksyngh/faas-cli/proxy"
 )
 
 func resourceOpenFaaSFunction() *schema.Resource {
@@ -110,10 +110,12 @@ func resourceOpenFaaSFunction() *schema.Resource {
 
 func resourceOpenFaaSFunctionCreate(d *schema.ResourceData, meta interface{}) error {
 	name := d.Get("name").(string)
-	deploySpec := expandDeploymentSpec(d, meta, name)
-	statusCode, output := proxy.Deploy(deploySpec, false, true)
+	deploySpec := expandDeploymentSpec(d, name)
+	config := meta.(Config)
+
+	statusCode := config.Client.DeployFunction(context.Background(), deploySpec)
 	if statusCode >= 300 {
-		return fmt.Errorf("error deploying function %s status code %d reason %s", name, statusCode, output)
+		return fmt.Errorf("error deploying function %s status code %d", name, statusCode)
 	}
 
 	d.SetId(name)
@@ -123,7 +125,8 @@ func resourceOpenFaaSFunctionCreate(d *schema.ResourceData, meta interface{}) er
 func resourceOpenFaaSFunctionRead(d *schema.ResourceData, meta interface{}) error {
 	name := d.Id()
 	config := meta.(Config)
-	function, err := proxy.GetFunctionInfo(config.GatewayURI, name, config.TLSInsecure)
+
+	function, err := config.Client.GetFunctionInfo(context.Background(), name, "")
 
 	if err != nil {
 		if isFunctionNotFound(err) {
@@ -139,11 +142,11 @@ func resourceOpenFaaSFunctionRead(d *schema.ResourceData, meta interface{}) erro
 
 func resourceOpenFaaSFunctionUpdate(d *schema.ResourceData, meta interface{}) error {
 	name := d.Get("name").(string)
-	deploySpec := expandDeploymentSpec(d, meta, name)
-
-	statusCode, output := proxy.Deploy(deploySpec, true, true)
+	deploySpec := expandDeploymentSpec(d, name)
+	config := meta.(Config)
+	statusCode := config.Client.DeployFunction(context.Background(), deploySpec)
 	if statusCode >= 300 {
-		return fmt.Errorf("error deploying function %s status code %d reason %s", name, statusCode, output)
+		return fmt.Errorf("error deploying function %s status code %d", name, statusCode)
 	}
 
 	return nil
@@ -153,12 +156,13 @@ func resourceOpenFaaSFunctionDelete(d *schema.ResourceData, meta interface{}) er
 	name := d.Get("name").(string)
 	config := meta.(Config)
 
-	err := proxy.DeleteFunction(config.GatewayURI, name)
+	err := config.Client.DeleteFunction(context.Background(), name, "")
 	return err
 }
 
 func isFunctionNotFound(err error) bool {
-	return strings.Contains(err.Error(), "404")
+	return strings.Contains(err.Error(), "404") ||
+		strings.Contains(err.Error(), "No such function")
 }
 
 var whiteListLabels = map[string]string{
