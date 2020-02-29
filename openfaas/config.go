@@ -1,8 +1,8 @@
 package openfaas
 
+import "github.com/openfaas/faas-cli/proxy"
+
 type Config struct {
-	TLSInsecure     bool
-	GatewayURI      string
-	GatewayUserName string
-	GatewayPassword string
+	Client            *proxy.Client
+	FunctionNamespace string
 }

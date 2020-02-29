@@ -1,21 +1,21 @@
 package openfaas
 
 import (
+	"context"
 	"errors"
 	"fmt"
+	"github.com/openfaas/faas-provider/types"
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-sdk/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/openfaas/faas/gateway/requests"
-	"github.com/viveksyngh/faas-cli/proxy"
 )
 
 // TestAccResourceOpenFaaSFunction_basic requires an anonymous OpenFaaS
 // deployment running on localhost:8080, with a secret foo. i.e. `faas secret create foo --from-literal baz`
 func TestAccResourceOpenFaaSFunction_basic(t *testing.T) {
-	var conf requests.Function
+	var conf types.FunctionStatus
 	functionName := fmt.Sprintf("testaccopenfaasfunction-basic-%s", acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum))
 
 	resource.Test(t, resource.TestCase{
@@ -58,7 +58,7 @@ func testAccCheckOpenFaaSFunctionDestroy(s *terraform.State) error {
 			continue
 		}
 
-		_, err := proxy.GetFunctionInfo(config.GatewayURI, rs.Primary.ID, config.TLSInsecure)
+		_, err := config.Client.GetFunctionInfo(context.Background(), rs.Primary.ID, "")
 
 		if err == nil {
 			return fmt.Errorf("function %q still exists", rs.Primary.ID)
@@ -68,14 +68,14 @@ func testAccCheckOpenFaaSFunctionDestroy(s *terraform.State) error {
 		if isFunctionNotFound(err) {
 			return nil
 		} else {
-			return fmt.Errorf("unexpected error checking function destroyed: %s", err)
+			return fmt.Errorf("unexpected error checking function destroyed: %s", err.Error())
 		}
 	}
 
 	return nil
 }
 
-func testAccCheckOpenFaaSFunctionExists(n string, res *requests.Function) resource.TestCheckFunc {
+func testAccCheckOpenFaaSFunctionExists(n string, res *types.FunctionStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
@@ -88,7 +88,7 @@ func testAccCheckOpenFaaSFunctionExists(n string, res *requests.Function) resour
 
 		config := testAccProvider.Meta().(Config)
 
-		function, err := proxy.GetFunctionInfo(config.GatewayURI, rs.Primary.ID, config.TLSInsecure)
+		function, err := config.Client.GetFunctionInfo(context.Background(), rs.Primary.ID, "")
 
 		if err != nil {
 			return err

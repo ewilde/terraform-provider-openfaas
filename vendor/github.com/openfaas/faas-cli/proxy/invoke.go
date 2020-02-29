@@ -7,7 +7,6 @@ import (
 	"bytes"
 	"os"
 
-	"crypto/tls"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -16,20 +15,15 @@ import (
 )
 
 // InvokeFunction a function
-func InvokeFunction(gateway string, name string, bytesIn *[]byte, contentType string, query []string, headers []string, async bool, httpMethod string, tlsInsecure bool) (*[]byte, error) {
+func InvokeFunction(gateway string, name string, bytesIn *[]byte, contentType string, query []string, headers []string, async bool, httpMethod string, tlsInsecure bool, namespace string) (*[]byte, error) {
 	var resBytes []byte
 
 	gateway = strings.TrimRight(gateway, "/")
 
 	reader := bytes.NewReader(*bytesIn)
 
-	var timeout *time.Duration
-	client := MakeHTTPClient(timeout, tlsInsecure)
-	tr := &http.Transport{
-		DisableKeepAlives: false,
-		TLSClientConfig:   &tls.Config{InsecureSkipVerify: tlsInsecure},
-	}
-	client.Transport = tr
+	var disableFunctionTimeout *time.Duration
+	client := MakeHTTPClient(disableFunctionTimeout, tlsInsecure)
 
 	qs, qsErr := buildQueryString(query)
 	if qsErr != nil {
@@ -51,7 +45,11 @@ func InvokeFunction(gateway string, name string, bytesIn *[]byte, contentType st
 		return nil, httpMethodErr
 	}
 
-	gatewayURL := gateway + functionEndpoint + name + qs
+	gatewayURL := gateway + functionEndpoint + name
+	if len(namespace) > 0 {
+		gatewayURL += "." + namespace
+	}
+	gatewayURL += qs
 
 	req, err := http.NewRequest(httpMethod, gatewayURL, reader)
 	if err != nil {
@@ -66,7 +64,9 @@ func InvokeFunction(gateway string, name string, bytesIn *[]byte, contentType st
 		req.Header.Add(name, value)
 	}
 
-	SetAuth(req, gateway)
+	// Removed by AE - the system-level basic auth secrets should not be transmitted
+	// to functions. Functions should implement their own auth.
+	// SetAuth(req, gateway)
 
 	res, err := client.Do(req)
 
@@ -126,7 +126,7 @@ func parseHeaders(headers []string) (map[string]string, error) {
 	headerMap := make(map[string]string)
 
 	for _, header := range headers {
-		headerValues := strings.Split(header, "=")
+		headerValues := strings.SplitN(header, "=", 2)
 		if len(headerValues) != 2 {
 			return headerMap, fmt.Errorf("the --header or -H flag must take the form of key=value")
 		}
@@ -147,7 +147,9 @@ func parseHeaders(headers []string) (map[string]string, error) {
 
 // validateMethod validates the HTTP request method
 func validateHTTPMethod(httpMethod string) error {
-	var allowedMethods = []string{http.MethodGet, http.MethodPost}
+	var allowedMethods = []string{
+		http.MethodGet, http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete,
+	}
 	helpString := strings.Join(allowedMethods, "/")
 
 	if !contains(allowedMethods, httpMethod) {
