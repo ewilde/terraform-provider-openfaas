@@ -11,6 +11,7 @@ func expandDeploymentSpec(d *schema.ResourceData, name string) *proxy.DeployFunc
 	deploySpec := &proxy.DeployFunctionSpec{
 		FunctionName: name,
 		Image:        d.Get("image").(string),
+		Update:       true,
 	}
 
 	if v, ok := d.GetOk("network"); ok {
