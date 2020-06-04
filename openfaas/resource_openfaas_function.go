@@ -168,9 +168,10 @@ func isFunctionNotFound(err error) bool {
 var whiteListLabels = map[string]string{
 	"labels.com.openfaas.function": "",
 	"labels.function":              "",
+	"labels.uid":                   "",
 }
 
-const extraProviderLabelsCount = 2
+const extraProviderLabelsCount = 3
 
 func labelsDiffFunc(k, old, new string, d *schema.ResourceData) bool {
 	if _, ok := whiteListLabels[k]; ok {

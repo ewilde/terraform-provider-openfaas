@@ -2,12 +2,13 @@ package openfaas
 
 import (
 	"crypto/tls"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 	"log"
 	"net"
 	"net/http"
 	"time"
+
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 
 	"github.com/openfaas/faas-cli/config"
 	"github.com/openfaas/faas-cli/proxy"
@@ -65,7 +66,9 @@ func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 	log.Printf("[DEBUG] configuring provider")
 
 	gatewayURI := d.Get("uri").(string)
-	auth := newCLIAuth("", gatewayURI)
+	username := d.Get("user_name").(string)
+	password := d.Get("password").(string)
+	auth := newAuthChain(username, password, "", gatewayURI)
 	insecure := d.Get("tls_insecure").(bool)
 	transport := GetDefaultCLITransport(insecure, &defaultTimeout)
 	client := proxy.NewClient(auth, gatewayURI, transport, &defaultTimeout)
@@ -75,6 +78,21 @@ func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 	}
 
 	return providerConfig, nil
+}
+
+func newAuthChain(username, password, token, gateway string) proxy.ClientAuth {
+	if username != "" && password != "" {
+		log.Print("[DEBUG] configuring basic-auth authentication from Terraform provider credentials")
+
+		return &BasicAuth{
+			username: username,
+			password: password,
+		}
+	}
+
+	log.Print("[DEBUG] empty Terraform provider credentials - falling back to OpenFaaS configuration file")
+	return newCLIAuth(token, gateway)
+
 }
 
 func newCLIAuth(token string, gateway string) proxy.ClientAuth {
@@ -87,6 +105,7 @@ func newCLIAuth(token string, gateway string) proxy.ClientAuth {
 	)
 
 	if authConfig.Auth == config.BasicAuthType {
+		log.Printf("[DEBUG] configuring basic-auth authentication")
 		username, password, _ = config.DecodeAuth(authConfig.Token)
 
 		return &BasicAuth{
@@ -97,6 +116,7 @@ func newCLIAuth(token string, gateway string) proxy.ClientAuth {
 	}
 
 	// User specified token gets priority
+	log.Printf("[DEBUG] configuring token authentication")
 	if len(token) > 0 {
 		bearerToken = token
 	} else {
